@@ -1,0 +1,11 @@
+@import "_skeleton.scss";
+
+:root {
+  --bg-color: #e4e6eb;
+
+  --white: #ffffff;
+}
+
+body {
+  background-color: var(--bg-color);
+}
