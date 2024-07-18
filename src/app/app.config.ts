@@ -1,6 +1,7 @@
 import {
   ApplicationConfig,
   importProvidersFrom,
+  LOCALE_ID,
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
@@ -17,5 +18,9 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     importProvidersFrom(BrowserAnimationsModule),
     importProvidersFrom(NoopAnimationsModule),
+    {
+      provide: LOCALE_ID,
+      useValue: navigator.language,
+    },
   ],
 };
