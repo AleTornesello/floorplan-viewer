@@ -1,13 +1,13 @@
 <div id="topbar">
-  <p-button (onClick)="toggleSidebar()" [text]="true">
+  <p-button id="sidebar-toggle" (onClick)="toggleSidebar()" [text]="true">
     <fa-icon [icon]="faBars"></fa-icon>
   </p-button>
   <div class="title-container">
     <img src="images/logo-full-h.svg" />
   </div>
-  <p-button [text]="true">
+  <!-- <p-button [text]="true">
     <fa-icon [icon]="faUser"></fa-icon>
-  </p-button>
+  </p-button> -->
 </div>
 <p-sidebar [(visible)]="sidebarVisible">
   <h3>Sidebar</h3>

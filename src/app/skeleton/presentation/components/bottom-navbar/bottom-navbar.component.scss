@@ -1,4 +1,4 @@
-#topbar {
+#bottom-navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -7,21 +7,7 @@
   height: 4rem;
   padding: 0 0.5rem;
   background-color: var(--white);
-  box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.1);
-
-  .title-container {
-    flex-grow: 1;
-    text-align: center;
-
-    img {
-      max-width: 100%;
-      width: 200px;
-    }
-  }
-
-  #sidebar-toggle {
-    display: none;
-  }
+  box-shadow: 0px -5px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 @media only screen and (min-width: 992px) {
@@ -30,10 +16,6 @@
 
     .title-container {
       text-align: left;
-    }
-
-    #sidebar-toggle {
-      display: block;
     }
   }
 }
