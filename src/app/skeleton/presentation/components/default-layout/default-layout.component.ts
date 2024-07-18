@@ -8,6 +8,6 @@ import { TopbarComponent } from '../topbar/topbar.component';
   standalone: true,
   imports: [CommonModule, RouterOutlet, TopbarComponent],
   templateUrl: './default-layout.component.html',
-  styleUrl: './default-layout.component.css',
+  styleUrl: './default-layout.component.scss',
 })
 export class DefaultLayoutComponent {}
