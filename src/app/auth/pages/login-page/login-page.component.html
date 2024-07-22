@@ -1,0 +1,20 @@
+<div id="login-card-container">
+  <p-card>
+    <div id="login-form-wrapper">
+      <div id="welcome-message-container">
+        <h1>{{ "auth.welcome" | transloco }}</h1>
+        <h2>{{ "auth.accessToPortal" | transloco }}</h2>
+      </div>
+      <form [formGroup]="form">
+        <div id="login-form">
+          <app-input-text
+            formControlName="email"
+            [label]="'user.email' | transloco"
+            [control]="form.get('email')!"
+            [errors]="form.get('email')!.errors"
+          ></app-input-text>
+        </div>
+      </form>
+    </div>
+  </p-card>
+</div>
