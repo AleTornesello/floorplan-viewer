@@ -1,0 +1,48 @@
+<app-input-wrapper
+  [label]="label"
+  [for]="for"
+  [required]="required"
+  [errors]="errors"
+>
+  <div [ngClass]="{ withClear: clear }">
+    <div *ngIf="textMode">
+      {{ value | avoidEmptyValue }}
+    </div>
+
+    <div *ngIf="!textMode">
+      <div>
+        <ng-content select="[left]"></ng-content>
+        <input
+          [type]="type"
+          pInputText
+          [id]="for | camelToKebab"
+          [ngModel]="value"
+          [attr.aria-labelledby]="for | camelToKebab"
+          [autocomplete]="autocomplete | camelToKebab"
+          [placeholder]="placeholder"
+          [attr.aria-placeholder]="placeholder"
+          [readonly]="readonly"
+          [attr.aria-readonly]="readonly"
+          [disabled]="isDisabled"
+          [max]="max"
+          [min]="min"
+          [ngClass]="getInputClasses()"
+          (input)="onInputChange($event)"
+          (blur)="onTouched()"
+          (ngModelChange)="onModelChange($event)"
+        />
+        <p-button *ngIf="clear && !!value" (onClick)="clearValue()">
+          <fa-icon [icon]="faTimes"></fa-icon>
+        </p-button>
+      </div>
+    </div>
+  </div>
+
+  @if (!textMode) {
+  <div helpText>
+    @if ( showCounter && maxLength !== null && maxLength > 0) {
+    <small> {{ value.length }}/{{ maxLength }} </small>
+    }
+  </div>
+  }
+</app-input-wrapper>
