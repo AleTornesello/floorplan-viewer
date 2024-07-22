@@ -1,5 +1,15 @@
-<app-topbar id="topbar-container"></app-topbar>
+<app-topbar
+  id="topbar-container"
+  (toggleSidebar)="onToggleSidebar($event)"
+></app-topbar>
+<app-sidebar
+  [(visible)]="sidebarVisible"
+  [items]="navigationItems"
+></app-sidebar>
 <div class="container">
   <router-outlet></router-outlet>
 </div>
-<app-bottom-navbar id="bottom-navbar-container"></app-bottom-navbar>
+<app-bottom-navbar
+  id="bottom-navbar-container"
+  [items]="navigationItems"
+></app-bottom-navbar>

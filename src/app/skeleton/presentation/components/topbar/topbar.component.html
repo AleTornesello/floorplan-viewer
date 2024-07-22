@@ -1,5 +1,9 @@
 <div id="topbar">
-  <p-button id="sidebar-toggle" (onClick)="toggleSidebar()" [text]="true">
+  <p-button
+    id="sidebar-toggle"
+    (onClick)="onToggleSidebarButtonClick()"
+    [text]="true"
+  >
     <fa-icon [icon]="faBars"></fa-icon>
   </p-button>
   <div class="title-container">
@@ -9,7 +13,3 @@
     <fa-icon [icon]="faUser"></fa-icon>
   </p-button> -->
 </div>
-<p-sidebar [(visible)]="sidebarVisible">
-  <h3>Sidebar</h3>
-  <p>Lorem ipsum dolor sit amet...</p>
-</p-sidebar>
