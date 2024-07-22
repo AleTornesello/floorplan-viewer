@@ -1,5 +1,8 @@
 {
   "auth": {
     "welcome": "Benvenuto in My Shelf Journey"
+  },
+  "library": {
+    "library": "Libreria"
   }
 }

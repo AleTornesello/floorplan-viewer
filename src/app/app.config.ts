@@ -4,6 +4,7 @@ import {
   LOCALE_ID,
   provideZoneChangeDetection,
   isDevMode,
+  APP_INITIALIZER,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
@@ -14,7 +15,12 @@ import {
 } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 import { TranslocoHttpLoader } from './transloco-loader';
-import { provideTransloco } from '@jsverse/transloco';
+import {
+  provideTransloco,
+  Translation,
+  TranslocoService,
+} from '@jsverse/transloco';
+import { lastValueFrom } from 'rxjs';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -38,5 +44,18 @@ export const appConfig: ApplicationConfig = {
       },
       loader: TranslocoHttpLoader,
     }),
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (translateService: TranslocoService) => {
+        return (): Promise<Translation> => {
+          const defaultLang = translateService.getDefaultLang();
+          translateService.setActiveLang(defaultLang);
+          translateService.getTranslation(defaultLang);
+          return lastValueFrom(translateService.load(defaultLang));
+        };
+      },
+      deps: [TranslocoService],
+      multi: true,
+    },
   ],
 };
