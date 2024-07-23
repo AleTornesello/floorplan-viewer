@@ -51,6 +51,9 @@ export class InputPasswordComponent implements ControlValueAccessor {
   @Input() for: string | undefined;
   @Input() required: boolean;
   @Input() placeholder: string | undefined;
+  @Input() toggleMask: boolean;
+  @Input() feedback: boolean;
+  @Input() autocomplete: string;
 
   @Input() set errors(errors: ValidationErrors | null) {
     this._errors = errors;
@@ -91,6 +94,9 @@ export class InputPasswordComponent implements ControlValueAccessor {
     this.textMode = false;
     this.showCounter = false;
     this.required = false;
+    this.toggleMask = true;
+    this.feedback = false;
+    this.autocomplete = '';
   }
 
   public writeValue(value: any): void {

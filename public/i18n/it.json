@@ -40,12 +40,14 @@
   },
   "auth": {
     "welcome": "Benvenuto in My Shelf Journey",
-    "accessToPortal": "Accedi al portale"
+    "accessToPortal": "Accedi al portale",
+    "login": "Accedi"
   },
   "library": {
     "library": "Libreria"
   },
   "user": {
-    "email": "Email"
+    "email": "Email",
+    "password": "Password"
   }
 }

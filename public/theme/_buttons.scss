@@ -1,0 +1,9 @@
+.p-button {
+  color: var(--primary-text-color);
+  background: var(--primary-500);
+  border: 1px solid var(--primary-500);
+
+  &.expand {
+    width: 100%;
+  }
+}

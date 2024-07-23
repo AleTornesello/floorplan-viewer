@@ -14,6 +14,7 @@ import { FormControlValidationService } from '../../services/form-control-valida
 })
 export class InputErrorLabelComponent {
   @Input({ required: true }) label!: string;
+  @Input() reserveSpace: boolean;
 
   @Input() control?: AbstractControl<any, any>;
 
@@ -29,6 +30,7 @@ export class InputErrorLabelComponent {
     private _formControlValidationService: FormControlValidationService
   ) {
     this._errors = null;
+    this.reserveSpace = true;
   }
 
   public get isOnError(): boolean {

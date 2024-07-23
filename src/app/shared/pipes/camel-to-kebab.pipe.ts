@@ -5,9 +5,9 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true,
 })
 export class CamelToKebabPipe implements PipeTransform {
-  transform(value: string | undefined | null): unknown {
+  transform(value: string | undefined | null): string | undefined {
     if (!value) {
-      return value;
+      return undefined;
     }
 
     return value.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();

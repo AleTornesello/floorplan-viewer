@@ -5,14 +5,24 @@
         <h1>{{ "auth.welcome" | transloco }}</h1>
         <h2>{{ "auth.accessToPortal" | transloco }}</h2>
       </div>
-      <form [formGroup]="form">
+      <form [formGroup]="form" (submit)="onFormSubmit()">
         <div id="login-form">
           <app-input-text
             formControlName="email"
             [label]="'user.email' | transloco"
             [control]="form.get('email')!"
             [errors]="form.get('email')!.errors"
+            autocomplete="email"
           ></app-input-text>
+          <app-input-password
+            formControlName="password"
+            [label]="'user.password' | transloco"
+            [control]="form.get('password')!"
+            [errors]="form.get('password')!.errors"
+            autocomplete="current-password"
+          ></app-input-password>
+          <app-button [label]="'auth.login' | transloco" type="submit">
+          </app-button>
         </div>
       </form>
     </div>

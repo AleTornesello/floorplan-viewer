@@ -1,0 +1,12 @@
+<p-button
+  [styleClass]="expand ? 'expand' : ''"
+  [type]="type"
+  (onClick)="onButtonClick()"
+>
+  <div class="button-content">
+    @if (icon) {
+    <fa-icon class="button-content__icon" [icon]="icon"></fa-icon>
+    }
+    <span class="button-content__label">{{ label }}</span>
+  </div>
+</p-button>
