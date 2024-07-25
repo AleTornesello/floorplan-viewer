@@ -14,7 +14,7 @@ import { RouterModule } from '@angular/router';
 import { MsjRoute } from '../../../app.routes';
 
 @Component({
-  selector: 'app-login-page',
+  selector: 'app-register-page',
   standalone: true,
   imports: [
     CardModule,
@@ -25,10 +25,10 @@ import { MsjRoute } from '../../../app.routes';
     ButtonComponent,
     RouterModule,
   ],
-  templateUrl: './login-page.component.html',
-  styleUrl: './login-page.component.scss',
+  templateUrl: './register-page.component.html',
+  styleUrl: './register-page.component.scss',
 })
-export class LoginPageComponent {
+export class RegisterPageComponent {
   public form: FormGroup;
 
   constructor(private _fb: FormBuilder) {
@@ -48,10 +48,10 @@ export class LoginPageComponent {
       return;
     }
 
-    // TODO: Implement login
+    // TODO: Implement register
   }
 
   public get registrationPageLink() {
-    return `/${MsjRoute.REGISTER}`;
+    return `/${MsjRoute.LOGIN}`;
   }
 }
