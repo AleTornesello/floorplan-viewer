@@ -1,9 +1,9 @@
-import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import { AbstractControl, ValidationErrors } from '@angular/forms';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
-import { FormControlValidationService } from '../../services/form-control-validation.service';
+import {CommonModule} from '@angular/common';
+import {Component, Input} from '@angular/core';
+import {AbstractControl, ValidationErrors} from '@angular/forms';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {faCircleExclamation} from '@fortawesome/free-solid-svg-icons';
+import {FormControlValidationService} from "../../../services/form-control-validation.service";
 
 @Component({
   selector: 'app-input-error-label',

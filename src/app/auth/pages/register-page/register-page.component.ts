@@ -1,17 +1,18 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators,} from '@angular/forms';
+import {TranslocoModule, TranslocoPipe, TranslocoService} from '@jsverse/transloco';
+import {CardModule} from 'primeng/card';
+import {ButtonComponent} from '../../../shared/components/button/button.component';
+import {Router, RouterModule, UrlSerializer} from '@angular/router';
+import {MsjRoute} from '../../../app.routes';
+import {SupabaseAuthService} from '../../services/supabase-auth.service';
+import {InputTextComponent} from "../../../shared/components/inputs/input-text/input-text.component";
+import {InputPasswordComponent} from "../../../shared/components/inputs/input-password/input-password.component";
+import {MsjFormValidators} from "../../../shared/form/validators";
 import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { TranslocoPipe } from '@jsverse/transloco';
-import { CardModule } from 'primeng/card';
-import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { InputPasswordComponent } from '../../../shared/components/input-password/input-password.component';
-import { InputTextComponent } from '../../../shared/components/input-text/input-text.component';
-import { RouterModule } from '@angular/router';
-import { MsjRoute } from '../../../app.routes';
+  ResultMessageDialogComponent
+} from "../../../shared/components/dialog/result-message-dialog/result-message-dialog.component";
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-register-page',
@@ -24,34 +25,64 @@ import { MsjRoute } from '../../../app.routes';
     InputPasswordComponent,
     ButtonComponent,
     RouterModule,
+    ResultMessageDialogComponent,
+    TranslocoModule,
+    NgOptimizedImage,
   ],
   templateUrl: './register-page.component.html',
   styleUrl: './register-page.component.scss',
 })
 export class RegisterPageComponent {
+  @ViewChild('registrationResultDialog') registrationResultDialog!: ResultMessageDialogComponent;
+
   public form: FormGroup;
 
-  constructor(private _fb: FormBuilder) {
+  constructor(
+    private _fb: FormBuilder,
+    private _supabaseAuthService: SupabaseAuthService,
+    private _translationService: TranslocoService,
+    private _router: Router,
+    private _serializer: UrlSerializer
+  ) {
     this.form = this._buildForm();
   }
 
-  private _buildForm() {
-    return this._fb.group({
-      email: this._fb.control('', [Validators.required, Validators.email]),
-      password: this._fb.control('', [Validators.required]),
-    });
+  public get registrationPageLink() {
+    return `/${MsjRoute.LOGIN}`;
   }
 
-  public onFormSubmit() {
+  public async onFormSubmit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
 
-    // TODO: Implement register
+    try {
+      const email = this.form.get('email')!.value;
+      const password = this.form.get('password')!.value;
+
+      const response = await this._supabaseAuthService.signUp(email, password, `${location.origin}/${MsjRoute.VERIFY_EMAIL}`);
+
+      if (response.error) {
+        this.registrationResultDialog.show("error", this._translationService.translate('auth.registrationKo'));
+        return;
+      }
+      this.registrationResultDialog.show("success", this._translationService.translate('auth.registrationOk'));
+    } catch (error) {
+      this.registrationResultDialog.show("error", this._translationService.translate('auth.registrationKo'));
+    }
   }
 
-  public get registrationPageLink() {
-    return `/${MsjRoute.LOGIN}`;
+  private _buildForm() {
+    const passwordControl = this._fb.control('', [Validators.required, Validators.minLength(8)]);
+    return this._fb.group({
+      email: this._fb.control('', [Validators.required, Validators.email]),
+      password: passwordControl,
+      confirmPassword: this._fb.control('', [Validators.required, MsjFormValidators.samePassword(passwordControl)]),
+    });
+  }
+
+  public onRegistrationResultDialogClose() {
+    this._router.navigate([MsjRoute.LOGIN]);
   }
 }

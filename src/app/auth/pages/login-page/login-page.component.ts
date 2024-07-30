@@ -1,17 +1,12 @@
-import { Component } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { TranslocoPipe } from '@jsverse/transloco';
-import { CardModule } from 'primeng/card';
-import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { InputPasswordComponent } from '../../../shared/components/input-password/input-password.component';
-import { InputTextComponent } from '../../../shared/components/input-text/input-text.component';
-import { RouterModule } from '@angular/router';
-import { MsjRoute } from '../../../app.routes';
+import {Component} from '@angular/core';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators,} from '@angular/forms';
+import {TranslocoPipe} from '@jsverse/transloco';
+import {CardModule} from 'primeng/card';
+import {ButtonComponent} from '../../../shared/components/button/button.component';
+import {RouterModule} from '@angular/router';
+import {MsjRoute} from '../../../app.routes';
+import {InputPasswordComponent} from "../../../shared/components/inputs/input-password/input-password.component";
+import {InputTextComponent} from "../../../shared/components/inputs/input-text/input-text.component";
 
 @Component({
   selector: 'app-login-page',

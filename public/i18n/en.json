@@ -1,5 +1,6 @@
 {
   "common": {
+    "ok": "OK",
     "validationErrors": {
       "alpha": "The {{field}} field can only contain alphabetic characters",
       "alphaNum": "The {{field}} field can only contain alphanumeric characters",
@@ -40,7 +41,13 @@
   "auth": {
     "welcome": "Welcome to My Shelf Journey",
     "accessToPortal": "Access to portal",
-    "login": "Login"
+    "login": "Login",
+    "missingAccount": "Not registered yet?",
+    "register": "Register",
+    "alreadyHaveAccount": "Already have an account?",
+    "confirmPassword": "Confirm password",
+    "registrationOk": "Registration successful, you will receive an email to confirm your email address",
+    "registrationKo": "An error has occurred during registration, please try again later"
   },
   "library": {
     "library": "Library"

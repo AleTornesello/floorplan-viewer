@@ -22,6 +22,8 @@
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@jsverse/transloco": "^7.4.2",
+    "@supabase/supabase-js": "^2.44.4",
+    "animate.css": "^4.1.1",
     "primeng": "^17.18.4",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

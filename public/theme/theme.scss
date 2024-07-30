@@ -3,6 +3,7 @@
 @import "_card.scss";
 @import "_inputs.scss";
 @import "_buttons.scss";
+@import "_dialog.scss";
 
 :root {
   --border-radius: 0.5rem;
@@ -14,11 +15,13 @@
   --white: #ffffff;
   --black: #000000;
 
+  // Status
   --success: #4caf50;
   --error: #f44336;
   --warning: #ff9800;
   --info: #2196f3;
 
+  // Primary
   --primary-50: #e4edf6;
   --primary-100: #bcd3e9;
   --primary-200: #90b6da;
@@ -32,6 +35,7 @@
 
   --primary-text-color: #ffffff;
 
+  // Secondary
   --secondary-50: #e1f0e0;
   --secondary-100: #b3dbb3;
   --secondary-200: #81c380;

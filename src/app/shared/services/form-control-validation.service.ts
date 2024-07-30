@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { TranslocoService } from '@jsverse/transloco';
+import {Injectable} from '@angular/core';
+import {TranslocoService} from '@jsverse/transloco';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +21,7 @@ export class FormControlValidationService {
           }
         );
       case 'alpha_num':
+      case 'alphaNum':
         return this._translationService.translate(
           'common.validationErrors.alphaNum',
           {
@@ -28,6 +29,7 @@ export class FormControlValidationService {
           }
         );
       case 'alpha_dash':
+      case 'alphaDash':
         return this._translationService.translate(
           'common.validationErrors.alphaDash',
           {
@@ -35,6 +37,7 @@ export class FormControlValidationService {
           }
         );
       case 'alpha_spaces':
+      case 'alphaSpaces':
         return this._translationService.translate(
           'common.validationErrors.alphaSpaces',
           { field }
@@ -103,6 +106,7 @@ export class FormControlValidationService {
           }
         );
       case 'is_not':
+      case 'isNot':
         return this._translationService.translate(
           'common.validationErrors.isNot',
           {
@@ -118,6 +122,7 @@ export class FormControlValidationService {
           }
         );
       case 'max_value':
+      case 'maxValue':
         return this._translationService.translate(
           'common.validationErrors.maxValue',
           {
@@ -126,6 +131,7 @@ export class FormControlValidationService {
           }
         );
       case 'max_date':
+      case 'maxDate':
         return this._translationService.translate(
           'common.validationErrors.maxDate',
           {
@@ -141,6 +147,7 @@ export class FormControlValidationService {
           }
         );
       case 'min_value':
+      case 'minValue':
         return this._translationService.translate(
           'common.validationErrors.minValue',
           {
@@ -162,6 +169,7 @@ export class FormControlValidationService {
           }
         );
       case 'one_of':
+      case 'oneOf':
         return this._translationService.translate(
           'common.validationErrors.oneOf',
           {
@@ -189,6 +197,7 @@ export class FormControlValidationService {
           }
         );
       case 'required_if':
+      case 'requiredIf':
         return this._translationService.translate(
           'common.validationErrors.requiredIf',
           {
@@ -203,6 +212,7 @@ export class FormControlValidationService {
           }
         );
       case 'date_is_before':
+      case 'dateIsBefore':
         return this._translationService.translate(
           'common.validationErrors.dateIsBefore',
           {
@@ -212,6 +222,7 @@ export class FormControlValidationService {
           }
         );
       case 'max_length':
+      case 'maxLength':
         return this._translationService.translate(
           'common.validationErrors.maxlength',
           {
@@ -220,6 +231,8 @@ export class FormControlValidationService {
           }
         );
       case 'min_length':
+      case 'minLength':
+      case 'minlength':
         return this._translationService.translate(
           'common.validationErrors.minlength',
           {
@@ -228,18 +241,22 @@ export class FormControlValidationService {
           }
         );
       case 'passwords_are_not_equals':
+      case 'passwordsAreNotEquals':
         return this._translationService.translate(
           'common.validationErrors.passwordsAreNotEquals'
         );
       case 'password_invalid_characters':
+      case 'passwordInvalidCharacters':
         return this._translationService.translate(
           'common.validationErrors.passwordInvalidCharacters'
         );
       case 'password_weak':
+      case 'passwordWeak':
         return this._translationService.translate(
           'common.validationErrors.passwordWeak'
         );
       case 'regex_error':
+      case 'regexError':
         if (typeof args !== 'boolean' && !!args?.['suggestion']) {
           return this._translationService.translate(
             'common.validationErrors.regexWithSuggestion',

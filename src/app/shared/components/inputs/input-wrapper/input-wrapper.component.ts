@@ -1,8 +1,8 @@
-import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import { ValidationErrors } from '@angular/forms';
-import { InputErrorLabelComponent } from '../input-error-label/input-error-label.component';
-import { CamelToKebabPipe } from '../../pipes/camel-to-kebab.pipe';
+import {CommonModule} from '@angular/common';
+import {Component, Input} from '@angular/core';
+import {ValidationErrors} from '@angular/forms';
+import {CamelToKebabPipe} from "../../../pipes/camel-to-kebab.pipe";
+import {InputErrorLabelComponent} from "../input-error-label/input-error-label.component";
 
 @Component({
   selector: 'app-input-wrapper',

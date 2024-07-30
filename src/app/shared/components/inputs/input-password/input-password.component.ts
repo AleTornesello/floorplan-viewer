@@ -1,29 +1,17 @@
-import { CommonModule } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  forwardRef,
-  Input,
-  Output,
-} from '@angular/core';
-import {
-  AbstractControl,
-  ControlValueAccessor,
-  FormsModule,
-  NG_VALUE_ACCESSOR,
-  ValidationErrors,
-} from '@angular/forms';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { AvoidEmptyValuePipe } from '../../pipes/avoid-empty-value.pipe';
-import { CamelToKebabPipe } from '../../pipes/camel-to-kebab.pipe';
-import { InputWrapperComponent } from '../input-wrapper/input-wrapper.component';
+import {CommonModule} from '@angular/common';
+import {Component, EventEmitter, forwardRef, Input, Output,} from '@angular/core';
+import {AbstractControl, ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ValidationErrors,} from '@angular/forms';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {IconDefinition} from '@fortawesome/fontawesome-svg-core';
+import {faTimes} from '@fortawesome/free-solid-svg-icons';
+import {ButtonModule} from 'primeng/button';
+import {InputWrapperComponent} from '../input-wrapper/input-wrapper.component';
+import {PasswordModule} from 'primeng/password';
+import {AvoidEmptyValuePipe} from "../../../pipes/avoid-empty-value.pipe";
+import {CamelToKebabPipe} from "../../../pipes/camel-to-kebab.pipe";
 
 @Component({
-  selector: 'app-input-text',
+  selector: 'app-input-password',
   standalone: true,
   imports: [
     CommonModule,
@@ -31,28 +19,28 @@ import { InputWrapperComponent } from '../input-wrapper/input-wrapper.component'
     AvoidEmptyValuePipe,
     CamelToKebabPipe,
     ButtonModule,
-    InputTextModule,
+    PasswordModule,
     FontAwesomeModule,
     FormsModule,
   ],
-  templateUrl: './input-text.component.html',
-  styleUrl: './input-text.component.scss',
+  templateUrl: './input-password.component.html',
+  styleUrl: './input-password.component.scss',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputTextComponent),
+      useExisting: forwardRef(() => InputPasswordComponent),
       multi: true,
     },
   ],
 })
-export class InputTextComponent implements ControlValueAccessor {
+export class InputPasswordComponent implements ControlValueAccessor {
   @Input({ required: true }) label!: string;
   @Input() for: string | undefined;
-  @Input() autocomplete: string | undefined;
   @Input() required: boolean;
   @Input() placeholder: string | undefined;
-  @Input() type: string;
-  @Input() readonly: boolean;
+  @Input() toggleMask: boolean;
+  @Input() feedback: boolean;
+  @Input() autocomplete: string;
 
   @Input() set errors(errors: ValidationErrors | null) {
     this._errors = errors;
@@ -80,7 +68,6 @@ export class InputTextComponent implements ControlValueAccessor {
   private _errors: ValidationErrors | null;
 
   constructor() {
-    this.type = 'text';
     this.placeholder = '';
     this._errors = null;
     this.clear = false;
@@ -94,7 +81,9 @@ export class InputTextComponent implements ControlValueAccessor {
     this.textMode = false;
     this.showCounter = false;
     this.required = false;
-    this.readonly = false;
+    this.toggleMask = true;
+    this.feedback = false;
+    this.autocomplete = '';
   }
 
   public writeValue(value: any): void {
@@ -146,7 +135,6 @@ export class InputTextComponent implements ControlValueAccessor {
   public getInputClasses() {
     return {
       'ng-invalid ng-dirty': this.isOnError,
-      'readonly-input': this.readonly,
       ...this.inputClass,
     };
   }

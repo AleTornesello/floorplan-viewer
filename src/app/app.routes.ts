@@ -1,6 +1,8 @@
-import { Routes } from '@angular/router';
-import { DefaultLayoutComponent } from './skeleton/presentation/widgets/default-layout/default-layout.component';
-import { LibraryPageComponent } from './library/presentation/pages/library-page/library-page.component';
+import {Routes} from '@angular/router';
+import {LoginPageComponent} from './auth/pages/login-page/login-page.component';
+import {EmptyLayoutComponent} from './skeleton/components/empty-layout/empty-layout.component';
+import {RegisterPageComponent} from './auth/pages/register-page/register-page.component';
+import {VerifyEmailPageComponent} from "./auth/pages/verify-email-page/verify-email-page.component";
 
 export enum MsjRoute {
   LOGIN = 'login',
@@ -10,6 +12,16 @@ export enum MsjRoute {
 export const routes: Routes = [
   {
     path: '',
-    component: DefaultLayoutComponent,
+    component: EmptyLayoutComponent,
+    children: [
+      {
+        path: MsjRoute.LOGIN,
+        component: LoginPageComponent,
+      },
+      {
+        path: MsjRoute.REGISTER,
+        component: RegisterPageComponent,
+      },
+    ],
   },
 ];

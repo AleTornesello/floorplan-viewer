@@ -3,6 +3,24 @@
   background: var(--primary-500);
   border: 1px solid var(--primary-500);
 
+  &:hover {
+    background: var(--primary-700);
+  }
+
+  &:active {
+    background: var(--primary-900);
+  }
+
+  &.p-button-text {
+    background: none;
+    border: none;
+    color: var(--primary-500);
+
+    &:hover {
+      background: var(--gray-200);
+    }
+  }
+
   &.expand {
     width: 100%;
   }
