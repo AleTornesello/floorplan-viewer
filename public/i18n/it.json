@@ -53,6 +53,10 @@
     "verifyEmailKo": "Si è verificato un errore durante la verifica della email, riprovare più tardi",
     "verificationEmailErrors": {
       "accessDenied": "Si è verificato un errore, il link di verifica non è valido o è scaduto"
+    },
+    "loginKo": "Si è verificato un errore durante il login, riprovare più tardi",
+    "loginErrors": {
+      "invalidGrant": "L'email e/o la password non sono valide"
     }
   },
   "library": {
