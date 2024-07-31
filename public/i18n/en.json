@@ -47,7 +47,12 @@
     "alreadyHaveAccount": "Already have an account?",
     "confirmPassword": "Confirm password",
     "registrationOk": "Registration successful, you will receive an email to confirm your email address",
-    "registrationKo": "An error has occurred during registration, please try again later"
+    "registrationKo": "An error has occurred during registration, please try again later",
+    "verifyEmailOk": "Email verification successful, you can now access your account",
+    "verifyEmailKo": "An error has occurred during email verification, please try again later",
+    "verificationEmailErrors": {
+      "accessDenied": "An error has occurred, the verification link is not valid or has expired"
+    }
   },
   "library": {
     "library": "Library"

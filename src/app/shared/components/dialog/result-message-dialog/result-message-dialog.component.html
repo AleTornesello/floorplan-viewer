@@ -8,11 +8,17 @@
   [size]="size"
   (closed)="onDialogClosed()"
 >
-<div class="result-message-container">
-  <div class="result-message-icon animate__animated animate__zoomIn" [ngClass]="'status-' + status">
-    <fa-icon [icon]="icon"></fa-icon>
+  <div class="result-message-container">
+    <div
+      class="result-message-icon animate__animated animate__zoomIn"
+      [ngClass]="iconClasses"
+    >
+      <fa-icon [icon]="icon"></fa-icon>
+    </div>
+    <div class="result-message-text">{{ message }}</div>
+    <app-button
+      [label]="'common.ok' | transloco"
+      (click)="close()"
+    ></app-button>
   </div>
-  <div class="result-message-text">{{ message }}</div>
-  <app-button [label]="'common.ok' | transloco" (click)="close()"></app-button>
-</div>
 </app-simple-dialog>

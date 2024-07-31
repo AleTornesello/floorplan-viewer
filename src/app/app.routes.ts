@@ -7,6 +7,7 @@ import {VerifyEmailPageComponent} from "./auth/pages/verify-email-page/verify-em
 export enum MsjRoute {
   LOGIN = 'login',
   REGISTER = 'register',
+  VERIFY_EMAIL = 'verify-email',
 }
 
 export const routes: Routes = [
@@ -21,6 +22,10 @@ export const routes: Routes = [
       {
         path: MsjRoute.REGISTER,
         component: RegisterPageComponent,
+      },
+      {
+        path: MsjRoute.VERIFY_EMAIL,
+        component: VerifyEmailPageComponent,
       },
     ],
   },

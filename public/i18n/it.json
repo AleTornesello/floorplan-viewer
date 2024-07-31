@@ -48,7 +48,12 @@
     "alreadyHaveAccount": "Hai già un account?",
     "confirmPassword": "Conferma Password",
     "registrationOk": "Registrazione effettuata con successo, riceverai un'email di conferma alla casella di posta da te indicata in fase di registrazione",
-    "registrationKo": "Si è verificato un e rrore durante la registrazione, riprovare più tardi"
+    "registrationKo": "Si è verificato un e rrore durante la registrazione, riprovare più tardi",
+    "verifyEmailOk": "La verifica della email è stata effettuata con successo, ora puoi accedere al tuo account",
+    "verifyEmailKo": "Si è verificato un errore durante la verifica della email, riprovare più tardi",
+    "verificationEmailErrors": {
+      "accessDenied": "Si è verificato un errore, il link di verifica non è valido o è scaduto"
+    }
   },
   "library": {
     "library": "Libreria"

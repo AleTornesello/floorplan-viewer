@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {DialogModule} from "primeng/dialog";
 import {CommonModule} from "@angular/common";
 import {ButtonComponent} from "../../button/button.component";
@@ -32,7 +32,7 @@ export class ResultMessageDialogComponent {
   private _status!: Status;
   private _message!: string;
 
-  constructor() {
+  constructor(private _cdRef: ChangeDetectorRef) {
     this.header = '';
     this.headerStyle = 'text-center';
     this.closable = true;
@@ -46,6 +46,7 @@ export class ResultMessageDialogComponent {
     this._message = message;
     this._status = status;
     this.dialog.show();
+    this._cdRef.detectChanges();
   }
 
   public close() {
@@ -70,5 +71,13 @@ export class ResultMessageDialogComponent {
       return faCheckCircle;
     }
     return faTimesCircle;
+  }
+
+  public get iconClasses(): string {
+    let classes = "";
+    if (this._status) {
+      classes = `status-${this._status}`;
+    }
+    return classes;
   }
 }
