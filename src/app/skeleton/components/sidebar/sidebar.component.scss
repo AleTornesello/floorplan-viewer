@@ -1,4 +1,4 @@
-#sidebar-container {
+#sidebar-content {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -21,7 +21,7 @@
 
       &:hover {
         color: var(--primary-500);
-        background-color: var(--primary-50);
+        background-color: var(--white-opaque-500);
       }
 
       &.active {

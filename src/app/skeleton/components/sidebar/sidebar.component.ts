@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { SidebarModule } from 'primeng/sidebar';
-import { NavigationItem } from '../default-layout/default-layout.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {SidebarModule} from 'primeng/sidebar';
+import {NavigationItem} from '../default-layout/default-layout.component';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {ActivatedRoute, RouterModule} from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -28,9 +28,9 @@ export class SidebarComponent {
     this.visibleChange = new EventEmitter<boolean>();
   }
 
-  public onVisibleChange(visible: boolean) {
-    this.visible = visible;
-    this.visibleChange.emit(visible);
+  public onSidebarHide() {
+    this.visible = false;
+    this.visibleChange.emit(this.visible);
   }
 
   public isRouteActive(route: string | string[]): string {

@@ -4,6 +4,8 @@
 @import "_inputs.scss";
 @import "_buttons.scss";
 @import "_dialog.scss";
+@import "_sidebar.scss";
+@import "utils/_glass.scss";
 
 :root {
   --border-radius: 0.5rem;
@@ -13,6 +15,17 @@
   --text-color: #000000;
 
   --white: #ffffff;
+  --white-opaque-50: rgba(255, 255, 255, 0.05);
+  --white-opaque-100: rgba(255, 255, 255, 0.1);
+  --white-opaque-200: rgba(255, 255, 255, 0.2);
+  --white-opaque-300: rgba(255, 255, 255, 0.3);
+  --white-opaque-400: rgba(255, 255, 255, 0.4);
+  --white-opaque-500: rgba(255, 255, 255, 0.5);
+  --white-opaque-600: rgba(255, 255, 255, 0.6);
+  --white-opaque-700: rgba(255, 255, 255, 0.7);
+  --white-opaque-800: rgba(255, 255, 255, 0.8);
+  --white-opaque-900: rgba(255, 255, 255, 0.9);
+
   --black: #000000;
 
   // Status

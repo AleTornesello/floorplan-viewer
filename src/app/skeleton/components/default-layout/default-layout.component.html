@@ -1,10 +1,11 @@
 <app-topbar
   id="topbar-container"
-  (toggleSidebar)="onToggleSidebar($event)"
+  (toggleSidebar)="onToggleSidebar()"
 ></app-topbar>
 <app-sidebar
   [(visible)]="sidebarVisible"
   [items]="navigationItems"
+  (visibleChange)="onSidebarVisibleChange($event)"
 ></app-sidebar>
 <div class="container">
   <router-outlet></router-outlet>
