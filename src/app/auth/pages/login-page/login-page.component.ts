@@ -89,7 +89,7 @@ export class LoginPageComponent {
       return;
     }
 
-    this._router.navigate([]);
+    this._router.navigate([MsjRoute.LIBRARY]);
   }
 
   public get registrationPageLink() {
