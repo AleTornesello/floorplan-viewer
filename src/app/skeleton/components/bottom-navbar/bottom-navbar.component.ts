@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
-import { NavigationItem } from '../default-layout/default-layout.component';
-import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterModule } from '@angular/router';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {Component, Input} from '@angular/core';
+import {NavigationItem} from '../default-layout/default-layout.component';
+import {CommonModule} from '@angular/common';
+import {RouterModule} from '@angular/router';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {RouteUtilsService} from "../../../shared/services/route-utils.service";
 
 @Component({
   selector: 'app-bottom-navbar',
@@ -21,14 +22,9 @@ export class BottomNavbarComponent {
 
   private _items!: NavigationItem[];
 
-  constructor(private _route: ActivatedRoute) {}
+  constructor(private _routeUtilsService: RouteUtilsService) {}
 
   public isRouteActive(route: string | string[]): string {
-    route = Array.isArray(route) ? `/${route.join('/')}` : route;
-    const path =
-      this._route.snapshot.url.length > 0
-        ? this._route.snapshot.url[0].path
-        : '/';
-    return path === route ? 'active' : '';
+    return this._routeUtilsService.isRouteActive(route);
   }
 }

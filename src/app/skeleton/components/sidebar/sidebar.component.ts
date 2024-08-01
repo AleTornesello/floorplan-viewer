@@ -2,7 +2,8 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {SidebarModule} from 'primeng/sidebar';
 import {NavigationItem} from '../default-layout/default-layout.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {ActivatedRoute, RouterModule} from '@angular/router';
+import {RouterModule} from '@angular/router';
+import {RouteUtilsService} from "../../../shared/services/route-utils.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -23,7 +24,7 @@ export class SidebarComponent {
   private _items!: NavigationItem[];
   @Output() visibleChange: EventEmitter<boolean>;
 
-  constructor(private _route: ActivatedRoute) {
+  constructor(private _routeUtilsService: RouteUtilsService) {
     this.visible = false;
     this.visibleChange = new EventEmitter<boolean>();
   }
@@ -34,11 +35,6 @@ export class SidebarComponent {
   }
 
   public isRouteActive(route: string | string[]): string {
-    route = Array.isArray(route) ? `/${route.join('/')}` : route;
-    const path =
-      this._route.snapshot.url.length > 0
-        ? this._route.snapshot.url[0].path
-        : '/';
-    return path === route ? 'active' : '';
+    return this._routeUtilsService.isRouteActive(route);
   }
 }

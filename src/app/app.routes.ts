@@ -7,6 +7,7 @@ import {LibraryPageComponent} from "./library/pages/library-page/library-page.co
 import {DefaultLayoutComponent} from "./skeleton/components/default-layout/default-layout.component";
 
 export enum MsjRoute {
+  LIBRARY = '/',
   LOGIN = 'login',
   REGISTER = 'register',
   VERIFY_EMAIL = 'verify-email',
