@@ -90,7 +90,7 @@ export class CategoriesTabsComponent implements OnInit, AfterViewChecked {
       return;
     }
     this.isLeftScrollVisible = this.categoriesTabs.nativeElement.scrollLeft > 0;
-    this.isRightScrollVisible = this.categoriesTabs.nativeElement.scrollLeft < this.categoriesTabs.nativeElement.scrollWidth - this.categoriesTabs.nativeElement.clientWidth
+    this.isRightScrollVisible = Math.ceil(this.categoriesTabs.nativeElement.scrollLeft) < this.categoriesTabs.nativeElement.scrollWidth - this.categoriesTabs.nativeElement.clientWidth
   }
 
   public onLeftScrollClick(): void {
