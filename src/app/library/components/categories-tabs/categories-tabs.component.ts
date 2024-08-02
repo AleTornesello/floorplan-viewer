@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, ViewChild} from '@angular/core';
+import {AfterViewChecked, Component, DestroyRef, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {CategoryModel} from "../../models/category.model";
 import {MsjRoute} from "../../../app.routes";
 import {Router, RouterModule, UrlTree} from "@angular/router";
@@ -6,6 +6,8 @@ import {RouteUtilsService} from "../../../shared/services/route-utils.service";
 import {IconDefinition} from "@fortawesome/fontawesome-svg-core";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
+import {fromEvent} from "rxjs";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 class ExpandedCategory extends CategoryModel {
   public route: UrlTree;
@@ -23,7 +25,7 @@ class ExpandedCategory extends CategoryModel {
   templateUrl: './categories-tabs.component.html',
   styleUrl: './categories-tabs.component.scss'
 })
-export class CategoriesTabsComponent {
+export class CategoriesTabsComponent implements OnInit, AfterViewChecked {
   @ViewChild("categoriesTabs") categoriesTabs?: ElementRef;
 
   @Input({required: true}) set categories(categories: CategoryModel[]) {
@@ -40,11 +42,28 @@ export class CategoriesTabsComponent {
 
   constructor(
     private _router: Router,
-    private _routeUtilsService: RouteUtilsService
+    private _routeUtilsService: RouteUtilsService,
+    private _destroyRef: DestroyRef
   ) {
     this._categories = [];
     this.isLeftScrollVisible = false;
     this.isRightScrollVisible = false;
+  }
+
+  public ngOnInit() {
+    fromEvent(window, 'resize')
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: this._onWindowResize.bind(this)
+      });
+  }
+
+  public ngAfterViewChecked() {
+    this._calcVisibilities();
+  }
+
+  private _onWindowResize() {
+    this._calcVisibilities();
   }
 
   public get expandedCategories(): ExpandedCategory[] {
@@ -63,6 +82,10 @@ export class CategoriesTabsComponent {
   }
 
   public onScroll() {
+    this._calcVisibilities();
+  }
+
+  private _calcVisibilities() {
     if (!this.categoriesTabs) {
       return;
     }
