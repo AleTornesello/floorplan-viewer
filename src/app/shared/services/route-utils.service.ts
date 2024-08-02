@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
-import {Router, UrlSerializer, UrlTree} from "@angular/router";
+import {ActivatedRoute, Router, UrlSerializer, UrlTree} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RouteUtilsService {
 
-  constructor(private _urlSerializer: UrlSerializer, private _router: Router) {
+  constructor(private _urlSerializer: UrlSerializer, private _router: Router, private _route: ActivatedRoute) {
   }
 
   public isRouteActive(route: string | string[] | UrlTree): string {
@@ -16,6 +16,18 @@ export class RouteUtilsService {
       route = this._urlSerializer.serialize(route);
     }
 
-    return this._router.url === route ? 'active' : '';
+    if (this._router.url === route) {
+      return 'active';
+    }
+
+    if(this._route.snapshot.url.length > 0 && this._route.snapshot.url[0].path === route) {
+      return 'active';
+    }
+
+    if(this._route.snapshot.url.length === 0 && route === '/') {
+      return 'active';
+    }
+
+    return '';
   }
 }
