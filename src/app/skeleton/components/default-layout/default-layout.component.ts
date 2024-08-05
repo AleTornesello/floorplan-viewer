@@ -5,7 +5,7 @@ import {TopbarComponent} from '../topbar/topbar.component';
 import {BottomNavbarComponent} from '../bottom-navbar/bottom-navbar.component';
 import {TranslocoModule, TranslocoService} from '@jsverse/transloco';
 import {IconDefinition} from '@fortawesome/fontawesome-svg-core';
-import {faBook} from '@fortawesome/free-solid-svg-icons';
+import {faBook, faBuilding} from '@fortawesome/free-solid-svg-icons';
 import {SidebarComponent} from '../sidebar/sidebar.component';
 
 export interface NavigationItem {
@@ -37,9 +37,9 @@ export class DefaultLayoutComponent {
   constructor(private _translateService: TranslocoService) {
     this.navigationItems = [
       {
-        label: this._translateService.translate('library.library'),
+        label: this._translateService.translate('building.building'),
         route: '/',
-        icon: faBook,
+        icon: faBuilding,
         sidebarVisible: true,
         navbarVisible: true,
       },

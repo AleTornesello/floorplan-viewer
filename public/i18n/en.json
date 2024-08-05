@@ -58,8 +58,8 @@
       "invalidGrant": "Email and/or password are not valid"
     }
   },
-  "library": {
-    "library": "Library"
+  "building": {
+    "building": "{count, plural, one {Building} other {Buildings}}"
   },
   "user": {
     "email": "Email",

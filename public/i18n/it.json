@@ -59,8 +59,8 @@
       "invalidGrant": "L'email e/o la password non sono valide"
     }
   },
-  "library": {
-    "library": "Libreria"
+  "building": {
+    "building": "{count, plural, one {Immobile} other {Immobili}}"
   },
   "user": {
     "email": "Email",
