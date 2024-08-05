@@ -40,7 +40,7 @@
     }
   },
   "auth": {
-    "welcome": "Benvenuto in My Shelf Journey",
+    "welcome": "Benvenuto in Floorplan Viewer",
     "accessToPortal": "Accedi al portale",
     "login": "Accedi",
     "missingAccount": "Non sei ancora registrato?",
