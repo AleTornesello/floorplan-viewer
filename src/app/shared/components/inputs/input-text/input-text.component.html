@@ -4,7 +4,7 @@
   [required]="required"
   [errors]="errors"
 >
-  <div [ngClass]="{ withClear: clear }">
+  <div class="input-text-container" [ngClass]="{ 'clearable': clear }">
     <div *ngIf="textMode">
       {{ value | avoidEmptyValue }}
     </div>
@@ -27,22 +27,24 @@
           [max]="max"
           [min]="min"
           [ngClass]="getInputClasses()"
+          clea
           (input)="onInputChange($event)"
           (blur)="onTouched()"
           (ngModelChange)="onModelChange($event)"
         />
-        <p-button *ngIf="clear && !!value" (onClick)="clearValue()">
-          <fa-icon [icon]="faTimes"></fa-icon>
-        </p-button>
+        @if (clear && !!value) {
+          <app-button class="clear-button" [icon]="faTimes" buttonStyle="text" (click)="clearValue()">
+          </app-button>
+        }
       </div>
     </div>
   </div>
 
   @if (!textMode) {
-  <div helpText>
-    @if ( showCounter && maxLength !== null && maxLength > 0) {
-    <small> {{ value.length }}/{{ maxLength }} </small>
-    }
-  </div>
+    <div helpText>
+      @if (showCounter && maxLength !== null && maxLength > 0) {
+        <small> {{ value.length }}/{{ maxLength }} </small>
+      }
+    </div>
   }
 </app-input-wrapper>

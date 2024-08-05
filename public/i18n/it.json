@@ -37,6 +37,13 @@
       "passwordsAreNotEquals": "Le password non corrispondono",
       "passwordInvalidCharacters": "La password contiene caratteri non validi",
       "passwordWeak": "La password deve contenere almeno 8 caratteri, almeno un numero e almeno una lettera"
+    },
+    "table": {
+      "search": "Cerca",
+      "results": "{count, plural, =0 {Nessun risultato} one {1 risultato} other {# risultati}}",
+      "new": "Aggiungi",
+      "noResultTitle": "Non ci sono risultati",
+      "noResultSubtitle": "Prova a cambiare i criteri di ricerca e riprova"
     }
   },
   "auth": {

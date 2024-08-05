@@ -1,0 +1,15 @@
+.input-text-container {
+  &.clearable {
+    position: relative;
+
+    input {
+      padding-right: 2rem;
+    }
+
+    .clear-button {
+      position: absolute;
+      right: 0;
+      width: 2rem;
+    }
+  }
+}

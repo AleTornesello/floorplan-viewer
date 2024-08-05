@@ -1,0 +1,39 @@
+<p-overlayPanel #op appendTo="body">
+  <div class="overlay-panel-items flex flex-column gap-3 my-3" role="menu">
+    <ng-container *ngFor="let item of items; let index = index">
+      <div
+        *ngIf="isItemVisible(item)"
+        class="item flex gap-3 align-items-center cursor-pointer py-2 px-3"
+        [ngClass]="{ 'disabled': isItemDisabled(item) }"
+        role="menuitem"
+        [tabindex]="index"
+        (click)="onItemClick(item)"
+      >
+        <div
+          class="item__icon border-circle"
+          [ngClass]="[item.color ? 'item__icon--' + item.color : '']"
+        >
+          <div class="item__icon__wrapper">
+            <ng-container
+              *ngTemplateOutlet="
+                getIconTemplate(item.icon);
+                context: { $implicit: item.icon }
+              "
+            ></ng-container>
+          </div>
+        </div>
+        <div class="item__label cursor-pointer">
+          <span class="cursor-pointer">{{ item.label }}</span>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</p-overlayPanel>
+
+<ng-template #primengIcon let-icon>
+  <i [ngClass]="icon"></i>
+</ng-template>
+
+<ng-template #faIcon let-icon>
+  <fa-icon [icon]="icon" size="sm"></fa-icon>
+</ng-template>

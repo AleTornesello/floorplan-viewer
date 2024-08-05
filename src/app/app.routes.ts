@@ -23,7 +23,7 @@ export const routes: Routes = [
         children: [
           {
             path: '',
-            redirectTo: 'admin/buildings',
+            redirectTo: '/admin/buildings',
             pathMatch: 'full',
           },
           {
@@ -35,26 +35,27 @@ export const routes: Routes = [
               }
             ]
           },
+          {
+            path: 'auth',
+            component: EmptyLayoutComponent,
+            children: [
+              {
+                path: MsjRoute.LOGIN,
+                component: LoginPageComponent,
+              },
+              {
+                path: MsjRoute.REGISTER,
+                component: RegisterPageComponent,
+              },
+              {
+                path: MsjRoute.VERIFY_EMAIL,
+                component: VerifyEmailPageComponent,
+              },
+            ],
+          },
         ]
       },
     ]
   },
-  {
-    path: '',
-    component: EmptyLayoutComponent,
-    children: [
-      {
-        path: MsjRoute.LOGIN,
-        component: LoginPageComponent,
-      },
-      {
-        path: MsjRoute.REGISTER,
-        component: RegisterPageComponent,
-      },
-      {
-        path: MsjRoute.VERIFY_EMAIL,
-        component: VerifyEmailPageComponent,
-      },
-    ],
-  },
+
 ];

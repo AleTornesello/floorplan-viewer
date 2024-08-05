@@ -18,4 +18,8 @@ export class StringManipulationService {
   public snakeToCamel(str: string): string {
     return str.replace(/_([a-z])/g, (g) => g[1].toUpperCase());
   }
+
+  public capitalize(str: string): string {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
 }

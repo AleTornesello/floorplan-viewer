@@ -36,6 +36,13 @@
       "passwordsAreNotEquals": "The password fields must be equal",
       "passwordInvalidCharacters": "The password field contains invalid characters",
       "passwordWeak": "The password must contain at least 8 characters, at least one number and at least one letter"
+    },
+    "table": {
+      "search": "Search",
+      "results": "{count, plural, =0 {No results} one {1 element found} other {# elements found}}",
+      "new": "New",
+      "noResultTitle": "No results",
+      "noResultSubtitle": "Try changing the search criteria and try again"
     }
   },
   "auth": {

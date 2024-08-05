@@ -9,6 +9,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import {InputWrapperComponent} from '../input-wrapper/input-wrapper.component';
 import {AvoidEmptyValuePipe} from "../../../pipes/avoid-empty-value.pipe";
 import {CamelToKebabPipe} from "../../../pipes/camel-to-kebab.pipe";
+import {ButtonComponent} from "../../button/button.component";
 
 @Component({
   selector: 'app-input-text',
@@ -22,6 +23,7 @@ import {CamelToKebabPipe} from "../../../pipes/camel-to-kebab.pipe";
     InputTextModule,
     FontAwesomeModule,
     FormsModule,
+    ButtonComponent,
   ],
   templateUrl: './input-text.component.html',
   styleUrl: './input-text.component.scss',
@@ -34,7 +36,7 @@ import {CamelToKebabPipe} from "../../../pipes/camel-to-kebab.pipe";
   ],
 })
 export class InputTextComponent implements ControlValueAccessor {
-  @Input({ required: true }) label!: string;
+  @Input() label: string | undefined;
   @Input() for: string | undefined;
   @Input() autocomplete: string | undefined;
   @Input() required: boolean;

@@ -1,0 +1,31 @@
+$neutral-grey-04: #f5fafc;
+::ng-deep {
+  .icon-container {
+    height: 80px;
+    width: 80px;
+    border-radius: 100%;
+    background: var(--system-info-dark, #164790);
+    fa-icon {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      height: 80px;
+
+      svg {
+        height: 55%;
+        width: 55%;
+
+        color: #e7f4f9;
+      }
+    }
+  }
+}
+#empty-msg {
+  &:not(.shrink) {
+    min-height: 20vh;
+  }
+
+  .empty-msg {
+    max-width: 50vw;
+  }
+}
