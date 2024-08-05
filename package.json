@@ -22,6 +22,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@jsverse/transloco": "^7.4.2",
+    "@jsverse/transloco-messageformat": "^7.0.1",
     "@supabase/supabase-js": "^2.44.4",
     "animate.css": "^4.1.1",
     "primeng": "^17.18.4",

@@ -1,31 +1,25 @@
 import {
+  APP_INITIALIZER,
   ApplicationConfig,
   importProvidersFrom,
+  isDevMode,
   LOCALE_ID,
   provideZoneChangeDetection,
-  isDevMode,
-  APP_INITIALIZER,
 } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import {provideRouter} from '@angular/router';
 
-import { routes } from './app.routes';
-import {
-  BrowserAnimationsModule,
-  NoopAnimationsModule,
-} from '@angular/platform-browser/animations';
-import { provideHttpClient } from '@angular/common/http';
-import { TranslocoHttpLoader } from './transloco-loader';
-import {
-  provideTransloco,
-  Translation,
-  TranslocoService,
-} from '@jsverse/transloco';
-import { lastValueFrom } from 'rxjs';
+import {routes} from './app.routes';
+import {BrowserAnimationsModule, NoopAnimationsModule,} from '@angular/platform-browser/animations';
+import {provideHttpClient} from '@angular/common/http';
+import {TranslocoHttpLoader} from './transloco-loader';
+import {provideTransloco, Translation, TranslocoService,} from '@jsverse/transloco';
+import {lastValueFrom} from 'rxjs';
+import {provideTranslocoMessageformat} from "@jsverse/transloco-messageformat";
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(),
-    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideZoneChangeDetection({eventCoalescing: true}),
     provideRouter(routes),
     importProvidersFrom(BrowserAnimationsModule),
     importProvidersFrom(NoopAnimationsModule),
@@ -44,6 +38,7 @@ export const appConfig: ApplicationConfig = {
       },
       loader: TranslocoHttpLoader,
     }),
+    provideTranslocoMessageformat(),
     {
       provide: APP_INITIALIZER,
       useFactory: (translateService: TranslocoService) => {
