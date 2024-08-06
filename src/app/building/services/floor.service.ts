@@ -36,6 +36,13 @@ export class FloorService {
       );
   }
 
+  public create(data: UpinsertFloorModel) {
+    let floorInsert = this._supabaseService.supabase
+      .from(this._relation)
+      .insert(UpinsertFloorMapper.toEntity(data));
+    return from(floorInsert.throwOnError());
+  }
+
   public update(floorId: string, data: UpinsertFloorModel) {
     let floorUpdate = this._supabaseService.supabase
       .from(this._relation)

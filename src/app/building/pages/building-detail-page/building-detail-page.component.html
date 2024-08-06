@@ -18,9 +18,9 @@
   </section>
 
   <section id="building-floors">
-    @if (floors.length > 0) {
+    @if(buildingId) {
       <app-floors-list [floors]="floors"></app-floors-list>
     }
+    <app-button [label]="'building.addFloor' | transloco" [icon]="faPlus" (onClick)="onAddFloorClick()"></app-button>
   </section>
-  <app-button [label]="'building.addFloor' | transloco" [icon]="faPlus"></app-button>
 </div>

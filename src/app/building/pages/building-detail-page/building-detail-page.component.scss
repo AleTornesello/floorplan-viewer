@@ -14,4 +14,10 @@
       gap: 1rem;
     }
   }
+
+  #building-floors {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
 }

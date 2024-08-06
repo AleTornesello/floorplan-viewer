@@ -12,7 +12,7 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {PostgrestResponse, PostgrestSingleResponse} from "@supabase/supabase-js";
 import {FloorService} from "../../services/floor.service";
 import {combineLatestWith} from "rxjs";
-import {SelectFloorModel} from "../../models/floor.model";
+import {SelectFloorModel, UpinsertFloorModel} from "../../models/floor.model";
 import {FloorsListComponent} from "../../components/floors-list/floors-list.component";
 
 @Component({
@@ -35,8 +35,7 @@ export class BuildingDetailPageComponent implements OnInit {
   public readonly faSave = faSave;
   public buildingForm: FormGroup;
   public floors: SelectFloorModel[];
-
-  private _buildingId: string | null;
+  public buildingId: string | null;
 
   constructor(
     private _fb: FormBuilder,
@@ -47,7 +46,7 @@ export class BuildingDetailPageComponent implements OnInit {
   ) {
     this.buildingForm = this._buildForm();
     this.floors = [];
-    this._buildingId = null;
+    this.buildingId = null;
   }
 
   public ngOnInit() {
@@ -56,7 +55,7 @@ export class BuildingDetailPageComponent implements OnInit {
       .subscribe({
         next: (params) => {
           if (params['id']) {
-            this._buildingId = params['id'];
+            this.buildingId = params['id'];
             this._loadBuilding(params['id']);
           }
         }
@@ -103,13 +102,31 @@ export class BuildingDetailPageComponent implements OnInit {
       name
     );
 
-    if(this._buildingId) {
-      this._buildingService.update(this._buildingId, updateBuilding)
+    if(this.buildingId) {
+      this._buildingService.update(this.buildingId, updateBuilding)
         .pipe(takeUntilDestroyed(this._destroyRef))
         .subscribe();
       return;
     }
 
+    // TODO: create building
+  }
 
+  public onAddFloorClick() {
+
+    const lastGreaterOrder = this.floors.reduce((agg, floor) => Math.max(floor.order, agg), 0)
+    const newFloor = new UpinsertFloorModel(
+      null,
+      lastGreaterOrder + 1,
+      null,
+      this.buildingId!
+    );
+    this._floorService.create(newFloor)
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: () => {
+          this._loadBuilding(this.buildingId!);
+        }
+      });
   }
 }
