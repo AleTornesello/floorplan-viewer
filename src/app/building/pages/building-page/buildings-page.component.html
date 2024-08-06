@@ -5,7 +5,7 @@
       [items]="buildings"
       [hideSelection]="true"
       [totalItems]="totalBuildings"
-      (dblClick)="onRowDblClick($event)"
+      (dblClick)="goToDetail($event)"
     >
       <ng-template appTableCell="createdAt" let-item>
         {{ item.createdAt | dateFormat | avoidEmptyValue }}
@@ -14,7 +14,9 @@
         {{ item.updatedAt | dateFormat | avoidEmptyValue }}
       </ng-template>
       <ng-template appTableCell="actions" let-item>
-        <app-common-table-actions></app-common-table-actions>
+        <app-common-table-actions
+          (edit)="goToDetail(item)"
+        ></app-common-table-actions>
       </ng-template>
     </app-generic-table>
   </div>

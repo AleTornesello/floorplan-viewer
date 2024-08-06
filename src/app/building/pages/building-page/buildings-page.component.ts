@@ -12,6 +12,8 @@ import {PostgrestResponse} from "@supabase/supabase-js";
 import {
   CommonTableActionsComponent
 } from "../../../shared/components/table/common-table-actions/common-table-actions.component";
+import {Router} from "@angular/router";
+import {FpRoute} from "../../../app.routes";
 
 @Component({
   selector: 'app-building-page',
@@ -34,7 +36,8 @@ export class BuildingsPageComponent implements OnInit {
   constructor(
     private _buildingService: BuildingService,
     private _destroyRef: DestroyRef,
-    private _translocoService: TranslocoService
+    private _translocoService: TranslocoService,
+    private _router: Router
   ) {
     this.buildings = [];
     this.totalBuildings = 0;
@@ -84,7 +87,7 @@ export class BuildingsPageComponent implements OnInit {
     console.error(error);
   }
 
-  public onRowDblClick(item: SelectBuildingModel) {
-    console.log(item);
+  public goToDetail(item: SelectBuildingModel) {
+    this._router.navigate([FpRoute.ADMIN, FpRoute.BUILDINGS, item.id]);
   }
 }
