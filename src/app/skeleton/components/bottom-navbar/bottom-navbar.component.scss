@@ -18,11 +18,11 @@
       color: var(--black);
 
       &:hover {
-        color: var(--primary-500);
+        color: var(--primary-500, #206db5);
       }
 
       &.active {
-        color: var(--primary-500);
+        color: var(--primary-500, #206db5);
       }
     }
   }

@@ -89,10 +89,10 @@ export class LoginPageComponent {
       return;
     }
 
-    this._router.navigate([MsjRoute.LIBRARY]);
+    this._router.navigate([MsjRoute.ADMIN, MsjRoute.BUILDINGS]);
   }
 
   public get registrationPageLink() {
-    return `/${MsjRoute.REGISTER}`;
+    return `/${MsjRoute.ADMIN}/${MsjRoute.AUTH}/${MsjRoute.REGISTER}`;
   }
 }

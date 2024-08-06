@@ -1,5 +1,22 @@
-<div id="library-page">
-  <div id="categories-tabs-container">
+<div id="buildings-page">
+  <div id="buildings-list-container">
+    <app-generic-table
+      [columns]="columns"
+      [items]="buildings"
+      [hideSelection]="true"
+      [totalItems]="totalBuildings"
+      (dblClick)="onRowDblClick($event)"
+    >
+      <ng-template appTableCell="createdAt" let-item>
+        {{ item.createdAt | dateFormat | avoidEmptyValue }}
+      </ng-template>
+      <ng-template appTableCell="updatedAt" let-item>
+        {{ item.updatedAt | dateFormat | avoidEmptyValue }}
+      </ng-template>
+      <ng-template appTableCell="actions" let-item>
+        <app-common-table-actions></app-common-table-actions>
+      </ng-template>
+    </app-generic-table>
   </div>
 </div>
 

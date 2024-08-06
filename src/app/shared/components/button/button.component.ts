@@ -22,7 +22,7 @@ export class ButtonComponent {
   @Input() expand: boolean;
   @Input() buttonStyle?: ButtonStyle | ButtonStyle[];
 
-  @Output() click: EventEmitter<void>;
+  @Output() onClick: EventEmitter<MouseEvent>;
 
   constructor() {
     this.type = 'button';
@@ -30,11 +30,11 @@ export class ButtonComponent {
     this.disabled = false;
     this.expand = true;
 
-    this.click = new EventEmitter();
+    this.onClick = new EventEmitter();
   }
 
-  public onButtonClick() {
-    this.click.emit();
+  public onButtonClick(event: MouseEvent) {
+    this.onClick.emit(event);
   }
 
   public get isTextButton(): boolean {

@@ -10,7 +10,7 @@
     flex-direction: column;
 
     #welcome-message-container {
-      background-color: var(--primary-500);
+      background-color: var(--primary-500, #206db5);
       border-radius: var(--border-radius) var(--border-radius) 0 0;
       color: var(--primary-text-color);
       text-align: center;

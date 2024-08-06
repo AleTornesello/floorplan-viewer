@@ -48,7 +48,7 @@
               <app-button
                 [label]="newButtonLabel"
                 [icon]="faPlus"
-                (click)="emitAddEvent()"
+                (onClick)="emitAddEvent()"
               ></app-button>
             }
 
@@ -116,8 +116,8 @@
           }"
             [attr.aria-label]="col!.header"
           >
-            <div class="flex">
-              <div class="flex-grow-1">
+            <div class="table-header">
+              <div class="table-header__title">
                 {{ col!.header }}
               </div>
               @if (col!.sortable) {
@@ -131,7 +131,7 @@
 
     <ng-template pTemplate="body" let-item let-index="rowIndex">
       <tr
-        class="cursor-pointer"
+        class="table-row"
         [class]="getRowClass(item)"
         [pReorderableRow]="index"
         (click)="onRowClick($event, item)"

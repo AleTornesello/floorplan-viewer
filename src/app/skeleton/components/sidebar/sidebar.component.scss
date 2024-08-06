@@ -20,12 +20,12 @@
       color: var(--text-color);
 
       &:hover {
-        color: var(--primary-500);
+        color: var(--primary-500, #206db5);
         background-color: var(--white-opaque-500);
       }
 
       &.active {
-        color: var(--primary-500);
+        color: var(--primary-500, #206db5);
       }
     }
   }

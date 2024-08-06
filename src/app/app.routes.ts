@@ -7,19 +7,21 @@ import {BuildingsPageComponent} from "./building/pages/building-page/buildings-p
 import {DefaultLayoutComponent} from "./skeleton/components/default-layout/default-layout.component";
 
 export enum MsjRoute {
-  LIBRARY = '/',
+  ADMIN = 'admin',
+  BUILDINGS = 'buildings',
+  AUTH = 'auth',
   LOGIN = 'login',
   REGISTER = 'register',
   VERIFY_EMAIL = 'verify-email',
+
 }
 
 export const routes: Routes = [
   {
     path: '',
-    component: DefaultLayoutComponent,
     children: [
       {
-        path: 'admin',
+        path: MsjRoute.ADMIN,
         children: [
           {
             path: '',
@@ -27,7 +29,8 @@ export const routes: Routes = [
             pathMatch: 'full',
           },
           {
-            path: 'buildings',
+            path: MsjRoute.BUILDINGS,
+            component: DefaultLayoutComponent,
             children: [
               {
                 path: '',
@@ -36,7 +39,7 @@ export const routes: Routes = [
             ]
           },
           {
-            path: 'auth',
+            path: MsjRoute.AUTH,
             component: EmptyLayoutComponent,
             children: [
               {

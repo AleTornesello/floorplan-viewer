@@ -335,6 +335,10 @@ export class GenericTableComponent {
       }`;
     }
 
+    if(this.dblClick.observed) {
+      return `${rowClass ?? ''} clickable`
+    }
+
     return rowClass;
   }
 

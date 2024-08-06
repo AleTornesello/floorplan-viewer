@@ -1,9 +1,9 @@
 <p-overlayPanel #op appendTo="body">
-  <div class="overlay-panel-items flex flex-column gap-3 my-3" role="menu">
+  <div class="overlay-panel-items" role="menu">
     <ng-container *ngFor="let item of items; let index = index">
       <div
         *ngIf="isItemVisible(item)"
-        class="item flex gap-3 align-items-center cursor-pointer py-2 px-3"
+        class="item"
         [ngClass]="{ 'disabled': isItemDisabled(item) }"
         role="menuitem"
         [tabindex]="index"
@@ -22,7 +22,7 @@
             ></ng-container>
           </div>
         </div>
-        <div class="item__label cursor-pointer">
+        <div class="item__label">
           <span class="cursor-pointer">{{ item.label }}</span>
         </div>
       </div>

@@ -2,7 +2,7 @@
   [styleClass]="expand ? 'expand' : ''"
   [type]="type"
   [text]="isTextButton"
-  (onClick)="onButtonClick()"
+  (onClick)="onButtonClick($event)"
 >
   <div class="button-content">
     @if (icon) {

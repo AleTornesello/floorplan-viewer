@@ -33,7 +33,7 @@
           (ngModelChange)="onModelChange($event)"
         />
         @if (clear && !!value) {
-          <app-button class="clear-button" [icon]="faTimes" buttonStyle="text" (click)="clearValue()">
+          <app-button class="clear-button" [icon]="faTimes" buttonStyle="text" (onClick)="clearValue()">
           </app-button>
         }
       </div>

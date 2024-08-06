@@ -32,4 +32,17 @@
     align-items: center;
     padding-left: 1rem;
   }
+
+  .table-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .table-row {
+    &.clickable {
+      cursor: pointer;
+    }
+  }
 }

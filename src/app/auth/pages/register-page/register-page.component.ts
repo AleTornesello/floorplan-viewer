@@ -42,7 +42,6 @@ export class RegisterPageComponent {
     private _supabaseAuthService: SupabaseAuthService,
     private _translationService: TranslocoService,
     private _router: Router,
-    private _serializer: UrlSerializer
   ) {
     this.form = this._buildForm();
   }
@@ -61,7 +60,11 @@ export class RegisterPageComponent {
       const email = this.form.get('email')!.value;
       const password = this.form.get('password')!.value;
 
-      const response = await this._supabaseAuthService.signUp(email, password, `${location.origin}/${MsjRoute.VERIFY_EMAIL}`);
+      const response = await this._supabaseAuthService.signUp(
+        email,
+        password,
+        `${location.origin}/${MsjRoute.ADMIN}/${MsjRoute.AUTH}/${MsjRoute.VERIFY_EMAIL}`
+      );
 
       if (response.error) {
         this.registrationResultDialog.show("error", this._translationService.translate('auth.registrationKo'));

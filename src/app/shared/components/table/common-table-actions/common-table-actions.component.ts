@@ -19,13 +19,14 @@ import {
   MenuPanelComponent,
 } from '../../panel/menu-panel/menu-panel.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {ButtonComponent} from "../../button/button.component";
 
 @Component({
   selector: 'app-common-table-actions',
   templateUrl: './common-table-actions.component.html',
   styleUrls: ['./common-table-actions.component.scss'],
   standalone: true,
-  imports: [MenuPanelComponent, ButtonModule, CommonModule, FontAwesomeModule],
+  imports: [MenuPanelComponent, ButtonModule, CommonModule, FontAwesomeModule, ButtonComponent],
 })
 export class CommonTableActionsComponent implements OnInit {
   @ViewChild('menu') menu!: MenuPanelComponent;

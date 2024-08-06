@@ -43,7 +43,11 @@
       "results": "{count, plural, =0 {Nessun risultato} one {1 risultato} other {# risultati}}",
       "new": "Aggiungi",
       "noResultTitle": "Non ci sono risultati",
-      "noResultSubtitle": "Prova a cambiare i criteri di ricerca e riprova"
+      "noResultSubtitle": "Prova a cambiare i criteri di ricerca e riprovare",
+      "actions": {
+        "edit": "Modifica",
+        "delete": "Cancella"
+      }
     }
   },
   "auth": {
@@ -67,7 +71,10 @@
     }
   },
   "building": {
-    "building": "{count, plural, one {Immobile} other {Immobili}}"
+    "building": "{count, plural, one {Immobile} other {Immobili}}",
+    "name": "Nome",
+    "createdAt": "Data creazione",
+    "updatedAt": "Data ulima modifica"
   },
   "user": {
     "email": "Email",

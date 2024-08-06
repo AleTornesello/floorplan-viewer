@@ -25,6 +25,7 @@
     "@jsverse/transloco-messageformat": "^7.0.1",
     "@supabase/supabase-js": "^2.44.4",
     "animate.css": "^4.1.1",
+    "dayjs": "^1.11.12",
     "primeng": "^17.18.4",
     "qs": "^6.12.3",
     "rxjs": "~7.8.0",

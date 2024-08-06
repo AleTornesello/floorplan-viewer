@@ -42,7 +42,11 @@
       "results": "{count, plural, =0 {No results} one {1 element found} other {# elements found}}",
       "new": "New",
       "noResultTitle": "No results",
-      "noResultSubtitle": "Try changing the search criteria and try again"
+      "noResultSubtitle": "Try changing the search criteria and try again",
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      }
     }
   },
   "auth": {
@@ -66,7 +70,10 @@
     }
   },
   "building": {
-    "building": "{count, plural, one {Building} other {Buildings}}"
+    "building": "{count, plural, one {Building} other {Buildings}}",
+    "name": "Name",
+    "createdAt": "Created at",
+    "updatedAt": "Updated at"
   },
   "user": {
     "email": "Email",
