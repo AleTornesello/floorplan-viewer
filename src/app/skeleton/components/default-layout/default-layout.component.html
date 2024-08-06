@@ -1,16 +1,18 @@
-<app-topbar
-  id="topbar-container"
-  (toggleSidebar)="onToggleSidebar()"
-></app-topbar>
-<app-sidebar
-  [(visible)]="sidebarVisible"
-  [items]="navigationItems"
-  (visibleChange)="onSidebarVisibleChange($event)"
-></app-sidebar>
-<div class="container">
-  <router-outlet></router-outlet>
+<div class="default-layout-container">
+  <app-topbar
+    id="topbar-container"
+    (toggleSidebar)="onToggleSidebar()"
+  ></app-topbar>
+  <app-sidebar
+    [(visible)]="sidebarVisible"
+    [items]="navigationItems"
+    (visibleChange)="onSidebarVisibleChange($event)"
+  ></app-sidebar>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+  <app-bottom-navbar
+    id="bottom-navbar-container"
+    [items]="navigationItems"
+  ></app-bottom-navbar>
 </div>
-<app-bottom-navbar
-  id="bottom-navbar-container"
-  [items]="navigationItems"
-></app-bottom-navbar>
