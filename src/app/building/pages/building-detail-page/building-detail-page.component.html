@@ -1,0 +1,26 @@
+<div id="building-detail-page">
+  <section id="building-info-section">
+    <div class="building-info-container bg-glass">
+      <h1>{{ "building.info" | transloco }}</h1>
+      <div class="building-info-form">
+        <form [formGroup]="buildingForm">
+          <app-input-text
+            formControlName="name"
+            [label]="'building.name' | transloco"
+            [control]="buildingForm.get('name')!"
+            [errors]="buildingForm.get('name')!.errors"
+            [required]="true"
+          ></app-input-text>
+        </form>
+      </div>
+      <app-button [label]="'common.save' | transloco" [icon]="faSave" (onClick)="onSaveClick()"></app-button>
+    </div>
+  </section>
+
+  <section id="building-floors">
+    @if (floors.length > 0) {
+      <app-floors-list [floors]="floors"></app-floors-list>
+    }
+  </section>
+  <app-button [label]="'building.addFloor' | transloco" [icon]="faPlus"></app-button>
+</div>

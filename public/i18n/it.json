@@ -1,6 +1,8 @@
 {
   "common": {
     "ok": "OK, va bene",
+    "save": "Salva",
+    "delete": "Elimina",
     "validationErrors": {
       "alpha": "Il campo {{field}} può contenere solo caratteri alfabetici",
       "alphaNum": "Il campo {{field}} può contenere solo caratteri alfanumerici",
@@ -74,7 +76,13 @@
     "building": "{count, plural, one {Immobile} other {Immobili}}",
     "name": "Nome",
     "createdAt": "Data creazione",
-    "updatedAt": "Data ulima modifica"
+    "updatedAt": "Data ulima modifica",
+    "info": "Informazioni immobile",
+    "addFloor": "Aggiungi piano",
+    "floor": {
+      "name": "Nome",
+      "floorPlanImageUri": "URI planimetria"
+    }
   },
   "user": {
     "email": "Email",

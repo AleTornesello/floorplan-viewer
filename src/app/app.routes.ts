@@ -5,15 +5,16 @@ import {RegisterPageComponent} from './auth/pages/register-page/register-page.co
 import {VerifyEmailPageComponent} from "./auth/pages/verify-email-page/verify-email-page.component";
 import {BuildingsPageComponent} from "./building/pages/building-page/buildings-page.component";
 import {DefaultLayoutComponent} from "./skeleton/components/default-layout/default-layout.component";
+import {BuildingDetailPageComponent} from "./building/pages/building-detail-page/building-detail-page.component";
 
-export enum MsjRoute {
+export enum FpRoute {
   ADMIN = 'admin',
   BUILDINGS = 'buildings',
   AUTH = 'auth',
   LOGIN = 'login',
   REGISTER = 'register',
   VERIFY_EMAIL = 'verify-email',
-
+  NEW = 'new',
 }
 
 export const routes: Routes = [
@@ -21,7 +22,7 @@ export const routes: Routes = [
     path: '',
     children: [
       {
-        path: MsjRoute.ADMIN,
+        path: FpRoute.ADMIN,
         children: [
           {
             path: '',
@@ -29,29 +30,37 @@ export const routes: Routes = [
             pathMatch: 'full',
           },
           {
-            path: MsjRoute.BUILDINGS,
+            path: FpRoute.BUILDINGS,
             component: DefaultLayoutComponent,
             children: [
               {
                 path: '',
                 component: BuildingsPageComponent,
+              },
+              {
+                path: FpRoute.NEW,
+                component: BuildingDetailPageComponent,
+              },
+              {
+                path: ':id',
+                component: BuildingDetailPageComponent,
               }
             ]
           },
           {
-            path: MsjRoute.AUTH,
+            path: FpRoute.AUTH,
             component: EmptyLayoutComponent,
             children: [
               {
-                path: MsjRoute.LOGIN,
+                path: FpRoute.LOGIN,
                 component: LoginPageComponent,
               },
               {
-                path: MsjRoute.REGISTER,
+                path: FpRoute.REGISTER,
                 component: RegisterPageComponent,
               },
               {
-                path: MsjRoute.VERIFY_EMAIL,
+                path: FpRoute.VERIFY_EMAIL,
                 component: VerifyEmailPageComponent,
               },
             ],

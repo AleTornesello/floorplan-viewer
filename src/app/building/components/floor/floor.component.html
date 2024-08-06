@@ -1,0 +1,31 @@
+<div class="floor-detail-container bg-glass">
+  <form [formGroup]="floorForm">
+    <div class="floor-detail-form">
+      <app-input-text
+        formControlName="name"
+        [label]="'building.floor.name' | transloco"
+        [control]="floorForm.get('name')!"
+        [errors]="floorForm.get('name')!.errors"
+        [required]="true"
+      ></app-input-text>
+      <app-input-text
+        formControlName="floorPlanImageUri"
+        [label]="'building.floor.floorPlanImageUri' | transloco"
+        [control]="floorForm.get('floorPlanImageUri')!"
+        [errors]="floorForm.get('floorPlanImageUri')!.errors"
+        [required]="true"
+        (onChangeValue)="onFloorPlanImageUriChange()"
+      ></app-input-text>
+    </div>
+  </form>
+  <div class="floor-editor-container">
+    <div class="floor-plan-image-container">
+      <img [src]="floorForm.get('floorPlanImageUri')!.value" alt=""/>
+    </div>
+    <div class="floor-marker-settings"></div>
+  </div>
+  <div class="floor-actions">
+    <app-button [label]="'common.delete' | transloco" [icon]="faTrash" color="danger"></app-button>
+    <app-button [label]="'common.save' | transloco" [icon]="faSave" (onClick)="onSaveClick()"></app-button>
+  </div>
+</div>

@@ -5,6 +5,7 @@ import {IconDefinition} from '@fortawesome/fontawesome-svg-core';
 import {Button} from 'primeng/button';
 
 type ButtonStyle = 'text';
+type ButtonColor = 'success' | 'info' | 'warning' | 'danger' | 'primary' | 'secondary';
 
 @Component({
   selector: 'app-button',
@@ -21,6 +22,7 @@ export class ButtonComponent {
   @Input() disabled: boolean;
   @Input() expand: boolean;
   @Input() buttonStyle?: ButtonStyle | ButtonStyle[];
+  @Input() color?: ButtonColor;
 
   @Output() onClick: EventEmitter<MouseEvent>;
 

@@ -1,8 +1,8 @@
-import {SelectBuildingEntity} from "../entities/building.entity";
-import {SelectBuildingModel} from "../models/building.model";
+import {SelectBuildingEntity, UpinsertBuildingEntity} from "../entities/building.entity";
+import {SelectBuildingModel, UpinsertBuildingModel} from "../models/building.model";
 import dayjs from "dayjs";
 
-export class BuildingMapper {
+export class SelectBuildingMapper {
   public static toModel(entity: SelectBuildingEntity) {
     return new SelectBuildingModel(
       entity.id,
@@ -22,6 +22,20 @@ export class BuildingMapper {
       model.createdBy,
       model.updatedAt ? model.updatedAt.toISOString() : null,
       model.updatedBy
+    )
+  }
+}
+
+export class UpinsertBuildingMapper {
+  public static toModel(entity: SelectBuildingEntity) {
+    return new UpinsertBuildingModel(
+      entity.name
+    )
+  }
+
+  public static toEntity(model: UpinsertBuildingModel) {
+    return new UpinsertBuildingEntity(
+      model.name,
     )
   }
 }

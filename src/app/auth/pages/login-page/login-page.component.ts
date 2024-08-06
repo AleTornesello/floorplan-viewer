@@ -4,7 +4,7 @@ import {TranslocoPipe, TranslocoService} from '@jsverse/transloco';
 import {CardModule} from 'primeng/card';
 import {ButtonComponent} from '../../../shared/components/button/button.component';
 import {Router, RouterModule} from '@angular/router';
-import {MsjRoute} from '../../../app.routes';
+import {FpRoute} from '../../../app.routes';
 import {InputPasswordComponent} from "../../../shared/components/inputs/input-password/input-password.component";
 import {InputTextComponent} from "../../../shared/components/inputs/input-text/input-text.component";
 import {SupabaseAuthService} from "../../services/supabase-auth.service";
@@ -89,10 +89,10 @@ export class LoginPageComponent {
       return;
     }
 
-    this._router.navigate([MsjRoute.ADMIN, MsjRoute.BUILDINGS]);
+    this._router.navigate([FpRoute.ADMIN, FpRoute.BUILDINGS]);
   }
 
   public get registrationPageLink() {
-    return `/${MsjRoute.ADMIN}/${MsjRoute.AUTH}/${MsjRoute.REGISTER}`;
+    return `/${FpRoute.ADMIN}/${FpRoute.AUTH}/${FpRoute.REGISTER}`;
   }
 }

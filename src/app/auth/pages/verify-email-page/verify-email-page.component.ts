@@ -6,7 +6,7 @@ import { StringManipulationService } from "../../../shared/services/string-manip
 import {
   ResultMessageDialogComponent
 } from "../../../shared/components/dialog/result-message-dialog/result-message-dialog.component";
-import { MsjRoute } from "../../../app.routes";
+import { FpRoute } from "../../../app.routes";
 import { TranslocoService } from "@jsverse/transloco";
 
 @Component({
@@ -57,6 +57,6 @@ export class VerifyEmailPageComponent implements AfterViewInit {
   }
 
   public onVerifyResultDialogClose() {
-    this._router.navigate([MsjRoute.LOGIN]);
+    this._router.navigate([FpRoute.LOGIN]);
   }
 }

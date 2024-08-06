@@ -4,7 +4,7 @@ import {TranslocoModule, TranslocoPipe, TranslocoService} from '@jsverse/translo
 import {CardModule} from 'primeng/card';
 import {ButtonComponent} from '../../../shared/components/button/button.component';
 import {Router, RouterModule, UrlSerializer} from '@angular/router';
-import {MsjRoute} from '../../../app.routes';
+import {FpRoute} from '../../../app.routes';
 import {SupabaseAuthService} from '../../services/supabase-auth.service';
 import {InputTextComponent} from "../../../shared/components/inputs/input-text/input-text.component";
 import {InputPasswordComponent} from "../../../shared/components/inputs/input-password/input-password.component";
@@ -47,7 +47,7 @@ export class RegisterPageComponent {
   }
 
   public get registrationPageLink() {
-    return `/${MsjRoute.LOGIN}`;
+    return `/${FpRoute.LOGIN}`;
   }
 
   public async onFormSubmit() {
@@ -63,7 +63,7 @@ export class RegisterPageComponent {
       const response = await this._supabaseAuthService.signUp(
         email,
         password,
-        `${location.origin}/${MsjRoute.ADMIN}/${MsjRoute.AUTH}/${MsjRoute.VERIFY_EMAIL}`
+        `${location.origin}/${FpRoute.ADMIN}/${FpRoute.AUTH}/${FpRoute.VERIFY_EMAIL}`
       );
 
       if (response.error) {
@@ -86,6 +86,6 @@ export class RegisterPageComponent {
   }
 
   public onRegistrationResultDialogClose() {
-    this._router.navigate([MsjRoute.LOGIN]);
+    this._router.navigate([FpRoute.LOGIN]);
   }
 }

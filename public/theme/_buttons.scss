@@ -21,6 +21,11 @@
     }
   }
 
+  &.p-button-danger {
+    background: var(--error, #f44336);
+    border: 1px solid var(--error, #f44336);
+  }
+
   &.expand {
     width: 100%;
   }

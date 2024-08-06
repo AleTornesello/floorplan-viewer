@@ -1,6 +1,8 @@
 {
   "common": {
     "ok": "OK",
+    "save": "Save",
+    "delete": "Delete",
     "validationErrors": {
       "alpha": "The {{field}} field can only contain alphabetic characters",
       "alphaNum": "The {{field}} field can only contain alphanumeric characters",
@@ -73,7 +75,13 @@
     "building": "{count, plural, one {Building} other {Buildings}}",
     "name": "Name",
     "createdAt": "Created at",
-    "updatedAt": "Updated at"
+    "updatedAt": "Updated at",
+    "info": "Building information",
+    "addFloor": "Add floor",
+    "floor": {
+      "name": "Name",
+      "floorPlanImageUri": "Floor plan URI"
+    }
   },
   "user": {
     "email": "Email",

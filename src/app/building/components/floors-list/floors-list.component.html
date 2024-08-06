@@ -1,0 +1,7 @@
+<div id="floors-list-container">
+  @for (floor of floors; track floor.id) {
+    <app-floor
+      [floor]="floor"
+    ></app-floor>
+  }
+</div>
