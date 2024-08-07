@@ -25,8 +25,8 @@
         @for (marker of existingMarkers; track marker.id) {
           <div
             class="marker"
-            [style.left]="marker.xPercentage + '%'"
-            [style.top]="marker.yPercentage + '%'"
+            [style.left]="'calc(' + marker.xPercentage + '% - 1.5rem)'"
+            [style.top]="'calc(' + marker.yPercentage + '% - 1.5rem)'"
             [style.transform]="'rotate(' + marker.angle + 'deg)'"
           >
             <div class="marker-bg">

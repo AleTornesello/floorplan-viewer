@@ -32,6 +32,7 @@ export class FloorComponent implements OnInit {
   public existingMarkers: SelectMarkerModel[];
   protected readonly faSave = faSave;
   protected readonly faTrash = faTrash;
+  protected readonly faCamera = faCamera;
 
   private _markersIdToUpdate: string[];
 
@@ -114,8 +115,6 @@ export class FloorComponent implements OnInit {
   }
 
   public onImageClick(event: MouseEvent) {
-    event.preventDefault();
-
     const x = Math.max(0, event.offsetX);
     const y = Math.max(0, event.offsetY);
     const targetWith = (event.target as HTMLElement).offsetWidth;
@@ -156,6 +155,4 @@ export class FloorComponent implements OnInit {
   private _onMarkerCreateError() {
     // TODO: Show error message
   }
-
-  protected readonly faCamera = faCamera;
 }
