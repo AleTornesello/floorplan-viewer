@@ -2,8 +2,8 @@
   <section id="building-info-section">
     <div class="building-info-container bg-glass">
       <h1>{{ "building.info" | transloco }}</h1>
-      <div class="building-info-form">
-        <form [formGroup]="buildingForm">
+      <form [formGroup]="buildingForm">
+        <div class="building-info-form">
           <app-input-text
             formControlName="name"
             [label]="'building.name' | transloco"
@@ -11,14 +11,27 @@
             [errors]="buildingForm.get('name')!.errors"
             [required]="true"
           ></app-input-text>
-        </form>
-      </div>
+          @if (!isNewBuilding) {
+            <div class="building-uri-container">
+              <app-input-text
+                [label]="'building.uri' | transloco"
+                [readonly]="true"
+                [value]="buildingUri ?? ''"
+              >
+                <div right>
+                  <app-button [label]="'common.copy' | transloco" [icon]="faCopy" (onClick)="onCopyUriClick()"></app-button>
+                </div>
+              </app-input-text>
+            </div>
+          }
+        </div>
+      </form>
       <app-button [label]="'common.save' | transloco" [icon]="faSave" (onClick)="onSaveClick()"></app-button>
     </div>
   </section>
 
   <section id="building-floors">
-    @if(buildingId) {
+    @if (buildingId) {
       <app-floors-list [floors]="floors"></app-floors-list>
     }
     <app-button [label]="'building.addFloor' | transloco" [icon]="faPlus" (onClick)="onAddFloorClick()"></app-button>

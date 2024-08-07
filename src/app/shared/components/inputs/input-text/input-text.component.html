@@ -10,7 +10,7 @@
     </div>
 
     <div *ngIf="!textMode">
-      <div>
+      <div class="input-container">
         <ng-content select="[left]"></ng-content>
         <input
           [type]="type"
@@ -27,7 +27,6 @@
           [max]="max"
           [min]="min"
           [ngClass]="getInputClasses()"
-          clea
           (input)="onInputChange($event)"
           (blur)="onTouched()"
           (ngModelChange)="onModelChange($event)"
@@ -36,6 +35,7 @@
           <app-button class="clear-button" [icon]="faTimes" buttonStyle="text" (onClick)="clearValue()">
           </app-button>
         }
+        <ng-content select="[right]"></ng-content>
       </div>
     </div>
   </div>

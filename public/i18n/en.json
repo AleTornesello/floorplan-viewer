@@ -3,6 +3,7 @@
     "ok": "OK",
     "save": "Save",
     "delete": "Delete",
+    "copy": "Copy",
     "validationErrors": {
       "alpha": "The {{field}} field can only contain alphabetic characters",
       "alphaNum": "The {{field}} field can only contain alphanumeric characters",

@@ -1,4 +1,10 @@
 .input-text-container {
+
+  .input-container{
+    display: flex;
+    gap: 1rem;
+  }
+
   &.clearable {
     position: relative;
 

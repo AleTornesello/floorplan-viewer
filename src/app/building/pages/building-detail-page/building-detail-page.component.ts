@@ -2,7 +2,7 @@ import {Component, DestroyRef, OnInit} from '@angular/core';
 import {TranslocoPipe} from "@jsverse/transloco";
 import {ToolbarModule} from "primeng/toolbar";
 import {ButtonComponent} from "../../../shared/components/button/button.component";
-import {faPlus, faSave} from '@fortawesome/free-solid-svg-icons';
+import {faCopy, faPlus, faSave} from '@fortawesome/free-solid-svg-icons';
 import {InputTextComponent} from "../../../shared/components/inputs/input-text/input-text.component";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {SelectBuildingModel, UpinsertBuildingModel} from "../../models/building.model";
@@ -31,11 +31,13 @@ import {FloorsListComponent} from "../../components/floors-list/floors-list.comp
 })
 export class BuildingDetailPageComponent implements OnInit {
 
-  public readonly faPlus = faPlus;
-  public readonly faSave = faSave;
+  protected readonly faPlus = faPlus;
+  protected readonly faSave = faSave;
+  protected readonly faCopy = faCopy;
   public buildingForm: FormGroup;
   public floors: SelectFloorModel[];
   public buildingId: string | null;
+  public buildingUri: string | null;
 
   constructor(
     private _fb: FormBuilder,
@@ -47,6 +49,7 @@ export class BuildingDetailPageComponent implements OnInit {
     this.buildingForm = this._buildForm();
     this.floors = [];
     this.buildingId = null;
+    this.buildingUri = null;
   }
 
   public ngOnInit() {
@@ -56,6 +59,7 @@ export class BuildingDetailPageComponent implements OnInit {
         next: (params) => {
           if (params['id']) {
             this.buildingId = params['id'];
+            this.buildingUri = `${location.origin}/${this.buildingId}`
             this._loadBuilding(params['id']);
           }
         }
@@ -128,5 +132,13 @@ export class BuildingDetailPageComponent implements OnInit {
           this._loadBuilding(this.buildingId!);
         }
       });
+  }
+
+  public onCopyUriClick() {
+    navigator.clipboard.writeText(this.buildingUri!);
+  }
+
+  public get isNewBuilding() {
+    return !this.buildingId;
   }
 }
