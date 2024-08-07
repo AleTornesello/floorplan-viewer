@@ -82,7 +82,8 @@
     "floor": {
       "name": "Name",
       "floorPlanImageUri": "Floor plan URI"
-    }
+    },
+    "uri": "Building URI"
   },
   "user": {
     "email": "Email",

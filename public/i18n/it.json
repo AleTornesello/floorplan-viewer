@@ -83,7 +83,8 @@
     "floor": {
       "name": "Nome",
       "floorPlanImageUri": "URI planimetria"
-    }
+    },
+    "uri": "URI immobile"
   },
   "user": {
     "email": "Email",
