@@ -20,7 +20,22 @@
   </form>
   <div class="floor-editor-container">
     <div class="floor-plan-image-container">
-      <img [src]="floorForm.get('floorPlanImageUri')!.value" alt=""/>
+      <img [src]="floorForm.get('floorPlanImageUri')!.value" alt="" (click)="onImageClick($event)"/>
+      <div class="markers-overlay">
+        @for (marker of existingMarkers; track marker.id) {
+          <div
+            class="marker"
+            [style.left]="marker.xPercentage + '%'"
+            [style.top]="marker.yPercentage + '%'"
+            [style.transform]="'rotate(' + marker.angle + 'deg)'"
+          >
+            <div class="marker-bg">
+              <fa-icon [style.transform]="'rotate(' + (360 - marker.angle) + 'deg)'" [icon]="faCamera"></fa-icon>
+            </div>
+
+          </div>
+        }
+      </div>
     </div>
     <div class="floor-marker-settings"></div>
   </div>
