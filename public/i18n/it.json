@@ -84,7 +84,11 @@
       "name": "Nome",
       "floorPlanImageUri": "URI planimetria"
     },
-    "uri": "URI immobile"
+    "uri": "URI immobile",
+    "marker": {
+      "angle": "Angolo",
+      "imageUri": "URI immagine"
+    }
   },
   "user": {
     "email": "Email",

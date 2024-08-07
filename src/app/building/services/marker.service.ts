@@ -3,10 +3,6 @@ import {SupabaseService} from "../../shared/services/supabase.service";
 import {from, map} from "rxjs";
 import {PostgrestResponse} from "@supabase/supabase-js";
 import {PostgrestResponseParserService} from "../../shared/services/postgrest-response-parser.service";
-import {SelectFloorEntity} from "../entities/floor.entity";
-import {SelectFloorModel, UpinsertFloorModel} from "../models/floor.model";
-import {SelectFloorMapper, UpinsertFloorMapper} from "../mappers/floor.mapper";
-import {UpinsertBuildingMapper} from "../mappers/building.mapper";
 import {SelectMarkerModel, UpinsertMarkerModel} from "../models/marker.model";
 import {SelectMarkerEntity} from "../entities/marker.entity";
 import {SelectMarkerMapper, UpinsertMarkerMapper} from "../mappers/marker.mapper";
@@ -44,5 +40,14 @@ export class MarkerService {
       .from(this._relation)
       .insert(UpinsertMarkerMapper.toEntity(data));
     return from(markerInsert.throwOnError());
+  }
+
+
+  public update(markerId: string, data: UpinsertMarkerModel) {
+    let markerUpdate = this._supabaseService.supabase
+      .from(this._relation)
+      .update(UpinsertMarkerMapper.toEntity(data))
+      .eq("id", markerId);
+    return from(markerUpdate.throwOnError());
   }
 }

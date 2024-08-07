@@ -28,6 +28,7 @@
             [style.left]="'calc(' + marker.xPercentage + '% - 1.5rem)'"
             [style.top]="'calc(' + marker.yPercentage + '% - 1.5rem)'"
             [style.transform]="'rotate(' + marker.angle + 'deg)'"
+            (click)="onMarkerClick($event, marker)"
           >
             <div class="marker-bg">
               <fa-icon [style.transform]="'rotate(' + (360 - marker.angle) + 'deg)'" [icon]="faCamera"></fa-icon>
@@ -37,7 +38,22 @@
         }
       </div>
     </div>
-    <div class="floor-marker-settings"></div>
+    <div class="floor-marker-settings">
+      @if (selectedMarker) {
+        <app-input-slider
+          [label]="'building.marker.angle' | transloco"
+          [(ngModel)]="selectedMarker!.angle"
+          [min]="0"
+          [max]="360"
+          (onSlideEnd)="onMarkerAngleSlideEnd()"
+        ></app-input-slider>
+        <app-input-text
+          [(ngModel)]="selectedMarker!.imageUri"
+          [label]="'building.marker.imageUri' | transloco"
+          (onChangeValue)="onMarkerImageUriChanged()"
+        ></app-input-text>
+      }
+    </div>
   </div>
   <div class="floor-actions">
     <app-button [label]="'common.delete' | transloco" [icon]="faTrash" color="danger"></app-button>

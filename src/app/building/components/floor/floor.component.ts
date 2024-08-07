@@ -3,7 +3,7 @@ import {SelectFloorModel, UpinsertFloorModel} from "../../models/floor.model";
 import {faCamera, faSave, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {ButtonComponent} from "../../../shared/components/button/button.component";
 import {InputTextComponent} from "../../../shared/components/inputs/input-text/input-text.component";
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {TranslocoPipe} from "@jsverse/transloco";
 import {FloorService} from "../../services/floor.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
@@ -11,6 +11,9 @@ import {SelectMarkerModel, UpinsertMarkerModel} from "../../models/marker.model"
 import {MarkerService} from "../../services/marker.service";
 import {PostgrestResponse} from "@supabase/supabase-js";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import {SliderModule} from "primeng/slider";
+import {InputWrapperComponent} from "../../../shared/components/inputs/input-wrapper/input-wrapper.component";
+import {InputSliderComponent} from "../../../shared/components/inputs/input-slider/input-slider.component";
 
 @Component({
   selector: 'app-floor',
@@ -21,6 +24,10 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
     ReactiveFormsModule,
     TranslocoPipe,
     FaIconComponent,
+    SliderModule,
+    FormsModule,
+    InputWrapperComponent,
+    InputSliderComponent,
   ],
   templateUrl: './floor.component.html',
   styleUrl: './floor.component.scss'
@@ -33,8 +40,9 @@ export class FloorComponent implements OnInit {
   protected readonly faSave = faSave;
   protected readonly faTrash = faTrash;
   protected readonly faCamera = faCamera;
+  public selectedMarker: SelectMarkerModel | null;
 
-  private _markersIdToUpdate: string[];
+  private _markersIdToUpdate: Set<string>;
 
   constructor(
     private _fb: FormBuilder,
@@ -44,7 +52,8 @@ export class FloorComponent implements OnInit {
   ) {
     this.floorForm = this._buildForm();
     this.existingMarkers = [];
-    this._markersIdToUpdate = [];
+    this._markersIdToUpdate = new Set();
+    this.selectedMarker = null;
   }
 
   public ngOnInit() {
@@ -84,7 +93,7 @@ export class FloorComponent implements OnInit {
   public onSaveClick() {
     this.floorForm.markAllAsTouched();
 
-    if(this.floorForm.invalid) {
+    if (this.floorForm.invalid) {
       return;
     }
 
@@ -153,6 +162,46 @@ export class FloorComponent implements OnInit {
   }
 
   private _onMarkerCreateError() {
+    // TODO: Show error message
+  }
+
+  public onMarkerClick(event: MouseEvent, marker: SelectMarkerModel) {
+    event.stopPropagation();
+    this.selectedMarker = marker;
+  }
+
+  public onMarkerImageUriChanged() {
+    this._saveSelectedMarker();
+  }
+
+  public onMarkerAngleSlideEnd() {
+    this._saveSelectedMarker();
+  }
+
+  private _saveSelectedMarker() {
+    if (!this.selectedMarker) {
+      return;
+    }
+
+    const newMarker = new UpinsertMarkerModel(
+      this.selectedMarker.xPercentage,
+      this.selectedMarker.yPercentage,
+      this.selectedMarker.angle,
+      this.selectedMarker.imageUri,
+      this.selectedMarker.floorId
+    )
+    this._markerService.update(this.selectedMarker.id, newMarker)
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: this._onMarkerUpdateSuccess.bind(this),
+        error: this._onMarkerUpdateError.bind(this)
+      });
+  }
+
+  private _onMarkerUpdateSuccess() {
+  }
+
+  private _onMarkerUpdateError() {
     // TODO: Show error message
   }
 }

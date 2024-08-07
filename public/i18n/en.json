@@ -83,7 +83,11 @@
       "name": "Name",
       "floorPlanImageUri": "Floor plan URI"
     },
-    "uri": "Building URI"
+    "uri": "Building URI",
+    "marker": {
+      "angle": "Angle",
+      "imageUri": "Image URI"
+    }
   },
   "user": {
     "email": "Email",
