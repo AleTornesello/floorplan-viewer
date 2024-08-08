@@ -6,6 +6,7 @@
       [hideSelection]="true"
       [totalItems]="totalBuildings"
       (dblClick)="goToDetail($event)"
+      (add)="onAddBuildingClick()"
     >
       <ng-template appTableCell="createdAt" let-item>
         {{ item.createdAt | dateFormat | avoidEmptyValue }}

@@ -9,7 +9,6 @@
             [label]="'building.name' | transloco"
             [control]="buildingForm.get('name')!"
             [errors]="buildingForm.get('name')!.errors"
-            [required]="true"
           ></app-input-text>
           @if (!isNewBuilding) {
             <div class="building-uri-container">
@@ -19,7 +18,8 @@
                 [value]="buildingUri ?? ''"
               >
                 <div right>
-                  <app-button [label]="'common.copy' | transloco" [icon]="faCopy" (onClick)="onCopyUriClick()"></app-button>
+                  <app-button [label]="'common.copy' | transloco" [icon]="faCopy"
+                              (onClick)="onCopyUriClick()"></app-button>
                 </div>
               </app-input-text>
             </div>
@@ -34,6 +34,8 @@
     @if (buildingId) {
       <app-floors-list [floors]="floors" (deleted)="onFloorDeleted()"></app-floors-list>
     }
-    <app-button [label]="'building.addFloor' | transloco" [icon]="faPlus" (onClick)="onAddFloorClick()"></app-button>
+    @if (!isNewBuilding) {
+      <app-button [label]="'building.addFloor' | transloco" [icon]="faPlus" (onClick)="onAddFloorClick()"></app-button>
+    }
   </section>
 </div>

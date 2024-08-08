@@ -110,7 +110,7 @@ export class InputTextComponent implements ControlValueAccessor {
 
   public onModelChange(value: string) {
     this.value = value;
-    this.onChangeValue.emit(value);
+    // this.onChangeValue.emit(value);
   }
 
   public get isOnError(): boolean {

@@ -49,6 +49,18 @@ export class BuildingService {
       );
   }
 
+  public create(data: UpinsertBuildingModel) {
+    let buildingInsert = this._supabaseService.supabase
+      .from(this._relation)
+      .insert(UpinsertBuildingMapper.toEntity(data));
+    return from(buildingInsert.returns().select().single().throwOnError())
+      .pipe(
+        map<PostgrestSingleResponse<SelectBuildingEntity>, PostgrestSingleResponse<SelectBuildingModel>>((response) => {
+          return this._postgrestResponseParserService.parseSingle<SelectBuildingEntity, SelectBuildingModel>(response, SelectBuildingMapper.toModel);
+        })
+      );
+  }
+
   public update(buildingId: string, data: UpinsertBuildingModel) {
     let buildingUpdate = this._supabaseService.supabase
       .from(this._relation)

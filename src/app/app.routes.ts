@@ -6,6 +6,8 @@ import {VerifyEmailPageComponent} from "./auth/pages/verify-email-page/verify-em
 import {BuildingsPageComponent} from "./building/pages/building-page/buildings-page.component";
 import {DefaultLayoutComponent} from "./skeleton/components/default-layout/default-layout.component";
 import {BuildingDetailPageComponent} from "./building/pages/building-detail-page/building-detail-page.component";
+import {PublicLayoutComponent} from "./skeleton/components/public-layout/public-layout.component";
+import {PublicFloorPlanPageComponent} from "./building/pages/public-floor-plan-page/public-floor-plan-page.component";
 
 export enum FpRoute {
   ADMIN = 'admin',
@@ -67,6 +69,16 @@ export const routes: Routes = [
           },
         ]
       },
+      {
+        path: ':id',
+        component: PublicLayoutComponent,
+        children: [
+          {
+            path: '',
+            component: PublicFloorPlanPageComponent,
+          },
+        ]
+      }
     ]
   },
 

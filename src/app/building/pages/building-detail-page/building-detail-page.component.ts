@@ -6,7 +6,7 @@ import {faCopy, faPlus, faSave} from '@fortawesome/free-solid-svg-icons';
 import {InputTextComponent} from "../../../shared/components/inputs/input-text/input-text.component";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {SelectBuildingModel, UpinsertBuildingModel} from "../../models/building.model";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {BuildingService} from "../../services/building.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {PostgrestResponse, PostgrestSingleResponse} from "@supabase/supabase-js";
@@ -14,6 +14,7 @@ import {FloorService} from "../../services/floor.service";
 import {combineLatestWith} from "rxjs";
 import {SelectFloorModel, UpinsertFloorModel} from "../../models/floor.model";
 import {FloorsListComponent} from "../../components/floors-list/floors-list.component";
+import {FpRoute} from "../../../app.routes";
 
 @Component({
   selector: 'app-building-detail-page',
@@ -44,7 +45,8 @@ export class BuildingDetailPageComponent implements OnInit {
     private _route: ActivatedRoute,
     private _buildingService: BuildingService,
     private _destroyRef: DestroyRef,
-    private _floorService: FloorService
+    private _floorService: FloorService,
+    private _router: Router
   ) {
     this.buildingForm = this._buildForm();
     this.floors = [];
@@ -73,7 +75,8 @@ export class BuildingDetailPageComponent implements OnInit {
         combineLatestWith(this._floorService.getAllByBuildingId(buildingId))
       )
       .subscribe({
-        next: this._onLoadBuildingSuccess.bind(this)
+        next: this._onLoadBuildingSuccess.bind(this),
+        error: this._onLoadBuildingError.bind(this)
       })
   }
 
@@ -88,9 +91,13 @@ export class BuildingDetailPageComponent implements OnInit {
     this.floors = floorsResponse.data;
   }
 
+  private _onLoadBuildingError() {
+    // TODO: show error message
+  }
+
   private _buildForm(building?: SelectBuildingModel) {
     return this._fb.group({
-      name: this._fb.control(building?.name ?? null, [Validators.required])
+      name: this._fb.control(building?.name ?? null)
     })
   }
 
@@ -102,22 +109,47 @@ export class BuildingDetailPageComponent implements OnInit {
     }
 
     const name = this.buildingForm.get('name')!.value;
-    const updateBuilding= new UpinsertBuildingModel(
+    const upinsertBuilding= new UpinsertBuildingModel(
       name
     );
 
     if(this.buildingId) {
-      this._buildingService.update(this.buildingId, updateBuilding)
+      this._buildingService.update(this.buildingId, upinsertBuilding)
         .pipe(takeUntilDestroyed(this._destroyRef))
-        .subscribe();
+        .subscribe({
+          next: this._onUpdateBuildingSuccess.bind(this),
+          error: this._onUpdateBuildingError.bind(this)
+        });
       return;
     }
 
-    // TODO: create building
+    this._buildingService.create(upinsertBuilding)
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: this._onCreateBuildingSuccess.bind(this),
+        error: this._onCreateBuildingError.bind(this)
+      });
+  }
+
+  private _onUpdateBuildingSuccess() {
+    // TODO: show success message
+  }
+
+  private _onUpdateBuildingError() {
+    // TODO: show error message
+  }
+
+  private _onCreateBuildingSuccess(response: PostgrestSingleResponse<SelectBuildingModel>) {
+    // TODO: show success message
+    debugger
+    this._router.navigate([FpRoute.ADMIN, FpRoute.BUILDINGS, response.data!.id]);
+  }
+
+  private _onCreateBuildingError() {
+    // TODO: show error message
   }
 
   public onAddFloorClick() {
-
     const lastGreaterOrder = this.floors.reduce((agg, floor) => Math.max(floor.order, agg), 0)
     const newFloor = new UpinsertFloorModel(
       null,

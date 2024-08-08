@@ -90,4 +90,8 @@ export class BuildingsPageComponent implements OnInit {
   public goToDetail(item: SelectBuildingModel) {
     this._router.navigate([FpRoute.ADMIN, FpRoute.BUILDINGS, item.id]);
   }
+
+  public onAddBuildingClick() {
+    this._router.navigate([FpRoute.ADMIN, FpRoute.BUILDINGS, FpRoute.NEW]);
+  }
 }
