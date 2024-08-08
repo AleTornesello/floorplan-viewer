@@ -4,6 +4,8 @@
     "save": "Salva",
     "delete": "Elimina",
     "copy": "Copia",
+    "warning": "Attenzione",
+    "cancel": "Annulla",
     "validationErrors": {
       "alpha": "Il campo {{field}} può contenere solo caratteri alfabetici",
       "alphaNum": "Il campo {{field}} può contenere solo caratteri alfanumerici",
@@ -82,13 +84,16 @@
     "addFloor": "Aggiungi piano",
     "floor": {
       "name": "Nome",
-      "floorPlanImageUri": "URI planimetria"
+      "floorPlanImageUri": "URI planimetria",
+      "deleteConfirm": "Sei sicuro/a di voler eliminare questo piano?",
+      "marker": {
+        "angle": "Angolo",
+        "imageUri": "URI immagine",
+        "detail": "Dettaglio marker",
+        "deleteConfirm": "Sei sicuro/a di voler eliminare questo marker?"
+      }
     },
-    "uri": "URI immobile",
-    "marker": {
-      "angle": "Angolo",
-      "imageUri": "URI immagine"
-    }
+    "uri": "URI immobile"
   },
   "user": {
     "email": "Email",

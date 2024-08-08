@@ -2,6 +2,7 @@
   @for (floor of floors; track floor.id) {
     <app-floor
       [floor]="floor"
+      (deleted)="onFloorDeleted()"
     ></app-floor>
   }
 </div>

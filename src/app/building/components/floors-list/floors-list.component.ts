@@ -1,4 +1,4 @@
-import {Component, DestroyRef, Input} from '@angular/core';
+import {Component, DestroyRef, EventEmitter, Input, Output} from '@angular/core';
 import {SelectFloorModel, UpinsertFloorModel} from "../../models/floor.model";
 import {FloorComponent} from "../floor/floor.component";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
@@ -21,8 +21,15 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 export class FloorsListComponent {
   @Input({required: true}) floors: SelectFloorModel[];
 
+  @Output() deleted: EventEmitter<void>;
+
   constructor(
   ) {
     this.floors = [];
+    this.deleted = new EventEmitter();
+  }
+
+  public onFloorDeleted() {
+    this.deleted.emit();
   }
 }

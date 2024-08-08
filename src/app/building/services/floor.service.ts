@@ -50,4 +50,12 @@ export class FloorService {
       .eq("id", floorId);
     return from(floorUpdate.throwOnError());
   }
+
+  public delete(floorId: string) {
+    let floorDelete = this._supabaseService.supabase
+      .from(this._relation)
+      .delete()
+      .eq("id", floorId);
+    return from(floorDelete.throwOnError());
+  }
 }

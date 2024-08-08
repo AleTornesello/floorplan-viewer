@@ -1,9 +1,9 @@
-import {Component, DestroyRef, Input, OnInit} from '@angular/core';
+import {Component, DestroyRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {SelectFloorModel, UpinsertFloorModel} from "../../models/floor.model";
-import {faCamera, faSave, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faCamera, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {ButtonComponent} from "../../../shared/components/button/button.component";
 import {InputTextComponent} from "../../../shared/components/inputs/input-text/input-text.component";
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TranslocoPipe} from "@jsverse/transloco";
 import {FloorService} from "../../services/floor.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
@@ -14,6 +14,10 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {SliderModule} from "primeng/slider";
 import {InputWrapperComponent} from "../../../shared/components/inputs/input-wrapper/input-wrapper.component";
 import {InputSliderComponent} from "../../../shared/components/inputs/input-slider/input-slider.component";
+import {SimpleDialogComponent} from "../../../shared/components/dialog/simple-dialog/simple-dialog.component";
+import {
+  ConfirmDeleteDialogComponent
+} from "../../../shared/components/dialog/confirm-delete-dialog/confirm-delete-dialog.component";
 
 @Component({
   selector: 'app-floor',
@@ -28,21 +32,35 @@ import {InputSliderComponent} from "../../../shared/components/inputs/input-slid
     FormsModule,
     InputWrapperComponent,
     InputSliderComponent,
+    SimpleDialogComponent,
+    ConfirmDeleteDialogComponent,
   ],
   templateUrl: './floor.component.html',
   styleUrl: './floor.component.scss'
 })
 export class FloorComponent implements OnInit {
-  @Input({required: true}) floor!: SelectFloorModel;
+  @ViewChild('confirmFloorDeleteDialog') confirmFloorDeleteDialog?: SimpleDialogComponent;
+  @ViewChild('confirmMarkerDeleteDialog') confirmMarkerDeleteDialog?: SimpleDialogComponent;
+
+  @Input({required: true}) set floor(value: SelectFloorModel) {
+    this._floor = value;
+    this.floorForm = this._buildForm(value);
+    this._loadMarkers(this.floor.id);
+  };
+
+  get floor(): SelectFloorModel {
+    return this._floor;
+  }
+
+  @Output() deleted: EventEmitter<void>;
 
   public floorForm: FormGroup;
   public existingMarkers: SelectMarkerModel[];
-  protected readonly faSave = faSave;
   protected readonly faTrash = faTrash;
   protected readonly faCamera = faCamera;
   public selectedMarker: SelectMarkerModel | null;
 
-  private _markersIdToUpdate: Set<string>;
+  private _floor!: SelectFloorModel;
 
   constructor(
     private _fb: FormBuilder,
@@ -52,8 +70,8 @@ export class FloorComponent implements OnInit {
   ) {
     this.floorForm = this._buildForm();
     this.existingMarkers = [];
-    this._markersIdToUpdate = new Set();
     this.selectedMarker = null;
+    this.deleted = new EventEmitter();
   }
 
   public ngOnInit() {
@@ -81,22 +99,20 @@ export class FloorComponent implements OnInit {
 
   private _buildForm(floor?: SelectFloorModel) {
     return this._fb.group({
-      name: [floor?.name, [Validators.required]],
-      floorPlanImageUri: [floor?.floorPlanImageUri, [Validators.required]],
-    })
+      name: this._fb.control(floor?.name),
+      floorPlanImageUri: this._fb.control(floor?.floorPlanImageUri),
+    });
   }
 
   public onFloorPlanImageUriChange() {
-
+    this._saveFloor();
   }
 
-  public onSaveClick() {
-    this.floorForm.markAllAsTouched();
+  public onFloorNameChange() {
+    this._saveFloor();
+  }
 
-    if (this.floorForm.invalid) {
-      return;
-    }
-
+  private _saveFloor() {
     const name = this.floorForm.get('name')!.value;
     const floorPlanImageUri = this.floorForm.get('floorPlanImageUri')!.value;
 
@@ -202,6 +218,51 @@ export class FloorComponent implements OnInit {
   }
 
   private _onMarkerUpdateError() {
+    // TODO: Show error message
+  }
+
+  public onFloorDeleteClick() {
+    this.confirmFloorDeleteDialog?.show();
+  }
+
+  public onMarkerDeleteClick() {
+    this.confirmMarkerDeleteDialog?.show();
+  }
+
+  public onFloorDeleteConfirm() {
+    this._floorService.delete(this.floor.id)
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: this._onFloorDeleteSuccess.bind(this),
+        error: this._onFloorDeleteError.bind(this)
+      })
+  }
+
+  private _onFloorDeleteSuccess() {
+    this.deleted.emit();
+    this.confirmFloorDeleteDialog?.close();
+  }
+
+  private _onFloorDeleteError() {
+    // TODO: Show error message
+  }
+
+  public onMarkerDeleteConfirm() {
+    this._markerService.delete(this.selectedMarker!.id)
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: this._onMarkerDeleteSuccess.bind(this),
+        error: this._onMarkerDeleteError.bind(this)
+      });
+  }
+
+  private _onMarkerDeleteSuccess() {
+    this._loadMarkers(this.floor.id);
+    this.confirmMarkerDeleteDialog?.close();
+    this.selectedMarker = null;
+  }
+
+  private _onMarkerDeleteError() {
     // TODO: Show error message
   }
 }

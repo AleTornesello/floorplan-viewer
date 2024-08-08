@@ -50,4 +50,12 @@ export class MarkerService {
       .eq("id", markerId);
     return from(markerUpdate.throwOnError());
   }
+
+  public delete(markerId: string) {
+    let markerDelete = this._supabaseService.supabase
+      .from(this._relation)
+      .delete()
+      .eq("id", markerId);
+    return from(markerDelete.throwOnError());
+  }
 }

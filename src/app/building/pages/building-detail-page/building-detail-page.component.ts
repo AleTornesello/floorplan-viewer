@@ -141,4 +141,8 @@ export class BuildingDetailPageComponent implements OnInit {
   public get isNewBuilding() {
     return !this.buildingId;
   }
+
+  public onFloorDeleted() {
+    this._loadBuilding(this.buildingId!);
+  }
 }

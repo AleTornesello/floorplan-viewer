@@ -4,6 +4,8 @@
     "save": "Save",
     "delete": "Delete",
     "copy": "Copy",
+    "warning": "Warning",
+    "cancel": "Cancel",
     "validationErrors": {
       "alpha": "The {{field}} field can only contain alphabetic characters",
       "alphaNum": "The {{field}} field can only contain alphanumeric characters",
@@ -81,13 +83,16 @@
     "addFloor": "Add floor",
     "floor": {
       "name": "Name",
-      "floorPlanImageUri": "Floor plan URI"
+      "floorPlanImageUri": "Floor plan URI",
+      "deleteConfirm": "Are you sure you want to delete this floor?",
+      "marker": {
+        "angle": "Angle",
+        "imageUri": "Image URI",
+        "detail": "Marker detail",
+        "deleteConfirm": "Are you sure you want to delete this marker?"
+      }
     },
-    "uri": "Building URI",
-    "marker": {
-      "angle": "Angle",
-      "imageUri": "Image URI"
-    }
+    "uri": "Building URI"
   },
   "user": {
     "email": "Email",

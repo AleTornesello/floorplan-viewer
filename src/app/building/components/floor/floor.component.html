@@ -6,22 +6,27 @@
         [label]="'building.floor.name' | transloco"
         [control]="floorForm.get('name')!"
         [errors]="floorForm.get('name')!.errors"
-        [required]="true"
+        (onChangeValue)="onFloorNameChange()"
       ></app-input-text>
       <app-input-text
         formControlName="floorPlanImageUri"
         [label]="'building.floor.floorPlanImageUri' | transloco"
         [control]="floorForm.get('floorPlanImageUri')!"
         [errors]="floorForm.get('floorPlanImageUri')!.errors"
-        [required]="true"
         (onChangeValue)="onFloorPlanImageUriChange()"
       ></app-input-text>
     </div>
   </form>
   <div class="floor-editor-container">
     <div class="floor-plan-image-container">
-      <img [src]="floorForm.get('floorPlanImageUri')!.value" alt="" (click)="onImageClick($event)"/>
-      <div class="markers-overlay">
+      <img
+        #floorPlanImage
+        [src]="floorForm.get('floorPlanImageUri')!.value"
+        alt=""
+        (click)="onImageClick($event)"
+        (load)="markersOverlay.style.height = floorPlanImage.offsetHeight + 'px'"
+      />
+      <div #markersOverlay class="markers-overlay">
         @for (marker of existingMarkers; track marker.id) {
           <div
             class="marker"
@@ -33,30 +38,63 @@
             <div class="marker-bg">
               <fa-icon [style.transform]="'rotate(' + (360 - marker.angle) + 'deg)'" [icon]="faCamera"></fa-icon>
             </div>
-
           </div>
         }
       </div>
     </div>
     <div class="floor-marker-settings">
       @if (selectedMarker) {
-        <app-input-slider
-          [label]="'building.marker.angle' | transloco"
-          [(ngModel)]="selectedMarker!.angle"
-          [min]="0"
-          [max]="360"
-          (onSlideEnd)="onMarkerAngleSlideEnd()"
-        ></app-input-slider>
-        <app-input-text
-          [(ngModel)]="selectedMarker!.imageUri"
-          [label]="'building.marker.imageUri' | transloco"
-          (onChangeValue)="onMarkerImageUriChanged()"
-        ></app-input-text>
+        <div class="floor-marker-settings__form bg-glass">
+          <span class="floor-marker-settings__form__header">
+            {{ 'building.floor.marker.detail' | transloco }}
+          </span>
+          <app-input-slider
+            [label]="'building.floor.marker.angle' | transloco"
+            [(ngModel)]="selectedMarker!.angle"
+            [min]="0"
+            [max]="360"
+            (onSlideEnd)="onMarkerAngleSlideEnd()"
+          ></app-input-slider>
+          <app-input-text
+            [(ngModel)]="selectedMarker!.imageUri"
+            [label]="'building.floor.marker.imageUri' | transloco"
+            (onChangeValue)="onMarkerImageUriChanged()"
+          ></app-input-text>
+          @if (selectedMarker.imageUri) {
+            <img class="floor-marker-settings__form__image-preview" [src]="selectedMarker.imageUri" alt="image preview">
+          }
+          <div class="marker-actions">
+            <app-button
+              [label]="'common.delete' | transloco"
+              [icon]="faTrash"
+              color="danger"
+              (onClick)="onMarkerDeleteClick()"
+            ></app-button>
+          </div>
+        </div>
       }
     </div>
   </div>
   <div class="floor-actions">
-    <app-button [label]="'common.delete' | transloco" [icon]="faTrash" color="danger"></app-button>
-    <app-button [label]="'common.save' | transloco" [icon]="faSave" (onClick)="onSaveClick()"></app-button>
+    <app-button
+      [label]="'common.delete' | transloco"
+      [icon]="faTrash"
+      color="danger"
+      (onClick)="onFloorDeleteClick()"
+    ></app-button>
   </div>
 </div>
+
+<app-confirm-delete-dialog
+  #confirmFloorDeleteDialog
+  [header]="'common.warning' | transloco"
+  [message]="'building.floor.deleteConfirm' | transloco "
+  (delete)="onFloorDeleteConfirm()"
+></app-confirm-delete-dialog>
+
+<app-confirm-delete-dialog
+  #confirmMarkerDeleteDialog
+  [header]="'common.warning' | transloco"
+  [message]="'building.floor.marker.deleteConfirm' | transloco "
+  (delete)="onMarkerDeleteConfirm()"
+></app-confirm-delete-dialog>

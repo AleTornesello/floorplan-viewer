@@ -32,7 +32,7 @@
 
   <section id="building-floors">
     @if (buildingId) {
-      <app-floors-list [floors]="floors"></app-floors-list>
+      <app-floors-list [floors]="floors" (deleted)="onFloorDeleted()"></app-floors-list>
     }
     <app-button [label]="'building.addFloor' | transloco" [icon]="faPlus" (onClick)="onAddFloorClick()"></app-button>
   </section>
