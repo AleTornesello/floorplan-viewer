@@ -4,6 +4,7 @@ import {NavigationItem} from '../default-layout/default-layout.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {RouterModule} from '@angular/router';
 import {RouteUtilsService} from "../../../shared/services/route-utils.service";
+import packageJson from '../../../../../package.json';
 
 @Component({
   selector: 'app-sidebar',
@@ -21,12 +22,16 @@ export class SidebarComponent {
     this._items = items;
   }
 
-  private _items!: NavigationItem[];
   @Output() visibleChange: EventEmitter<boolean>;
+
+  protected readonly version;
+
+  private _items!: NavigationItem[];
 
   constructor(private _routeUtilsService: RouteUtilsService) {
     this.visible = false;
-    this.visibleChange = new EventEmitter<boolean>();
+    this.visibleChange = new EventEmitter();
+    this.version = packageJson.version;
   }
 
   public onSidebarHide() {
