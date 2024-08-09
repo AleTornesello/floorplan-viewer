@@ -6,6 +6,7 @@
     "copy": "Copia",
     "warning": "Attenzione",
     "cancel": "Annulla",
+    "info": "Info",
     "validationErrors": {
       "alpha": "Il campo {{field}} può contenere solo caratteri alfabetici",
       "alphaNum": "Il campo {{field}} può contenere solo caratteri alfanumerici",
@@ -82,15 +83,37 @@
     "updatedAt": "Data ulima modifica",
     "info": "Informazioni immobile",
     "addFloor": "Aggiungi piano",
+    "loadKo": "Si è verificato un errore durante il caricamento degli immobili, riprovare più tardi",
+    "singleLoadKo": "Si è verificato un errore durante il caricamento dell' immobile, riprovare più tardi",
+    "createOk": "Immobile creato con successo",
+    "createKo": "Si è verificato un errore durante la creazione dell'immobile, riprovare più tardi",
+    "updateOk": "Immobile aggiornato con successo",
+    "updateKo": "Si è verificato un errore durante l'aggiornamento dell'immobile, riprovare più tardi",
+    "deleteOk": "Immobile eliminato con successo",
+    "deleteKo": "Si è verificato un errore durante l'eliminazione dell'immobile, riprovare più tardi",
     "floor": {
       "name": "Nome",
       "floorPlanImageUri": "URI planimetria",
       "deleteConfirm": "Sei sicuro/a di voler eliminare questo piano?",
+      "loadKo": "Si è verificato un errore durante il caricamento dei piani, riprovare più tardi",
+      "createOk": "Piano creato con successo",
+      "createKo": "Si è verificato un errore durante la creazione del piano, riprovare più tardi",
+      "updateOk": "Piano aggiornato con successo",
+      "updateKo": "Si è verificato un errore durante l'aggiornamento del piano, riprovare più tardi",
+      "deleteOk": "Piano eliminato con successo",
+      "deleteKo": "Si è verificato un errore durante l'eliminazione del piano, riprovare più tardi",
       "marker": {
         "angle": "Angolo",
         "imageUri": "URI immagine",
         "detail": "Dettaglio marker",
-        "deleteConfirm": "Sei sicuro/a di voler eliminare questo marker?"
+        "deleteConfirm": "Sei sicuro/a di voler eliminare questo marker?",
+        "loadKo": "Si è verificato un errore durante il caricamento dei marker, riprovare più tardi",
+        "createOk": "Marker creato con successo",
+        "createKo": "Si è verificato un errore durante la creazione del marker, riprovare più tardi",
+        "updateOk": "Marker aggiornato con successo",
+        "updateKo": "Si è verificato un errore durante l'aggiornamento del marker, riprovare più tardi",
+        "deleteOk": "Marker eliminato con successo",
+        "deleteKo": "Si è verificato un errore durante l'eliminazione del marker, riprovare più tardi"
       }
     },
     "uri": "URI immobile"

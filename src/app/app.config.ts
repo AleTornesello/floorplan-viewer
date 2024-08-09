@@ -1,28 +1,21 @@
-import {
-  APP_INITIALIZER,
-  ApplicationConfig,
-  importProvidersFrom,
-  isDevMode,
-  LOCALE_ID,
-  provideZoneChangeDetection,
-} from '@angular/core';
+import {APP_INITIALIZER, ApplicationConfig, isDevMode, LOCALE_ID, provideZoneChangeDetection,} from '@angular/core';
 import {provideRouter} from '@angular/router';
 
 import {routes} from './app.routes';
-import {BrowserAnimationsModule, NoopAnimationsModule,} from '@angular/platform-browser/animations';
+import {provideAnimations,} from '@angular/platform-browser/animations';
 import {provideHttpClient} from '@angular/common/http';
 import {TranslocoHttpLoader} from './transloco-loader';
 import {provideTransloco, Translation, TranslocoService,} from '@jsverse/transloco';
 import {lastValueFrom} from 'rxjs';
 import {provideTranslocoMessageformat} from "@jsverse/transloco-messageformat";
+import {MessageService} from "primeng/api";
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(),
     provideZoneChangeDetection({eventCoalescing: true}),
     provideRouter(routes),
-    importProvidersFrom(BrowserAnimationsModule),
-    importProvidersFrom(NoopAnimationsModule),
+    provideAnimations(),
     {
       provide: LOCALE_ID,
       useValue: navigator.language,
@@ -52,5 +45,6 @@ export const appConfig: ApplicationConfig = {
       deps: [TranslocoService],
       multi: true,
     },
+    MessageService
   ],
 };

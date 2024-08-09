@@ -1,10 +1,10 @@
 import {Component, DestroyRef, OnInit} from '@angular/core';
-import {TranslocoPipe} from "@jsverse/transloco";
+import {TranslocoPipe, TranslocoService} from "@jsverse/transloco";
 import {ToolbarModule} from "primeng/toolbar";
 import {ButtonComponent} from "../../../shared/components/button/button.component";
 import {faCopy, faPlus, faSave} from '@fortawesome/free-solid-svg-icons';
 import {InputTextComponent} from "../../../shared/components/inputs/input-text/input-text.component";
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {SelectBuildingModel, UpinsertBuildingModel} from "../../models/building.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {BuildingService} from "../../services/building.service";
@@ -15,6 +15,7 @@ import {combineLatestWith} from "rxjs";
 import {SelectFloorModel, UpinsertFloorModel} from "../../models/floor.model";
 import {FloorsListComponent} from "../../components/floors-list/floors-list.component";
 import {FpRoute} from "../../../app.routes";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-building-detail-page',
@@ -46,7 +47,9 @@ export class BuildingDetailPageComponent implements OnInit {
     private _buildingService: BuildingService,
     private _destroyRef: DestroyRef,
     private _floorService: FloorService,
-    private _router: Router
+    private _router: Router,
+    private _messageService: MessageService,
+    private _translateService: TranslocoService
   ) {
     this.buildingForm = this._buildForm();
     this.floors = [];
@@ -92,7 +95,11 @@ export class BuildingDetailPageComponent implements OnInit {
   }
 
   private _onLoadBuildingError() {
-    // TODO: show error message
+    this._messageService.add({
+      severity: 'error',
+      summary: this._translateService.translate('common.error'),
+      detail: this._translateService.translate('building.singleLoadKo'),
+    });
   }
 
   private _buildForm(building?: SelectBuildingModel) {
@@ -109,11 +116,11 @@ export class BuildingDetailPageComponent implements OnInit {
     }
 
     const name = this.buildingForm.get('name')!.value;
-    const upinsertBuilding= new UpinsertBuildingModel(
+    const upinsertBuilding = new UpinsertBuildingModel(
       name
     );
 
-    if(this.buildingId) {
+    if (this.buildingId) {
       this._buildingService.update(this.buildingId, upinsertBuilding)
         .pipe(takeUntilDestroyed(this._destroyRef))
         .subscribe({
@@ -132,21 +139,31 @@ export class BuildingDetailPageComponent implements OnInit {
   }
 
   private _onUpdateBuildingSuccess() {
-    // TODO: show success message
   }
 
   private _onUpdateBuildingError() {
-    // TODO: show error message
+    this._messageService.add({
+      severity: 'error',
+      summary: this._translateService.translate('common.error'),
+      detail: this._translateService.translate('building.updateKo'),
+    });
   }
 
   private _onCreateBuildingSuccess(response: PostgrestSingleResponse<SelectBuildingModel>) {
-    // TODO: show success message
-    debugger
+    this._messageService.add({
+      severity: 'success',
+      summary: this._translateService.translate('common.info'),
+      detail: this._translateService.translate('building.createOk'),
+    });
     this._router.navigate([FpRoute.ADMIN, FpRoute.BUILDINGS, response.data!.id]);
   }
 
   private _onCreateBuildingError() {
-    // TODO: show error message
+    this._messageService.add({
+      severity: 'error',
+      summary: this._translateService.translate('common.error'),
+      detail: this._translateService.translate('building.createKo'),
+    });
   }
 
   public onAddFloorClick() {

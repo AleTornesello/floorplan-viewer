@@ -12,6 +12,8 @@ import {SelectMarkerModel} from "../../models/marker.model";
 import {SelectBuildingModel} from "../../models/building.model";
 import {GalleriaModule} from "primeng/galleria";
 import {FormsModule} from "@angular/forms";
+import {TranslocoService} from "@jsverse/transloco";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-public-floor-plan-page',
@@ -41,7 +43,9 @@ export class PublicFloorPlanPageComponent {
     private _buildingService: BuildingService,
     private _floorService: FloorService,
     private _markerService: MarkerService,
-    private _destroyRef: DestroyRef
+    private _destroyRef: DestroyRef,
+    private _translateService: TranslocoService,
+    private _messageService: MessageService
   ) {
     this._buildingId = null;
     this.floors = [];
@@ -105,9 +109,12 @@ export class PublicFloorPlanPageComponent {
     }
   }
 
-  private _onLoadBuildingError(error: any) {
-    console.error(error);
-    // TODO: show error message
+  private _onLoadBuildingError() {
+    this._messageService.add({
+      severity: 'error',
+      summary: this._translateService.translate('common.error'),
+      detail: this._translateService.translate('building.loadKo'),
+    });
   }
 
   public get selectedFloorMarkers(): SelectMarkerModel[] {

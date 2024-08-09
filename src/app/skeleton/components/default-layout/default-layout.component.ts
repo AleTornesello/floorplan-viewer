@@ -7,6 +7,8 @@ import {TranslocoModule, TranslocoService} from '@jsverse/transloco';
 import {IconDefinition} from '@fortawesome/fontawesome-svg-core';
 import {faBook, faBuilding} from '@fortawesome/free-solid-svg-icons';
 import {SidebarComponent} from '../sidebar/sidebar.component';
+import {ToastModule} from "primeng/toast";
+import {MessageService} from "primeng/api";
 
 export interface NavigationItem {
   label: string;
@@ -26,9 +28,10 @@ export interface NavigationItem {
     BottomNavbarComponent,
     SidebarComponent,
     TranslocoModule,
+    ToastModule,
   ],
   templateUrl: './default-layout.component.html',
-  styleUrl: './default-layout.component.scss',
+  styleUrl: './default-layout.component.scss'
 })
 export class DefaultLayoutComponent {
   public navigationItems: NavigationItem[];

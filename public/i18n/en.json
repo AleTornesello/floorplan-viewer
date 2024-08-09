@@ -6,6 +6,7 @@
     "copy": "Copy",
     "warning": "Warning",
     "cancel": "Cancel",
+    "info": "Info",
     "validationErrors": {
       "alpha": "The {{field}} field can only contain alphabetic characters",
       "alphaNum": "The {{field}} field can only contain alphanumeric characters",
@@ -81,15 +82,36 @@
     "updatedAt": "Updated at",
     "info": "Building information",
     "addFloor": "Add floor",
+    "loadKo": "An error has occurred during the building loading, please try again later",
+    "createOk": "Building created successfully",
+    "createKo": "An error has occurred during the building creation, please try again later",
+    "updateOk": "Building updated successfully",
+    "updateKo": "An error has occurred during the building update, please try again later",
+    "deleteOk": "Building deleted successfully",
+    "deleteKo": "An error has occurred during the building deletion, please try again later"
     "floor": {
       "name": "Name",
       "floorPlanImageUri": "Floor plan URI",
       "deleteConfirm": "Are you sure you want to delete this floor?",
+      "loadKo": "An error has occurred during the floor loading, please try again later",
+      "createOk": "Floor created successfully",
+      "createKo": "An error has occurred during the floor creation, please try again later",
+      "updateOk": "Floor updated successfully",
+      "updateKo": "An error has occurred during the floor update, please try again later",
+      "deleteOk": "Floor deleted successfully",
+      "deleteKo": "An error has occurred during the floor deletion, please try again later",
       "marker": {
         "angle": "Angle",
         "imageUri": "Image URI",
         "detail": "Marker detail",
-        "deleteConfirm": "Are you sure you want to delete this marker?"
+        "deleteConfirm": "Are you sure you want to delete this marker?",
+        "loadKo": "An error has occurred during the marker loading, please try again later",
+        "createOk": "Marker created successfully",
+        "createKo": "An error has occurred during the marker creation, please try again later",
+        "updateOk": "Marker updated successfully",
+        "updateKo": "An error has occurred during the marker update, please try again later",
+        "deleteOk": "Marker deleted successfully",
+        "deleteKo": "An error has occurred during the marker deletion, please try again later"
       }
     },
     "uri": "Building URI"

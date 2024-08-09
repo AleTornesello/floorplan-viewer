@@ -1,10 +1,10 @@
 import {Component, DestroyRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {SelectFloorModel, UpinsertFloorModel} from "../../models/floor.model";
-import {faCamera, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import {ButtonComponent} from "../../../shared/components/button/button.component";
 import {InputTextComponent} from "../../../shared/components/inputs/input-text/input-text.component";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {TranslocoPipe} from "@jsverse/transloco";
+import {TranslocoPipe, TranslocoService} from "@jsverse/transloco";
 import {FloorService} from "../../services/floor.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {SelectMarkerModel, UpinsertMarkerModel} from "../../models/marker.model";
@@ -19,6 +19,7 @@ import {
   ConfirmDeleteDialogComponent
 } from "../../../shared/components/dialog/confirm-delete-dialog/confirm-delete-dialog.component";
 import {FloorPlanEditorComponent} from "../floor-plan-editor/floor-plan-editor.component";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-floor',
@@ -59,7 +60,6 @@ export class FloorComponent implements OnInit {
   public floorForm: FormGroup;
   public existingMarkers: SelectMarkerModel[];
   protected readonly faTrash = faTrash;
-  protected readonly faCamera = faCamera;
   public selectedMarker: SelectMarkerModel | null;
 
   private _floor!: SelectFloorModel;
@@ -68,7 +68,9 @@ export class FloorComponent implements OnInit {
     private _fb: FormBuilder,
     private _floorService: FloorService,
     private _destroyRef: DestroyRef,
-    private _markerService: MarkerService
+    private _markerService: MarkerService,
+    private _messageService: MessageService,
+    private _translateService: TranslocoService
   ) {
     this.floorForm = this._buildForm();
     this.existingMarkers = [];
@@ -82,7 +84,7 @@ export class FloorComponent implements OnInit {
   }
 
   private _loadMarkers(floorId: string) {
-    this._markerService.getAllByFloorId(this.floor.id)
+    this._markerService.getAllByFloorId(floorId)
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: this._onMarkersLoadSuccess.bind(this),
@@ -92,11 +94,14 @@ export class FloorComponent implements OnInit {
 
   private _onMarkersLoadSuccess(response: PostgrestResponse<SelectMarkerModel>) {
     this.existingMarkers = response.data ?? [];
-    // TODO: Show success message
   }
 
   private _onMarkersLoadError() {
-    // TODO: Show error message
+    this._messageService.add({
+      severity: 'error',
+      summary: this._translateService.translate('common.error'),
+      detail: this._translateService.translate('building.floor.marker.loadKo'),
+    });
   }
 
   private _buildForm(floor?: SelectFloorModel) {
@@ -128,17 +133,25 @@ export class FloorComponent implements OnInit {
     this._floorService.update(this.floor.id, newFloorData)
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
-        next: this._onUpdateSuccess.bind(this),
-        error: this._onUpdateError.bind(this)
+        next: this._onFloorUpdateSuccess.bind(this),
+        error: this._onFloorUpdateError.bind(this)
       });
   }
 
-  private _onUpdateSuccess() {
-    // TODO: Show success message
+  private _onFloorUpdateSuccess() {
+    // this._messageService.add({
+    //   severity: 'success',
+    //   summary: this._translateService.translate('common.error'),
+    //   detail: this._translateService.translate('building.floor.updateOk'),
+    // });
   }
 
-  private _onUpdateError() {
-    // TODO: Show error message
+  private _onFloorUpdateError() {
+    this._messageService.add({
+      severity: 'error',
+      summary: this._translateService.translate('common.error'),
+      detail: this._translateService.translate('building.floor.updateKo'),
+    });
   }
 
   public onImageClick(event: { xPercentage: number, yPercentage: number }) {
@@ -169,10 +182,19 @@ export class FloorComponent implements OnInit {
 
   private _onMarkerCreateSuccess() {
     this._loadMarkers(this.floor.id);
+    this._messageService.add({
+      severity: 'success',
+      summary: this._translateService.translate('common.info'),
+      detail: this._translateService.translate('building.floor.marker.createOk'),
+    });
   }
 
   private _onMarkerCreateError() {
-    // TODO: Show error message
+    this._messageService.add({
+      severity: 'error',
+      summary: this._translateService.translate('common.error'),
+      detail: this._translateService.translate('building.floor.marker.createKo'),
+    });
   }
 
   public onMarkerClick(marker: SelectMarkerModel) {
@@ -211,7 +233,11 @@ export class FloorComponent implements OnInit {
   }
 
   private _onMarkerUpdateError() {
-    // TODO: Show error message
+    this._messageService.add({
+      severity: 'success',
+      summary: this._translateService.translate('common.info'),
+      detail: this._translateService.translate('building.floor.marker.loadKo'),
+    });
   }
 
   public onFloorDeleteClick() {
@@ -234,10 +260,19 @@ export class FloorComponent implements OnInit {
   private _onFloorDeleteSuccess() {
     this.deleted.emit();
     this.confirmFloorDeleteDialog?.close();
+    this._messageService.add({
+      severity: 'success',
+      summary: this._translateService.translate('common.info'),
+      detail: this._translateService.translate('building.floor.deleteOk'),
+    });
   }
 
   private _onFloorDeleteError() {
-    // TODO: Show error message
+    this._messageService.add({
+      severity: 'error',
+      summary: this._translateService.translate('common.error'),
+      detail: this._translateService.translate('building.floor.deleteKo'),
+    });
   }
 
   public onMarkerDeleteConfirm() {
@@ -253,9 +288,18 @@ export class FloorComponent implements OnInit {
     this._loadMarkers(this.floor.id);
     this.confirmMarkerDeleteDialog?.close();
     this.selectedMarker = null;
+    this._messageService.add({
+      severity: 'success',
+      summary: this._translateService.translate('common.info'),
+      detail: this._translateService.translate('building.floor.marker.deleteOk'),
+    });
   }
 
   private _onMarkerDeleteError() {
-    // TODO: Show error message
+    this._messageService.add({
+      severity: 'error',
+      summary: this._translateService.translate('common.error'),
+      detail: this._translateService.translate('building.floor.marker.deleteKo'),
+    });
   }
 }
