@@ -1,1 +1,26 @@
-<p>public-floor-plan-page works!</p>
+<div class="public-floor-plan-page-container">
+  @if (selectedFloor && selectedFloor.floorPlanImageUri) {
+    <app-floor-plan-editor
+      [floorPlanImageUri]="selectedFloor.floorPlanImageUri"
+      [markers]="selectedFloorMarkers"
+      (onMarkerClick)="onMarkerClick($event)"
+    ></app-floor-plan-editor>
+  }
+
+  @if (selectedMarker) {
+    <p-galleria
+      [value]="markerGalleryImages"
+      [(visible)]="showGallery"
+      [containerStyle]="{'max-width': '90%'}"
+      [numVisible]="9"
+      [circular]="true"
+      [fullScreen]="true"
+      [showItemNavigators]="areThumbnailsVisible"
+      [showThumbnails]="areThumbnailsVisible"
+    >
+      <ng-template pTemplate="item" let-item>
+        <img [src]="item" style="width: 100%; display: block;"/>
+      </ng-template>
+    </p-galleria>
+  }
+</div>

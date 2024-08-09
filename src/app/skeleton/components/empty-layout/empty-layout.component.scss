@@ -1,6 +1,7 @@
 .default-layout-container {
   max-height: 100vh;
   overflow-y: auto;
+  background-color: var(--bg-color);
 
   .container {
     margin-top: 1rem;

@@ -21,12 +21,17 @@ export class FloorService {
   ) {
   }
 
-  public getAllByBuildingId(buildingId: string) {
+  public getAllByBuildingId(buildingId: string, onlyValid: boolean = false) {
     let floorSelect = this._supabaseService.supabase
       .from(this._relation)
       .select("*")
       .order('order', {ascending: true})
       .eq('building_id', buildingId);
+
+    if (onlyValid) {
+      floorSelect = floorSelect
+        .not('floor_plan_image_uri', 'is', null);
+    }
 
     return from(floorSelect.returns<SelectFloorEntity[]>().throwOnError())
       .pipe(
