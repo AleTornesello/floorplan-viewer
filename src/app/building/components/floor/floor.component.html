@@ -18,30 +18,12 @@
     </div>
   </form>
   <div class="floor-editor-container">
-    <div class="floor-plan-image-container">
-      <img
-        #floorPlanImage
-        [src]="floorForm.get('floorPlanImageUri')!.value"
-        alt=""
-        (click)="onImageClick($event)"
-        (load)="markersOverlay.style.height = floorPlanImage.offsetHeight + 'px'"
-      />
-      <div #markersOverlay class="markers-overlay">
-        @for (marker of existingMarkers; track marker.id) {
-          <div
-            class="marker"
-            [style.left]="'calc(' + marker.xPercentage + '% - 1.5rem)'"
-            [style.top]="'calc(' + marker.yPercentage + '% - 1.5rem)'"
-            [style.transform]="'rotate(' + marker.angle + 'deg)'"
-            (click)="onMarkerClick($event, marker)"
-          >
-            <div class="marker-bg">
-              <fa-icon [style.transform]="'rotate(' + (360 - marker.angle) + 'deg)'" [icon]="faCamera"></fa-icon>
-            </div>
-          </div>
-        }
-      </div>
-    </div>
+    <app-floor-plan-editor
+      [floorPlanImageUri]="floorForm.get('floorPlanImageUri')!.value"
+      [markers]="existingMarkers"
+      (onClick)="onImageClick($event)"
+      (onMarkerClick)="onMarkerClick($event)"
+    ></app-floor-plan-editor>
     <div class="floor-marker-settings">
       @if (selectedMarker) {
         <div class="floor-marker-settings__form bg-glass">

@@ -1,0 +1,24 @@
+<div class="floor-plan-image-container">
+  <img
+    #floorPlanImage
+    [src]="floorPlanImageUri"
+    alt=""
+    (click)="onFloorPlanClick($event)"
+    (load)="updateMarkersOverlayHeight()"
+  />
+  <div #markersOverlay class="markers-overlay">
+    @for (marker of markers; track marker.id) {
+      <div
+        class="marker"
+        [style.left]="'calc(' + marker.xPercentage + '% - 1.5rem)'"
+        [style.top]="'calc(' + marker.yPercentage + '% - 1.5rem)'"
+        [style.transform]="'rotate(' + marker.angle + 'deg)'"
+        (click)="onMarkerClickEvent($event, marker)"
+      >
+        <div class="marker-bg">
+          <fa-icon [style.transform]="'rotate(' + (360 - marker.angle) + 'deg)'" [icon]="faCamera"></fa-icon>
+        </div>
+      </div>
+    }
+  </div>
+</div>

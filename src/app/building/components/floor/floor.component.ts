@@ -18,6 +18,7 @@ import {SimpleDialogComponent} from "../../../shared/components/dialog/simple-di
 import {
   ConfirmDeleteDialogComponent
 } from "../../../shared/components/dialog/confirm-delete-dialog/confirm-delete-dialog.component";
+import {FloorPlanEditorComponent} from "../floor-plan-editor/floor-plan-editor.component";
 
 @Component({
   selector: 'app-floor',
@@ -34,6 +35,7 @@ import {
     InputSliderComponent,
     SimpleDialogComponent,
     ConfirmDeleteDialogComponent,
+    FloorPlanEditorComponent,
   ],
   templateUrl: './floor.component.html',
   styleUrl: './floor.component.scss'
@@ -139,18 +141,10 @@ export class FloorComponent implements OnInit {
     // TODO: Show error message
   }
 
-  public onImageClick(event: MouseEvent) {
-    const x = Math.max(0, event.offsetX);
-    const y = Math.max(0, event.offsetY);
-    const targetWith = (event.target as HTMLElement).offsetWidth;
-    const targetHeight = (event.target as HTMLElement).offsetHeight;
-
-    const xPercentage = (x / targetWith) * 100;
-    const yPercentage = (y / targetHeight) * 100;
-
+  public onImageClick(event: { xPercentage: number, yPercentage: number }) {
     this._createMarker(
-      xPercentage,
-      yPercentage,
+      event.xPercentage,
+      event.yPercentage,
       0,
       null,
       this.floor.id
@@ -181,8 +175,7 @@ export class FloorComponent implements OnInit {
     // TODO: Show error message
   }
 
-  public onMarkerClick(event: MouseEvent, marker: SelectMarkerModel) {
-    event.stopPropagation();
+  public onMarkerClick(marker: SelectMarkerModel) {
     this.selectedMarker = marker;
   }
 
