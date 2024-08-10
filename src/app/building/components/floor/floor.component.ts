@@ -130,7 +130,7 @@ export class FloorComponent implements OnInit {
       this.floor.buildingId
     )
 
-    this._floorService.update(this.floor.id, newFloorData)
+    this._floorService.update(this.floor.id, newFloorData, false)
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: this._onFloorUpdateSuccess.bind(this),
@@ -221,7 +221,7 @@ export class FloorComponent implements OnInit {
       this.selectedMarker.imageUri,
       this.selectedMarker.floorId
     )
-    this._markerService.update(this.selectedMarker.id, newMarker)
+    this._markerService.update(this.selectedMarker.id, newMarker, false)
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: this._onMarkerUpdateSuccess.bind(this),

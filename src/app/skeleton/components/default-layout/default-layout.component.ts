@@ -5,10 +5,11 @@ import {TopbarComponent} from '../topbar/topbar.component';
 import {BottomNavbarComponent} from '../bottom-navbar/bottom-navbar.component';
 import {TranslocoModule, TranslocoService} from '@jsverse/transloco';
 import {IconDefinition} from '@fortawesome/fontawesome-svg-core';
-import {faBook, faBuilding} from '@fortawesome/free-solid-svg-icons';
+import {faBuilding} from '@fortawesome/free-solid-svg-icons';
 import {SidebarComponent} from '../sidebar/sidebar.component';
 import {ToastModule} from "primeng/toast";
-import {MessageService} from "primeng/api";
+import {OverlayLoaderComponent} from "../../../shared/components/overlay-loader/overlay-loader.component";
+import {FpRoute} from "../../../app.routes";
 
 export interface NavigationItem {
   label: string;
@@ -29,6 +30,7 @@ export interface NavigationItem {
     SidebarComponent,
     TranslocoModule,
     ToastModule,
+    OverlayLoaderComponent,
   ],
   templateUrl: './default-layout.component.html',
   styleUrl: './default-layout.component.scss'
@@ -41,7 +43,7 @@ export class DefaultLayoutComponent {
     this.navigationItems = [
       {
         label: this._translateService.translate('building.building'),
-        route: '/',
+        route: `/${FpRoute.ADMIN}/${FpRoute.BUILDINGS}`,
         icon: faBuilding,
         sidebarVisible: true,
         navbarVisible: true,
