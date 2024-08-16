@@ -1,10 +1,21 @@
 <div class="public-floor-plan-page-container">
   @if (selectedFloor && selectedFloor.floorPlanImageUri) {
     <app-floor-plan-editor
+      class="floor-plan-canvas"
       [floorPlanImageUri]="selectedFloor.floorPlanImageUri"
       [markers]="selectedFloorMarkers"
       (onMarkerClick)="onMarkerClick($event)"
     ></app-floor-plan-editor>
+  }
+
+  @if (floors.length > 1) {
+    <div class="floors-list">
+      @for(floor of floors; track floor.id) {
+        <div class="floor-preview" [ngClass]="{'selected': floor.id === selectedFloor?.id}" (click)="onFloorPreviewClick(floor)">
+          <img [src]="floor.floorPlanImageUri" alt="">
+        </div>
+      }
+    </div>
   }
 
   @if (selectedMarker) {

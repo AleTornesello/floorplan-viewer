@@ -1,4 +1,13 @@
-import {Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+  ViewChild
+} from '@angular/core';
 import {faCamera} from "@fortawesome/free-solid-svg-icons";
 import {ButtonComponent} from "../../../shared/components/button/button.component";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
@@ -6,6 +15,7 @@ import {InputSliderComponent} from "../../../shared/components/inputs/input-slid
 import {InputTextComponent} from "../../../shared/components/inputs/input-text/input-text.component";
 import {TranslocoPipe} from "@jsverse/transloco";
 import {SelectMarkerModel} from "../../models/marker.model";
+import {NgStyle} from "@angular/common";
 
 @Component({
   selector: 'app-floor-plan-editor',
@@ -15,17 +25,20 @@ import {SelectMarkerModel} from "../../models/marker.model";
     FaIconComponent,
     InputSliderComponent,
     InputTextComponent,
-    TranslocoPipe
+    TranslocoPipe,
+    NgStyle
   ],
   templateUrl: './floor-plan-editor.component.html',
   styleUrl: './floor-plan-editor.component.scss'
 })
-export class FloorPlanEditorComponent {
+export class FloorPlanEditorComponent implements AfterViewInit {
   @ViewChild("floorPlanImage") floorPlanImage?: ElementRef<HTMLImageElement>;
   @ViewChild("markersOverlay") markersOverlay?: ElementRef<HTMLDivElement>;
+  @ViewChild("floorPlanImageContainer") floorPlanImageContainer?: ElementRef<HTMLDivElement>;
 
   @Input({required: true}) floorPlanImageUri!: string;
   @Input({required: true}) markers: SelectMarkerModel[];
+  @Input() verticalAlign: 'start' | 'center' | 'end';
 
   @Output() onClick: EventEmitter<{ xPercentage: number; yPercentage: number }>;
   @Output() onMarkerClick: EventEmitter<SelectMarkerModel>;
@@ -36,6 +49,11 @@ export class FloorPlanEditorComponent {
     this.markers = [];
     this.onClick = new EventEmitter();
     this.onMarkerClick = new EventEmitter();
+    this.verticalAlign = 'center';
+  }
+
+  public ngAfterViewInit() {
+
   }
 
   public onFloorPlanClick(event: MouseEvent) {
@@ -53,13 +71,65 @@ export class FloorPlanEditorComponent {
   public onMarkerClickEvent(event: MouseEvent, marker: SelectMarkerModel) {
     event.stopPropagation();
     this.onMarkerClick.emit(marker);
+    this._updateMarkersOverlayHeight();
   }
 
   @HostListener("window:resize")
-  public updateMarkersOverlayHeight() {
+  private _onWindowsResize() {
+    // The methods must be called in the following order
+    this._updateFloorPlanCanvasSizes();
+    this._updateMarkersOverlayHeight();
+  }
+
+  private _updateMarkersOverlayHeight() {
     if (!this.markersOverlay || !this.floorPlanImage) {
       return;
     }
-    this.markersOverlay.nativeElement.style.height = this.floorPlanImage.nativeElement.offsetHeight + 'px'
+
+    const imageWidth = this.floorPlanImage.nativeElement.offsetWidth;
+    const imageHeight = this.floorPlanImage.nativeElement.offsetHeight;
+    const imageTop = this.floorPlanImage.nativeElement.offsetTop;
+    const imageLeft = this.floorPlanImage.nativeElement.offsetLeft;
+
+    this.markersOverlay.nativeElement.style.width = this.floorPlanImage.nativeElement.offsetWidth + 'px';
+    this.markersOverlay.nativeElement.style.height = this.floorPlanImage.nativeElement.offsetHeight + 'px';
+    this.markersOverlay.nativeElement.style.top = imageTop + 'px';
+    this.markersOverlay.nativeElement.style.left = imageLeft + 'px';
+  }
+
+  private _updateFloorPlanCanvasSizes() {
+    if (!this.floorPlanImageContainer || !this.floorPlanImage) {
+      return;
+    }
+
+    const containerWidth = this.floorPlanImageContainer.nativeElement.offsetWidth;
+    let imageWidth = this.floorPlanImage.nativeElement.offsetWidth;
+    let scaleFactor = containerWidth / imageWidth;
+
+    // console.log("imageX", imageWidth, "containerX", containerWidth, "scaleFactor", scaleFactor);
+
+    const containerHeight = this.floorPlanImageContainer.nativeElement.offsetHeight;
+    let imageHeight = this.floorPlanImage.nativeElement.offsetHeight;
+    let newImageHeight = imageHeight * scaleFactor;
+
+    // console.log("newImageY", newImageHeight, "containerY", containerHeight);
+
+    if (newImageHeight > containerHeight) {
+      scaleFactor = containerHeight / imageHeight;
+      const newImageWidth = imageWidth * scaleFactor;
+
+      this.floorPlanImage.nativeElement.style.height = containerHeight + "px";
+      this.floorPlanImage.nativeElement.style.width = newImageWidth + "px";
+      return;
+    }
+
+    this.floorPlanImage.nativeElement.style.height = newImageHeight + "px";
+    this.floorPlanImage.nativeElement.style.width = containerWidth + "px";
+  }
+
+  public onImageLoad() {
+    // The methods must be called in the following order
+    this._updateFloorPlanCanvasSizes();
+    this._updateMarkersOverlayHeight();
   }
 }

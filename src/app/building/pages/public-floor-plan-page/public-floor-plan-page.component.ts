@@ -76,7 +76,7 @@ export class PublicFloorPlanPageComponent {
           this._floorService.getAllByBuildingId(id, true)
             .pipe(mergeMap((response: PostgrestResponse<SelectFloorModel>) =>
               combineLatest(response.data!.map((floor) =>
-                this._markerService.getAllByFloorId(floor.id)
+                this._markerService.getAllByFloorId(floor.id, true)
                   .pipe(map((response: PostgrestResponse<SelectMarkerModel>) => ({
                     floor: floor,
                     markers: response.data ?? []
@@ -138,5 +138,9 @@ export class PublicFloorPlanPageComponent {
 
   public get areThumbnailsVisible(): boolean {
     return this.markerGalleryImages.length > 1;
+  }
+
+  public onFloorPreviewClick(floor: SelectFloorModel) {
+    this.selectedFloor = floor;
   }
 }

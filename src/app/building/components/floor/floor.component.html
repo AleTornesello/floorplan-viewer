@@ -19,11 +19,14 @@
   </form>
   <div class="floor-editor-container">
     <app-floor-plan-editor
+      class="floor-editor"
       [floorPlanImageUri]="floorForm.get('floorPlanImageUri')!.value"
       [markers]="existingMarkers"
+      verticalAlign="start"
       (onClick)="onImageClick($event)"
       (onMarkerClick)="onMarkerClick($event)"
     ></app-floor-plan-editor>
+
     <div class="floor-marker-settings">
       @if (selectedMarker) {
         <div class="floor-marker-settings__form bg-glass">

@@ -12,9 +12,12 @@
   }
 
   .floor-editor-container {
-    width: 100%;
     display: flex;
-    gap: 1rem;
+
+    .floor-editor {
+      width: calc(100% - 300px - 1rem);
+      margin-right: 1rem;
+    }
 
     .floor-marker-settings {
       width: 300px;

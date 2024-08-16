@@ -34,7 +34,8 @@ export class MarkerService {
 
     if (onlyValid) {
       markersSelect = markersSelect
-        .not('image_uri', 'is', null);
+        .not('image_uri', 'is', null)
+        .neq('image_uri', '');
     }
 
     return from(markersSelect.returns<SelectMarkerEntity[]>().throwOnError())

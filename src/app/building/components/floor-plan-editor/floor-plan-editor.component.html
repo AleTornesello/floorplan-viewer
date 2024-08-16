@@ -1,10 +1,10 @@
-<div class="floor-plan-image-container">
+<div #floorPlanImageContainer class="floor-plan-image-container" [ngStyle]="{alignItems: verticalAlign}">
   <img
     #floorPlanImage
     [src]="floorPlanImageUri"
     alt=""
     (click)="onFloorPlanClick($event)"
-    (load)="updateMarkersOverlayHeight()"
+    (load)="onImageLoad()"
   />
   <div #markersOverlay class="markers-overlay">
     @for (marker of markers; track marker.id) {
