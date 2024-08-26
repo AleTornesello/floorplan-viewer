@@ -1,4 +1,4 @@
-import {Component, DestroyRef, OnInit} from '@angular/core';
+import {Component, DestroyRef, isDevMode, OnInit} from '@angular/core';
 import {TranslocoPipe, TranslocoService} from "@jsverse/transloco";
 import {ToolbarModule} from "primeng/toolbar";
 import {ButtonComponent} from "../../../shared/components/button/button.component";
@@ -64,7 +64,9 @@ export class BuildingDetailPageComponent implements OnInit {
         next: (params) => {
           if (params['id']) {
             this.buildingId = params['id'];
-            this.buildingUri = `${location.origin}/floorplan-viewer/#/${this.buildingId}`
+            this.buildingUri = isDevMode()
+              ? `${location.origin}/${this.buildingId}`
+              : `${location.origin}/floorplan-viewer/#/${this.buildingId}`
             this._loadBuilding(params['id']);
           }
         }
