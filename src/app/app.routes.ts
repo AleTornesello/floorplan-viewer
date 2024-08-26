@@ -70,11 +70,15 @@ export const routes: Routes = [
         ]
       },
       {
-        path: ':id',
+        path: '',
         component: PublicLayoutComponent,
         children: [
           {
             path: '',
+            component: PublicFloorPlanPageComponent,
+          },
+          {
+            path: ':id',
             component: PublicFloorPlanPageComponent,
           },
         ]

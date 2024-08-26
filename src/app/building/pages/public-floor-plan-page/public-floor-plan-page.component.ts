@@ -36,7 +36,7 @@ export class PublicFloorPlanPageComponent {
 
   public showGallery: boolean;
 
-  private _buildingId: string | null;
+  public buildingId: string | null;
 
   constructor(
     private _route: ActivatedRoute,
@@ -47,7 +47,7 @@ export class PublicFloorPlanPageComponent {
     private _translateService: TranslocoService,
     private _messageService: MessageService
   ) {
-    this._buildingId = null;
+    this.buildingId = null;
     this.floors = [];
     this.markers = new Map();
 
@@ -61,8 +61,8 @@ export class PublicFloorPlanPageComponent {
       .subscribe({
         next: (params) => {
           if (params['id']) {
-            this._buildingId = params['id'];
-            this._loadBuilding(this._buildingId!);
+            this.buildingId = params['id'];
+            this._loadBuilding(this.buildingId!);
           }
         }
       });
