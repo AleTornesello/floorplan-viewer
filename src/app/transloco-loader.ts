@@ -6,9 +6,7 @@ export class TranslocoHttpLoader implements TranslocoLoader {
   private http = inject(HttpClient);
 
   getTranslation(lang: string) {
-    const url = isDevMode()
-      ? `/i18n/${lang}.json?cb=${new Date().getTime()}`
-      : `/floorplan-viewer/#/i18n/${lang}.json?cb=${new Date().getTime()}`;
+    const url = `./i18n/${lang}.json?cb=${new Date().getTime()}`;
     return this.http.get<Translation>(url);
   }
 }
