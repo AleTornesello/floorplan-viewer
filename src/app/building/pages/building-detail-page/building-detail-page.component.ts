@@ -64,7 +64,7 @@ export class BuildingDetailPageComponent implements OnInit {
         next: (params) => {
           if (params['id']) {
             this.buildingId = params['id'];
-            this.buildingUri = `${location.origin}/${this.buildingId}`
+            this.buildingUri = `${location.origin}/floorplan-viewer/#/${this.buildingId}`
             this._loadBuilding(params['id']);
           }
         }
