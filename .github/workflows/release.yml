@@ -46,6 +46,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Download environment
+        run: echo $ENVIRONMENT_PROD >> src/environments/environment.ts
       - name: Build
         run: npm run build
 
