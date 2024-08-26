@@ -47,7 +47,10 @@ jobs:
         run: npm install
 
       - name: Download environment
-        run: echo $ENVIRONMENT_PROD >> src/environments/environment.ts
+        run: echo $ENVIRONMENT_PROD > src/environments/environment.ts
+        env:
+          ENVIRONMENT_PROD: ${{ secrets.ENVIRONMENT_PROD }}
+
       - name: Build
         run: npm run build
 
