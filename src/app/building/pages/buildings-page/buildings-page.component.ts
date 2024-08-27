@@ -1,6 +1,6 @@
 import {Component, DestroyRef, OnInit} from '@angular/core';
 import {GenericTableComponent} from "../../../shared/components/table/generic-table/generic-table.component";
-import {GenericTableColumn, GenericTableSortEvent} from "../../../shared/models/table";
+import {DEFAULT_PAGINATION_PAGE, GenericTableColumn, GenericTableSortEvent} from "../../../shared/models/table";
 import {SelectBuildingModel} from "../../models/building.model";
 import {BuildingService} from "../../services/building.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
@@ -35,6 +35,8 @@ export class BuildingsPageComponent implements OnInit {
 
   private _sortField: string;
   private _sortDescOrder: boolean;
+  private _page: number;
+  private _itemsPerPage: number;
 
   constructor(
     private _buildingService: BuildingService,
@@ -89,6 +91,8 @@ export class BuildingsPageComponent implements OnInit {
 
     this._sortField = 'created_at';
     this._sortDescOrder = false;
+    this._page = 1;
+    this._itemsPerPage = 10;
   }
 
   public ngOnInit() {
@@ -97,6 +101,8 @@ export class BuildingsPageComponent implements OnInit {
 
   private _loadBuildings() {
     this._buildingService.getAll(
+      this._page,
+      this._itemsPerPage,
       this._sortField,
       this._sortDescOrder,
     )
@@ -133,6 +139,18 @@ export class BuildingsPageComponent implements OnInit {
       this._sortDescOrder = event[0].desc;
     }
 
+    this._loadBuildings();
+  }
+
+  public onPageChange(event: { page: number; itemsPerPage: number }) {
+    this._page = event.page;
+    this._itemsPerPage = event.itemsPerPage;
+    this._loadBuildings();
+  }
+
+  public onRowsChange(itemsPerPage: number) {
+    this._page = DEFAULT_PAGINATION_PAGE;
+    this._itemsPerPage = itemsPerPage;
     this._loadBuildings();
   }
 }

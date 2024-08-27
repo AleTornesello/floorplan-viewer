@@ -1,7 +1,7 @@
 import {Component, ContentChildren, EventEmitter, Input, Output, QueryList, TemplateRef,} from '@angular/core';
 import {
   DEFAULT_PAGINATION_ITEMS_PER_PAGE,
-  DEFAULT_PAGINATION_ITEMS_PER_PAGE_OPTIONS,
+  DEFAULT_PAGINATION_ITEMS_PER_PAGE_OPTIONS, DEFAULT_PAGINATION_PAGE,
   GenericTableColumn,
   GenericTableReorderEvent,
   GenericTableSortEvent,
@@ -311,11 +311,12 @@ export class GenericTableComponent {
     pageCount?: number;
   }) {
     if (pageState.rows === this.itemsPerPage) {
-      this.currentPage++;
-      this.page.emit({page: this.currentPage, itemsPerPage: pageState.rows});
+      this.currentPage = (pageState.page ?? 0) + 1;
+      this.page.emit({ page: this.currentPage, itemsPerPage: pageState.rows });
     } else {
       this.rows.emit(pageState.rows);
       this.itemsPerPage = pageState.rows!;
+      this.currentPage = DEFAULT_PAGINATION_PAGE;
     }
   }
 

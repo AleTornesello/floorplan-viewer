@@ -22,14 +22,21 @@ export class BuildingService {
   ) {
   }
 
-  public getAll(sortField: string, sortDescOrder: boolean, showLoader: boolean = true) {
+  public getAll(
+    page: number,
+    itemsPerPage: number,
+    sortField: string,
+    sortDescOrder: boolean,
+    showLoader: boolean = true
+  ) {
     if (showLoader) {
       this._loaderStatusService.show();
     }
     let buildingsSelect = this._supabaseService.supabase
       .from(this._relation)
       .select("*", {count: 'exact'})
-      .order(sortField, {ascending: !sortDescOrder});
+      .order(sortField, {ascending: !sortDescOrder})
+      .range((page - 1) * itemsPerPage, page * itemsPerPage - 1);
 
     return from(buildingsSelect.returns<SelectBuildingEntity[]>().throwOnError())
       .pipe(
