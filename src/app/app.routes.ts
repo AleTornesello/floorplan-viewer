@@ -8,6 +8,7 @@ import {DefaultLayoutComponent} from "./skeleton/components/default-layout/defau
 import {BuildingDetailPageComponent} from "./building/pages/building-detail-page/building-detail-page.component";
 import {PublicLayoutComponent} from "./skeleton/components/public-layout/public-layout.component";
 import {PublicFloorPlanPageComponent} from "./building/pages/public-floor-plan-page/public-floor-plan-page.component";
+import {authGuard} from "./auth/guards/auththenticated.guard";
 
 export enum FpRoute {
   ADMIN = 'admin',
@@ -34,6 +35,7 @@ export const routes: Routes = [
           {
             path: FpRoute.BUILDINGS,
             component: DefaultLayoutComponent,
+            canActivate: [authGuard],
             children: [
               {
                 path: '',
