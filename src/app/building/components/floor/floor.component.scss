@@ -30,6 +30,11 @@
         gap: 1rem;
         padding: 1rem;
 
+        &__header {
+          font-size: 1.2rem;
+          font-weight: 700;
+        }
+
         &__image-preview {
           width: 100%;
           border-radius: var(--border-radius);

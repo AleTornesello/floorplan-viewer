@@ -1,13 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  EventEmitter,
-  HostListener,
-  Input,
-  Output,
-  ViewChild
-} from '@angular/core';
+import {Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild} from '@angular/core';
 import {faCamera} from "@fortawesome/free-solid-svg-icons";
 import {ButtonComponent} from "../../../shared/components/button/button.component";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
@@ -15,7 +6,22 @@ import {InputSliderComponent} from "../../../shared/components/inputs/input-slid
 import {InputTextComponent} from "../../../shared/components/inputs/input-text/input-text.component";
 import {TranslocoPipe} from "@jsverse/transloco";
 import {SelectMarkerModel} from "../../models/marker.model";
-import {NgStyle} from "@angular/common";
+import {NgClass, NgStyle} from "@angular/common";
+
+export class UiSelectMarkerModel extends SelectMarkerModel {
+
+  public get isOnError(): boolean {
+    return !this.imageUri || this.imageUri === '';
+  }
+
+  public constructor(marker: SelectMarkerModel) {
+    super(marker.id, marker.xPercentage, marker.yPercentage, marker.angle, marker.imageUri, marker.floorId, marker.createdAt, marker.createdBy, marker.updatedAt, marker.updatedBy);
+  }
+
+  public toSelectMarkerModel(): SelectMarkerModel {
+    return new SelectMarkerModel(this.id, this.xPercentage, this.yPercentage, this.angle, this.imageUri, this.floorId, this.createdAt, this.createdBy, this.updatedAt, this.updatedBy);
+  }
+}
 
 @Component({
   selector: 'app-floor-plan-editor',
@@ -26,34 +32,44 @@ import {NgStyle} from "@angular/common";
     InputSliderComponent,
     InputTextComponent,
     TranslocoPipe,
-    NgStyle
+    NgStyle,
+    NgClass
   ],
   templateUrl: './floor-plan-editor.component.html',
   styleUrl: './floor-plan-editor.component.scss'
 })
-export class FloorPlanEditorComponent implements AfterViewInit {
+export class FloorPlanEditorComponent {
   @ViewChild("floorPlanImage") floorPlanImage?: ElementRef<HTMLImageElement>;
   @ViewChild("markersOverlay") markersOverlay?: ElementRef<HTMLDivElement>;
   @ViewChild("floorPlanImageContainer") floorPlanImageContainer?: ElementRef<HTMLDivElement>;
 
   @Input({required: true}) floorPlanImageUri!: string;
-  @Input({required: true}) markers: SelectMarkerModel[];
+
+  @Input({required: true}) set markers(markers: SelectMarkerModel[]) {
+    this._markers = markers;
+    this.uiMarkers = markers.map((marker) => new UiSelectMarkerModel(marker));
+  }
+  get markers(): SelectMarkerModel[] {
+    return this._markers;
+  }
+
   @Input() verticalAlign: 'start' | 'center' | 'end';
 
   @Output() onClick: EventEmitter<{ xPercentage: number; yPercentage: number }>;
   @Output() onMarkerClick: EventEmitter<SelectMarkerModel>;
 
+  public uiMarkers: UiSelectMarkerModel[];
   protected readonly faCamera = faCamera;
+
+  private _markers: SelectMarkerModel[];
 
   constructor() {
     this.markers = [];
     this.onClick = new EventEmitter();
     this.onMarkerClick = new EventEmitter();
     this.verticalAlign = 'center';
-  }
-
-  public ngAfterViewInit() {
-
+    this._markers = [];
+    this.uiMarkers = [];
   }
 
   public onFloorPlanClick(event: MouseEvent) {
@@ -68,9 +84,9 @@ export class FloorPlanEditorComponent implements AfterViewInit {
     this.onClick.emit({xPercentage, yPercentage});
   }
 
-  public onMarkerClickEvent(event: MouseEvent, marker: SelectMarkerModel) {
+  public onMarkerClickEvent(event: MouseEvent, marker: UiSelectMarkerModel) {
     event.stopPropagation();
-    this.onMarkerClick.emit(marker);
+    this.onMarkerClick.emit(marker.toSelectMarkerModel());
     this._updateMarkersOverlayHeight();
   }
 
@@ -86,8 +102,6 @@ export class FloorPlanEditorComponent implements AfterViewInit {
       return;
     }
 
-    const imageWidth = this.floorPlanImage.nativeElement.offsetWidth;
-    const imageHeight = this.floorPlanImage.nativeElement.offsetHeight;
     const imageTop = this.floorPlanImage.nativeElement.offsetTop;
     const imageLeft = this.floorPlanImage.nativeElement.offsetLeft;
 

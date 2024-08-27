@@ -7,9 +7,10 @@
     (load)="onImageLoad()"
   />
   <div #markersOverlay class="markers-overlay">
-    @for (marker of markers; track marker.id) {
+    @for (marker of uiMarkers; track marker.id) {
       <div
         class="marker"
+        [ngClass]="{'error': marker.isOnError}"
         [style.left]="'calc(' + marker.xPercentage + '% - 1.5rem)'"
         [style.top]="'calc(' + marker.yPercentage + '% - 1.5rem)'"
         [style.transform]="'rotate(' + marker.angle + 'deg)'"

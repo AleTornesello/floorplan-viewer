@@ -19,7 +19,8 @@ import {
   ConfirmDeleteDialogComponent
 } from "../../../shared/components/dialog/confirm-delete-dialog/confirm-delete-dialog.component";
 import {FloorPlanEditorComponent} from "../floor-plan-editor/floor-plan-editor.component";
-import {MessageService} from "primeng/api";
+import {Message, MessageService} from "primeng/api";
+import {MessagesModule} from "primeng/messages";
 
 @Component({
   selector: 'app-floor',
@@ -37,6 +38,7 @@ import {MessageService} from "primeng/api";
     SimpleDialogComponent,
     ConfirmDeleteDialogComponent,
     FloorPlanEditorComponent,
+    MessagesModule,
   ],
   templateUrl: './floor.component.html',
   styleUrl: './floor.component.scss'
@@ -61,6 +63,8 @@ export class FloorComponent implements OnInit {
   public existingMarkers: SelectMarkerModel[];
   protected readonly faTrash = faTrash;
   public selectedMarker: SelectMarkerModel | null;
+  public markerFormMessages: Message[];
+
 
   private _floor!: SelectFloorModel;
 
@@ -76,6 +80,7 @@ export class FloorComponent implements OnInit {
     this.existingMarkers = [];
     this.selectedMarker = null;
     this.deleted = new EventEmitter();
+    this.markerFormMessages = [];
   }
 
   public ngOnInit() {
@@ -199,6 +204,16 @@ export class FloorComponent implements OnInit {
 
   public onMarkerClick(marker: SelectMarkerModel) {
     this.selectedMarker = marker;
+    this.markerFormMessages = [];
+
+    if (!this.selectedMarker.imageUri || this.selectedMarker.imageUri === '') {
+      this.markerFormMessages = [
+        {
+          severity: 'error',
+          detail: this._translateService.translate('building.floor.marker.invalidMarker')
+        }
+      ]
+    }
   }
 
   public onMarkerImageUriChanged() {
