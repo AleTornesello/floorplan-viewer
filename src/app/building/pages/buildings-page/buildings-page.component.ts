@@ -16,7 +16,7 @@ import {Router} from "@angular/router";
 import {FpRoute} from "../../../app.routes";
 
 @Component({
-  selector: 'app-building-page',
+  selector: 'app-buildings-page',
   standalone: true,
   imports: [
     GenericTableComponent,
