@@ -40,4 +40,8 @@ export class SelectMarkerModel extends BaseModel implements BaseMarkerAttributes
     this.imageUri = imageUri;
     this.floorId = floorId;
   }
+
+  public get valid(): boolean {
+    return this.imageUri !== null && this.imageUri !== '';
+  }
 }

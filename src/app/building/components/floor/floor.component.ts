@@ -206,7 +206,11 @@ export class FloorComponent implements OnInit {
     this.selectedMarker = marker;
     this.markerFormMessages = [];
 
-    if (!this.selectedMarker.imageUri || this.selectedMarker.imageUri === '') {
+    this._updateInvalidMarkerMessage(marker);
+  }
+
+  private _updateInvalidMarkerMessage(marker: SelectMarkerModel) {
+    if (!marker.valid) {
       this.markerFormMessages = [
         {
           severity: 'error',
@@ -245,6 +249,10 @@ export class FloorComponent implements OnInit {
   }
 
   private _onMarkerUpdateSuccess() {
+    if(!this.selectedMarker) {
+      return;
+    }
+    this._updateInvalidMarkerMessage(this.selectedMarker);
   }
 
   private _onMarkerUpdateError() {

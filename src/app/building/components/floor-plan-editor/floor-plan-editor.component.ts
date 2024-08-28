@@ -8,21 +8,6 @@ import {TranslocoPipe} from "@jsverse/transloco";
 import {SelectMarkerModel} from "../../models/marker.model";
 import {NgClass, NgStyle} from "@angular/common";
 
-export class UiSelectMarkerModel extends SelectMarkerModel {
-
-  public get isOnError(): boolean {
-    return !this.imageUri || this.imageUri === '';
-  }
-
-  public constructor(marker: SelectMarkerModel) {
-    super(marker.id, marker.xPercentage, marker.yPercentage, marker.angle, marker.imageUri, marker.floorId, marker.createdAt, marker.createdBy, marker.updatedAt, marker.updatedBy);
-  }
-
-  public toSelectMarkerModel(): SelectMarkerModel {
-    return new SelectMarkerModel(this.id, this.xPercentage, this.yPercentage, this.angle, this.imageUri, this.floorId, this.createdAt, this.createdBy, this.updatedAt, this.updatedBy);
-  }
-}
-
 @Component({
   selector: 'app-floor-plan-editor',
   standalone: true,
@@ -44,32 +29,20 @@ export class FloorPlanEditorComponent {
   @ViewChild("floorPlanImageContainer") floorPlanImageContainer?: ElementRef<HTMLDivElement>;
 
   @Input({required: true}) floorPlanImageUri!: string;
-
-  @Input({required: true}) set markers(markers: SelectMarkerModel[]) {
-    this._markers = markers;
-    this.uiMarkers = markers.map((marker) => new UiSelectMarkerModel(marker));
-  }
-  get markers(): SelectMarkerModel[] {
-    return this._markers;
-  }
-
   @Input() verticalAlign: 'start' | 'center' | 'end';
+  @Input() markers: SelectMarkerModel[];
 
   @Output() onClick: EventEmitter<{ xPercentage: number; yPercentage: number }>;
   @Output() onMarkerClick: EventEmitter<SelectMarkerModel>;
 
-  public uiMarkers: UiSelectMarkerModel[];
   protected readonly faCamera = faCamera;
-
-  private _markers: SelectMarkerModel[];
 
   constructor() {
     this.markers = [];
     this.onClick = new EventEmitter();
     this.onMarkerClick = new EventEmitter();
     this.verticalAlign = 'center';
-    this._markers = [];
-    this.uiMarkers = [];
+    this.markers = [];
   }
 
   public onFloorPlanClick(event: MouseEvent) {
@@ -84,9 +57,9 @@ export class FloorPlanEditorComponent {
     this.onClick.emit({xPercentage, yPercentage});
   }
 
-  public onMarkerClickEvent(event: MouseEvent, marker: UiSelectMarkerModel) {
+  public onMarkerClickEvent(event: MouseEvent, marker: SelectMarkerModel) {
     event.stopPropagation();
-    this.onMarkerClick.emit(marker.toSelectMarkerModel());
+    this.onMarkerClick.emit(marker);
     this._updateMarkersOverlayHeight();
   }
 
