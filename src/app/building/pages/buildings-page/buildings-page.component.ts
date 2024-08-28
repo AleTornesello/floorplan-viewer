@@ -1,6 +1,6 @@
 import {Component, DestroyRef, OnInit} from '@angular/core';
 import {GenericTableComponent} from "../../../shared/components/table/generic-table/generic-table.component";
-import {GenericTableColumn} from "../../../shared/models/table";
+import {DEFAULT_PAGINATION_PAGE, GenericTableColumn, GenericTableSortEvent} from "../../../shared/models/table";
 import {SelectBuildingModel} from "../../models/building.model";
 import {BuildingService} from "../../services/building.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
@@ -16,7 +16,7 @@ import {Router} from "@angular/router";
 import {FpRoute} from "../../../app.routes";
 
 @Component({
-  selector: 'app-building-page',
+  selector: 'app-buildings-page',
   standalone: true,
   imports: [
     GenericTableComponent,
@@ -33,10 +33,16 @@ export class BuildingsPageComponent implements OnInit {
   public buildings: SelectBuildingModel[];
   public totalBuildings: number;
 
+  private _searchText: string | null;
+  private _sortField: string;
+  private _sortDescOrder: boolean;
+  private _page: number;
+  private _itemsPerPage: number;
+
   constructor(
     private _buildingService: BuildingService,
     private _destroyRef: DestroyRef,
-    private _translocoService: TranslocoService,
+    private _translateService: TranslocoService,
     private _router: Router
   ) {
     this.buildings = [];
@@ -44,20 +50,36 @@ export class BuildingsPageComponent implements OnInit {
     this.columns = [
       {
         field: 'name',
-        header: this._translocoService.translate('building.name'),
+        header: this._translateService.translate('building.name'),
         sortable: true
       },
       {
         field: 'createdAt',
-        header: this._translocoService.translate('building.createdAt'),
+        header: this._translateService.translate('building.createdAt'),
         sortable: true,
         width: '200px',
+        sortStrategy(field: string, desc: boolean): GenericTableSortEvent[] {
+          return [
+            {
+              field: 'created_at',
+              desc
+            }
+          ];
+        }
       },
       {
         field: 'updatedAt',
-        header: this._translocoService.translate('building.updatedAt'),
+        header: this._translateService.translate('building.updatedAt'),
         sortable: true,
         width: '200px',
+        sortStrategy(field: string, desc: boolean): GenericTableSortEvent[] {
+          return [
+            {
+              field: 'updated_at',
+              desc
+            }
+          ];
+        }
       },
       {
         field: 'actions',
@@ -66,11 +88,27 @@ export class BuildingsPageComponent implements OnInit {
         class: 'text-right',
         width: 30,
       },
-    ]
+    ];
+
+    this._searchText = null;
+    this._sortField = 'created_at';
+    this._sortDescOrder = false;
+    this._page = 1;
+    this._itemsPerPage = 10;
   }
 
   public ngOnInit() {
-    this._buildingService.getAll()
+    this._loadBuildings();
+  }
+
+  private _loadBuildings() {
+    this._buildingService.getAll(
+      this._searchText,
+      this._page,
+      this._itemsPerPage,
+      this._sortField,
+      this._sortDescOrder,
+    )
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: this._onLoadBuildingSuccess.bind(this),
@@ -93,5 +131,36 @@ export class BuildingsPageComponent implements OnInit {
 
   public onAddBuildingClick() {
     this._router.navigate([FpRoute.ADMIN, FpRoute.BUILDINGS, FpRoute.NEW]);
+  }
+
+  public onSort(event: GenericTableSortEvent[] | null) {
+    if(!event) {
+      this._sortField = 'created_at';
+      this._sortDescOrder = false;
+    } else {
+      this._sortField = event[0].field as string;
+      this._sortDescOrder = event[0].desc;
+    }
+
+    this._loadBuildings();
+  }
+
+  public onPageChange(event: { page: number; itemsPerPage: number }) {
+    this._page = event.page;
+    this._itemsPerPage = event.itemsPerPage;
+    this._loadBuildings();
+  }
+
+  public onRowsChange(itemsPerPage: number) {
+    this._page = DEFAULT_PAGINATION_PAGE;
+    this._itemsPerPage = itemsPerPage;
+    this._loadBuildings();
+  }
+
+  public onSearch(event: {searchText: string | undefined}) {
+    this._searchText = event.searchText === undefined || event.searchText === ''
+      ? null
+      : event.searchText;
+    this._loadBuildings();
   }
 }

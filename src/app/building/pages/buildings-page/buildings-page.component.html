@@ -7,6 +7,10 @@
       [totalItems]="totalBuildings"
       (dblClick)="goToDetail($event)"
       (add)="onAddBuildingClick()"
+      (sort)="onSort($event)"
+      (page)="onPageChange($event)"
+      (rows)="onRowsChange($event)"
+      (search)="onSearch($event)"
     >
       <ng-template appTableCell="createdAt" let-item>
         {{ item.createdAt | dateFormat | avoidEmptyValue }}

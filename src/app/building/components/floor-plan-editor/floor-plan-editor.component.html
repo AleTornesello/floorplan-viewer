@@ -10,6 +10,7 @@
     @for (marker of markers; track marker.id) {
       <div
         class="marker"
+        [ngClass]="{'error': !marker.valid}"
         [style.left]="'calc(' + marker.xPercentage + '% - 1.5rem)'"
         [style.top]="'calc(' + marker.yPercentage + '% - 1.5rem)'"
         [style.transform]="'rotate(' + marker.angle + 'deg)'"

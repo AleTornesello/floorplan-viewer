@@ -1,13 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  EventEmitter,
-  HostListener,
-  Input,
-  Output,
-  ViewChild
-} from '@angular/core';
+import {Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild} from '@angular/core';
 import {faCamera} from "@fortawesome/free-solid-svg-icons";
 import {ButtonComponent} from "../../../shared/components/button/button.component";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
@@ -15,7 +6,7 @@ import {InputSliderComponent} from "../../../shared/components/inputs/input-slid
 import {InputTextComponent} from "../../../shared/components/inputs/input-text/input-text.component";
 import {TranslocoPipe} from "@jsverse/transloco";
 import {SelectMarkerModel} from "../../models/marker.model";
-import {NgStyle} from "@angular/common";
+import {NgClass, NgStyle} from "@angular/common";
 
 @Component({
   selector: 'app-floor-plan-editor',
@@ -26,19 +17,20 @@ import {NgStyle} from "@angular/common";
     InputSliderComponent,
     InputTextComponent,
     TranslocoPipe,
-    NgStyle
+    NgStyle,
+    NgClass
   ],
   templateUrl: './floor-plan-editor.component.html',
   styleUrl: './floor-plan-editor.component.scss'
 })
-export class FloorPlanEditorComponent implements AfterViewInit {
+export class FloorPlanEditorComponent {
   @ViewChild("floorPlanImage") floorPlanImage?: ElementRef<HTMLImageElement>;
   @ViewChild("markersOverlay") markersOverlay?: ElementRef<HTMLDivElement>;
   @ViewChild("floorPlanImageContainer") floorPlanImageContainer?: ElementRef<HTMLDivElement>;
 
   @Input({required: true}) floorPlanImageUri!: string;
-  @Input({required: true}) markers: SelectMarkerModel[];
   @Input() verticalAlign: 'start' | 'center' | 'end';
+  @Input() markers: SelectMarkerModel[];
 
   @Output() onClick: EventEmitter<{ xPercentage: number; yPercentage: number }>;
   @Output() onMarkerClick: EventEmitter<SelectMarkerModel>;
@@ -50,10 +42,7 @@ export class FloorPlanEditorComponent implements AfterViewInit {
     this.onClick = new EventEmitter();
     this.onMarkerClick = new EventEmitter();
     this.verticalAlign = 'center';
-  }
-
-  public ngAfterViewInit() {
-
+    this.markers = [];
   }
 
   public onFloorPlanClick(event: MouseEvent) {
@@ -86,8 +75,6 @@ export class FloorPlanEditorComponent implements AfterViewInit {
       return;
     }
 
-    const imageWidth = this.floorPlanImage.nativeElement.offsetWidth;
-    const imageHeight = this.floorPlanImage.nativeElement.offsetHeight;
     const imageTop = this.floorPlanImage.nativeElement.offsetTop;
     const imageLeft = this.floorPlanImage.nativeElement.offsetLeft;
 

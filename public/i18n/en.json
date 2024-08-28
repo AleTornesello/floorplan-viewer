@@ -111,7 +111,8 @@
         "updateOk": "Marker updated successfully",
         "updateKo": "An error has occurred during the marker update, please try again later",
         "deleteOk": "Marker deleted successfully",
-        "deleteKo": "An error has occurred during the marker deletion, please try again later"
+        "deleteKo": "An error has occurred during the marker deletion, please try again later",
+        "invalidMarker": "The marker is invalid and will not be displayed in the floor plan. Please check that the image URI is correct"
       }
     },
     "uri": "Building URI"

@@ -39,6 +39,15 @@
         align-items: center;
         justify-content: center;
       }
+
+      &.error {
+        background: conic-gradient(var(--error) 25deg, transparent 0deg 335deg, var(--error) 335deg 360deg);
+
+        .marker-bg {
+          background: var(--error);
+          border-color: var(--error);
+        }
+      }
     }
   }
 

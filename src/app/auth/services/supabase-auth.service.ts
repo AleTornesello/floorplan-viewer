@@ -39,4 +39,9 @@ export class SupabaseAuthService {
         : undefined
     })
   }
+
+  public async isAuthenticated() {
+    const session = (await this.session).data.session;
+    return !!session
+  }
 }

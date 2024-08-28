@@ -7,6 +7,7 @@ import {SelectBuildingModel, UpinsertBuildingModel} from "../models/building.mod
 import {PostgrestResponse, PostgrestSingleResponse} from "@supabase/supabase-js";
 import {PostgrestResponseParserService} from "../../shared/services/postgrest-response-parser.service";
 import {LoaderStatusService} from "../../shared/services/loader-status.service";
+import {QueryParserService} from "../../shared/services/query-parser.service";
 
 @Injectable({
   providedIn: 'root'
@@ -18,18 +19,34 @@ export class BuildingService {
   constructor(
     private _supabaseService: SupabaseService,
     private _postgrestResponseParserService: PostgrestResponseParserService,
-    private _loaderStatusService: LoaderStatusService
+    private _loaderStatusService: LoaderStatusService,
+    private _queryParserService: QueryParserService
   ) {
   }
 
-  public getAll(showLoader: boolean = true) {
+  public getAll(
+    searchText: string | null,
+    page: number,
+    itemsPerPage: number,
+    sortField: string,
+    sortDescOrder: boolean,
+    showLoader: boolean = true
+  ) {
     if (showLoader) {
       this._loaderStatusService.show();
     }
     let buildingsSelect = this._supabaseService.supabase
       .from(this._relation)
       .select("*", {count: 'exact'})
-      .order('created_at', {ascending: true});
+      .order(sortField, {ascending: !sortDescOrder})
+      .range((page - 1) * itemsPerPage, page * itemsPerPage - 1);
+
+    if (searchText) {
+      buildingsSelect = buildingsSelect.textSearch(
+        'name',
+        this._queryParserService.parse(searchText)
+      );
+    }
 
     return from(buildingsSelect.returns<SelectBuildingEntity[]>().throwOnError())
       .pipe(

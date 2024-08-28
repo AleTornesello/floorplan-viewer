@@ -3,11 +3,12 @@ import {LoginPageComponent} from './auth/pages/login-page/login-page.component';
 import {EmptyLayoutComponent} from './skeleton/components/empty-layout/empty-layout.component';
 import {RegisterPageComponent} from './auth/pages/register-page/register-page.component';
 import {VerifyEmailPageComponent} from "./auth/pages/verify-email-page/verify-email-page.component";
-import {BuildingsPageComponent} from "./building/pages/building-page/buildings-page.component";
+import {BuildingsPageComponent} from "./building/pages/buildings-page/buildings-page.component";
 import {DefaultLayoutComponent} from "./skeleton/components/default-layout/default-layout.component";
 import {BuildingDetailPageComponent} from "./building/pages/building-detail-page/building-detail-page.component";
 import {PublicLayoutComponent} from "./skeleton/components/public-layout/public-layout.component";
 import {PublicFloorPlanPageComponent} from "./building/pages/public-floor-plan-page/public-floor-plan-page.component";
+import {authGuard} from "./auth/guards/auththenticated.guard";
 
 export enum FpRoute {
   ADMIN = 'admin',
@@ -34,6 +35,7 @@ export const routes: Routes = [
           {
             path: FpRoute.BUILDINGS,
             component: DefaultLayoutComponent,
+            canActivate: [authGuard],
             children: [
               {
                 path: '',

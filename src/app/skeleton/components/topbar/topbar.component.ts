@@ -2,7 +2,10 @@ import {Component, EventEmitter, Output} from '@angular/core';
 import {ButtonModule} from 'primeng/button';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {IconDefinition} from '@fortawesome/fontawesome-svg-core';
-import {faBars, faUser} from '@fortawesome/free-solid-svg-icons';
+import {faArrowRightFromBracket, faBars} from '@fortawesome/free-solid-svg-icons';
+import {SupabaseAuthService} from "../../../auth/services/supabase-auth.service";
+import {Router} from "@angular/router";
+import {FpRoute} from "../../../app.routes";
 
 @Component({
   selector: 'app-topbar',
@@ -14,13 +17,21 @@ import {faBars, faUser} from '@fortawesome/free-solid-svg-icons';
 export class TopbarComponent {
   @Output() toggleSidebar: EventEmitter<void>;
   public faBars: IconDefinition = faBars;
-  public faUser: IconDefinition = faUser;
+  public faArrowRightFromBracket: IconDefinition = faArrowRightFromBracket;
 
-  constructor() {
+  constructor(
+    private _authService: SupabaseAuthService,
+    private _router: Router
+  ) {
     this.toggleSidebar = new EventEmitter();
   }
 
   public onToggleSidebarButtonClick() {
     this.toggleSidebar.emit();
+  }
+
+  public async onLogoutButtonClick() {
+    await this._authService.signOut();
+    await this._router.navigate([FpRoute.ADMIN, FpRoute.AUTH, FpRoute.LOGIN]);
   }
 }

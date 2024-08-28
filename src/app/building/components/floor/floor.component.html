@@ -33,6 +33,11 @@
           <span class="floor-marker-settings__form__header">
             {{ 'building.floor.marker.detail' | transloco }}
           </span>
+          <p-messages
+            [(value)]="markerFormMessages"
+            [enableService]="false"
+            [closable]="false"
+          />
           <app-input-slider
             [label]="'building.floor.marker.angle' | transloco"
             [(ngModel)]="selectedMarker!.angle"
