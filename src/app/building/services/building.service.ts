@@ -7,6 +7,7 @@ import {SelectBuildingModel, UpinsertBuildingModel} from "../models/building.mod
 import {PostgrestResponse, PostgrestSingleResponse} from "@supabase/supabase-js";
 import {PostgrestResponseParserService} from "../../shared/services/postgrest-response-parser.service";
 import {LoaderStatusService} from "../../shared/services/loader-status.service";
+import {QueryParserService} from "../../shared/services/query-parser.service";
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +19,13 @@ export class BuildingService {
   constructor(
     private _supabaseService: SupabaseService,
     private _postgrestResponseParserService: PostgrestResponseParserService,
-    private _loaderStatusService: LoaderStatusService
+    private _loaderStatusService: LoaderStatusService,
+    private _queryParserService: QueryParserService
   ) {
   }
 
   public getAll(
+    searchText: string | null,
     page: number,
     itemsPerPage: number,
     sortField: string,
@@ -37,6 +40,13 @@ export class BuildingService {
       .select("*", {count: 'exact'})
       .order(sortField, {ascending: !sortDescOrder})
       .range((page - 1) * itemsPerPage, page * itemsPerPage - 1);
+
+    if (searchText) {
+      buildingsSelect = buildingsSelect.textSearch(
+        'name',
+        this._queryParserService.parse(searchText)
+      );
+    }
 
     return from(buildingsSelect.returns<SelectBuildingEntity[]>().throwOnError())
       .pipe(

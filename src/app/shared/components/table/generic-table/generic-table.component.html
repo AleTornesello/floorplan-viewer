@@ -31,6 +31,7 @@
                   [clear]="true"
                   [(ngModel)]="searchText"
                   (keydown.enter)="onSearch()"
+                  (onClear)="onSearch()"
                 >
                 </app-input-text>
               </div>

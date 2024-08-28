@@ -33,6 +33,7 @@ export class BuildingsPageComponent implements OnInit {
   public buildings: SelectBuildingModel[];
   public totalBuildings: number;
 
+  private _searchText: string | null;
   private _sortField: string;
   private _sortDescOrder: boolean;
   private _page: number;
@@ -89,6 +90,7 @@ export class BuildingsPageComponent implements OnInit {
       },
     ];
 
+    this._searchText = null;
     this._sortField = 'created_at';
     this._sortDescOrder = false;
     this._page = 1;
@@ -101,6 +103,7 @@ export class BuildingsPageComponent implements OnInit {
 
   private _loadBuildings() {
     this._buildingService.getAll(
+      this._searchText,
       this._page,
       this._itemsPerPage,
       this._sortField,
@@ -151,6 +154,13 @@ export class BuildingsPageComponent implements OnInit {
   public onRowsChange(itemsPerPage: number) {
     this._page = DEFAULT_PAGINATION_PAGE;
     this._itemsPerPage = itemsPerPage;
+    this._loadBuildings();
+  }
+
+  public onSearch(event: {searchText: string | undefined}) {
+    this._searchText = event.searchText === undefined || event.searchText === ''
+      ? null
+      : event.searchText;
     this._loadBuildings();
   }
 }
