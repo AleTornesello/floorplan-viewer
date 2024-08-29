@@ -90,13 +90,13 @@ export class FloorPlanEditorComponent {
     }
 
     const containerWidth = this.floorPlanImageContainer.nativeElement.offsetWidth;
-    let imageWidth = this.floorPlanImage.nativeElement.offsetWidth;
+    let imageWidth = this.floorPlanImage.nativeElement.naturalWidth;
     let scaleFactor = containerWidth / imageWidth;
 
     // console.log("imageX", imageWidth, "containerX", containerWidth, "scaleFactor", scaleFactor);
 
     const containerHeight = this.floorPlanImageContainer.nativeElement.offsetHeight;
-    let imageHeight = this.floorPlanImage.nativeElement.offsetHeight;
+    let imageHeight = this.floorPlanImage.nativeElement.naturalHeight;
     let newImageHeight = imageHeight * scaleFactor;
 
     // console.log("newImageY", newImageHeight, "containerY", containerHeight);
