@@ -37,6 +37,11 @@
       </p-galleria>
     }
   } @else {
-    <p>No building selected</p>
+    <div class="missing-building-message-container">
+      <app-empty-message
+        [title]="'building.missingBuilding' | transloco"
+        [secondary]="true"
+      ></app-empty-message>
+    </div>
   }
 </div>

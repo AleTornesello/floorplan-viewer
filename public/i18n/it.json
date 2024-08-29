@@ -91,6 +91,7 @@
     "updateKo": "Si è verificato un errore durante l'aggiornamento dell'immobile, riprovare più tardi",
     "deleteOk": "Immobile eliminato con successo",
     "deleteKo": "Si è verificato un errore durante l'eliminazione dell'immobile, riprovare più tardi",
+    "missingBuilding": "Immobile non trovato",
     "floor": {
       "name": "Nome",
       "floorPlanImageUri": "URI planimetria",

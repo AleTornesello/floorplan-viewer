@@ -12,8 +12,9 @@ import {SelectMarkerModel} from "../../models/marker.model";
 import {SelectBuildingModel} from "../../models/building.model";
 import {GalleriaModule} from "primeng/galleria";
 import {FormsModule} from "@angular/forms";
-import {TranslocoService} from "@jsverse/transloco";
+import {TranslocoPipe, TranslocoService} from "@jsverse/transloco";
 import {MessageService} from "primeng/api";
+import {EmptyMessageComponent} from "../../../shared/components/empty-message/empty-message.component";
 
 @Component({
   selector: 'app-public-floor-plan-page',
@@ -21,7 +22,9 @@ import {MessageService} from "primeng/api";
   imports: [
     FloorPlanEditorComponent,
     GalleriaModule,
-    FormsModule
+    FormsModule,
+    TranslocoPipe,
+    EmptyMessageComponent
   ],
   templateUrl: './public-floor-plan-page.component.html',
   styleUrl: './public-floor-plan-page.component.scss'
