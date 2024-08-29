@@ -38,7 +38,7 @@
     }
   } @else if (buildingLoading) {
     <div class="loading-building-spinner-container">
-      <app-ring-spinner></app-ring-spinner>
+      <app-ring-spinner [secondary]="true"></app-ring-spinner>
     </div>
   } @else {
     <div class="missing-building-message-container">
