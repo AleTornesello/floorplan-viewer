@@ -1,5 +1,5 @@
 <div class="public-floor-plan-page-container">
-  @if (buildingId) {
+  @if (buildingId && !buildingLoading) {
     @if (selectedFloor && selectedFloor.floorPlanImageUri) {
       <app-floor-plan-editor
         class="floor-plan-canvas"
@@ -36,7 +36,16 @@
         </ng-template>
       </p-galleria>
     }
+  } @else if (buildingLoading) {
+    <div class="loading-building-spinner-container">
+      <app-ring-spinner [secondary]="true"></app-ring-spinner>
+    </div>
   } @else {
-    <p>No building selected</p>
+    <div class="missing-building-message-container">
+      <app-empty-message
+        [title]="'building.missingBuilding' | transloco"
+        [secondary]="true"
+      ></app-empty-message>
+    </div>
   }
 </div>

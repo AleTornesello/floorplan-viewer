@@ -88,7 +88,8 @@
     "updateOk": "Building updated successfully",
     "updateKo": "An error has occurred during the building update, please try again later",
     "deleteOk": "Building deleted successfully",
-    "deleteKo": "An error has occurred during the building deletion, please try again later"
+    "deleteKo": "An error has occurred during the building deletion, please try again later",
+    "missingBuilding": "No building found",
     "floor": {
       "name": "Name",
       "floorPlanImageUri": "Floor plan URI",

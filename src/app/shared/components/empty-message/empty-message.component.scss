@@ -1,31 +1,37 @@
-$neutral-grey-04: #f5fafc;
-::ng-deep {
+.empty-message-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
   .icon-container {
     height: 80px;
     width: 80px;
     border-radius: 100%;
-    background: var(--system-info-dark, #164790);
-    fa-icon {
-      align-items: center;
-      display: flex;
-      justify-content: center;
-      height: 80px;
-
-      svg {
-        height: 55%;
-        width: 55%;
-
-        color: #e7f4f9;
-      }
-    }
+    background: var(--primary-500);
+    color: var(--primary-text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-}
-#empty-msg {
+
   &:not(.shrink) {
     min-height: 20vh;
   }
 
-  .empty-msg {
+  .title {
+    margin-top: 1.5rem;
+  }
+
+  .message {
     max-width: 50vw;
+    margin-top: 1rem;
+  }
+
+  &.secondary {
+    .icon-container {
+      background: var(--secondary-500);
+      color: var(--gold-500);
+    }
   }
 }

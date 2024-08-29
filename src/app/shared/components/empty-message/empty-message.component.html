@@ -1,18 +1,17 @@
 <div
-  id="empty-msg"
-  class="grid flex-column justify-content-center align-items-center"
-  [ngClass]="{ shrink: shrink }"
+  class="empty-message-container"
+  [ngClass]="{ shrink: shrink, secondary: secondary }"
 >
   <div class="icon-bg">
     <div class="icon-container" [ngClass]="iconContainerClass">
-      <fa-icon class="text-white" [icon]="icon"></fa-icon>
+      <fa-icon [icon]="icon" size="2xl"></fa-icon>
     </div>
   </div>
 
-  <h1 class="mt-4" *ngIf="title">
+  <h1 class="title" *ngIf="title">
     {{ title }}
   </h1>
-  <div class="body-regular text-center px-4 mt-3 empty-msg" *ngIf="message">
-    <span [innerHTML]="message"></span>
+  <div class="message" *ngIf="message">
+    {{ message }}
   </div>
 </div>

@@ -12,14 +12,16 @@ import { faInfo } from '@fortawesome/free-solid-svg-icons';
   imports: [CommonModule, FontAwesomeModule],
 })
 export class EmptyMessageComponent {
-  @Input() title: string | undefined;
-  @Input({ required: true }) message!: string;
+  @Input({ required: true }) title: string | undefined;
+  @Input() message!: string;
   @Input() icon: IconDefinition;
   @Input() shrink: boolean;
+  @Input() secondary: boolean;
   @Input() iconContainerClass: string | string[] | undefined;
 
   constructor() {
     this.icon = faInfo;
     this.shrink = false;
+    this.secondary = false;
   }
 }

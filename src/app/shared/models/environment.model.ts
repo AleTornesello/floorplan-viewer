@@ -4,4 +4,5 @@ export interface Environment {
     url: string;
     key: string;
   };
+  baseHref: string;
 }

@@ -12,8 +12,10 @@ import {SelectMarkerModel} from "../../models/marker.model";
 import {SelectBuildingModel} from "../../models/building.model";
 import {GalleriaModule} from "primeng/galleria";
 import {FormsModule} from "@angular/forms";
-import {TranslocoService} from "@jsverse/transloco";
+import {TranslocoPipe, TranslocoService} from "@jsverse/transloco";
 import {MessageService} from "primeng/api";
+import {EmptyMessageComponent} from "../../../shared/components/empty-message/empty-message.component";
+import {RingSpinnerComponent} from "../../../shared/components/ring-spinner/ring-spinner.component";
 
 @Component({
   selector: 'app-public-floor-plan-page',
@@ -21,7 +23,10 @@ import {MessageService} from "primeng/api";
   imports: [
     FloorPlanEditorComponent,
     GalleriaModule,
-    FormsModule
+    FormsModule,
+    TranslocoPipe,
+    EmptyMessageComponent,
+    RingSpinnerComponent
   ],
   templateUrl: './public-floor-plan-page.component.html',
   styleUrl: './public-floor-plan-page.component.scss'
@@ -35,6 +40,7 @@ export class PublicFloorPlanPageComponent {
   public selectedMarker: SelectMarkerModel | null;
 
   public showGallery: boolean;
+  public buildingLoading: boolean;
 
   public buildingId: string | null;
 
@@ -55,6 +61,7 @@ export class PublicFloorPlanPageComponent {
     this.selectedMarker = null;
 
     this.showGallery = false;
+    this.buildingLoading = false;
 
     this._route.params
       .pipe(takeUntilDestroyed())
@@ -69,6 +76,7 @@ export class PublicFloorPlanPageComponent {
   }
 
   private _loadBuilding(id: string) {
+    this.buildingLoading = true;
     this._buildingService.getById(id)
       .pipe(
         takeUntilDestroyed(this._destroyRef),
@@ -107,6 +115,7 @@ export class PublicFloorPlanPageComponent {
     if (this.floors.length > 0) {
       this.selectedFloor = this.floors[0];
     }
+    this.buildingLoading = false;
   }
 
   private _onLoadBuildingError() {
@@ -115,6 +124,7 @@ export class PublicFloorPlanPageComponent {
       summary: this._translateService.translate('common.error'),
       detail: this._translateService.translate('building.loadKo'),
     });
+    this.buildingLoading = false;
   }
 
   public get selectedFloorMarkers(): SelectMarkerModel[] {
