@@ -16,6 +16,7 @@ import {SelectFloorModel, UpinsertFloorModel} from "../../models/floor.model";
 import {FloorsListComponent} from "../../components/floors-list/floors-list.component";
 import {FpRoute} from "../../../app.routes";
 import {MessageService} from "primeng/api";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-building-detail-page',
@@ -64,9 +65,7 @@ export class BuildingDetailPageComponent implements OnInit {
         next: (params) => {
           if (params['id']) {
             this.buildingId = params['id'];
-            this.buildingUri = isDevMode()
-              ? `${location.origin}/${this.buildingId}`
-              : `${location.origin}/floorplan-viewer/#/${this.buildingId}`
+            this.buildingUri = `${location.origin}${environment.baseHref}${this.buildingId}`
             this._loadBuilding(params['id']);
           }
         }

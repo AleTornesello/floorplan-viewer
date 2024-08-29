@@ -1,5 +1,5 @@
 <div class="public-floor-plan-page-container">
-  @if (buildingId) {
+  @if (buildingId && !buildingLoading) {
     @if (selectedFloor && selectedFloor.floorPlanImageUri) {
       <app-floor-plan-editor
         class="floor-plan-canvas"
@@ -36,6 +36,10 @@
         </ng-template>
       </p-galleria>
     }
+  } @else if (buildingLoading) {
+    <div class="loading-building-spinner-container">
+      <app-ring-spinner></app-ring-spinner>
+    </div>
   } @else {
     <div class="missing-building-message-container">
       <app-empty-message

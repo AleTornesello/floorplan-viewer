@@ -6,4 +6,6 @@ export const environment: Environment = {
     url: 'YOUR_SUPABASE_URL',
     key: 'YOUR_SUPABASE_KEY',
   },
+  // Base Href with heading slash, trailing slash and trailing hash
+  baseHref: '/#/'
 };
