@@ -1,7 +1,9 @@
 <div class="public-floor-plan-page-container">
-  <div class="floor-plan-title" *ngIf="selectedFloor && selectedFloor.name">
-    {{ selectedFloor?.name }}
-  </div>
+  @if (selectedFloor && selectedFloor.name) {
+    <div class="floor-plan-title">
+      {{ selectedFloor.name }}
+    </div>
+  }
   @if (buildingId && !buildingLoading) {
     @if (selectedFloor && selectedFloor.floorPlanImageUri) {
       <app-floor-plan-editor
@@ -18,28 +20,14 @@
           <div class="floor-preview" [ngClass]="{'selected': floor.id === selectedFloor?.id}"
                (click)="onFloorPreviewClick(floor)">
             <img [src]="floor.floorPlanImageUri" alt="">
+            @if (floor.name) {
+              <div class="name">{{ floor.name }}</div>
+            }
           </div>
         }
       </div>
     }
-
-<!--    @if (selectedMarker) {-->
-<!--      <p-galleria-->
-<!--        [value]="markerGalleryImages"-->
-<!--        [(visible)]="showGallery"-->
-<!--        [containerStyle]="{'max-width': '90%'}"-->
-<!--        [numVisible]="9"-->
-<!--        [circular]="true"-->
-<!--        [fullScreen]="true"-->
-<!--        [showItemNavigators]="areThumbnailsVisible"-->
-<!--        [showThumbnails]="areThumbnailsVisible"-->
-<!--      >-->
-<!--        <ng-template pTemplate="item" let-item>-->
-<!--          <img [src]="item" style="width: 100%; display: block;"/>-->
-<!--        </ng-template>-->
-<!--      </p-galleria>-->
-      <app-gallery #carousel [images]="galleryImages"></app-gallery>
-<!--    }-->
+    <app-gallery #carousel [images]="galleryImages"></app-gallery>
   } @else if (buildingLoading) {
     <div class="loading-building-spinner-container">
       <app-ring-spinner [secondary]="true"></app-ring-spinner>

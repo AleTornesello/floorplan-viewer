@@ -8,7 +8,7 @@
 
   .floor-plan-title {
     width: 100%;
-    text-align:  center;
+    text-align: center;
     padding: 0.5rem 0;
   }
 
@@ -29,13 +29,30 @@
       border-radius: var(--border-radius);
       cursor: pointer;
       height: 100%;
+      position: relative;
 
       img {
         height: 100%;
-        border-radius: var(--border-radius);
+        border-radius: calc(var(--border-radius) - 0.25rem);
+      }
+
+      .name {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        background-color: rgba(0, 0, 0, .5);
+        padding: 0.25rem;
+        color: var(--white);
+        border-radius: 0 0 calc(var(--border-radius) - 0.25rem) calc(var(--border-radius) - 0.25rem);
       }
 
       &.selected {
+        border: 0.25rem solid var(--secondary-500);
+      }
+
+      &:hover {
         border: 0.25rem solid var(--secondary-500);
       }
     }
