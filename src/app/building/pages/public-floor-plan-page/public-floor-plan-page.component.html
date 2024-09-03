@@ -1,4 +1,7 @@
 <div class="public-floor-plan-page-container">
+  <div class="floor-plan-title" *ngIf="selectedFloor && selectedFloor.name">
+    {{ selectedFloor?.name }}
+  </div>
   @if (buildingId && !buildingLoading) {
     @if (selectedFloor && selectedFloor.floorPlanImageUri) {
       <app-floor-plan-editor
