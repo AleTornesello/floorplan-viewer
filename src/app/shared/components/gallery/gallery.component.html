@@ -17,7 +17,9 @@
           <li class="glide__slide">
             <div class="image-wrapper">
               <img [src]="image.imageUri" alt="">
-              <div class="label" *ngIf="image.label">{{ image.label }}</div>
+              @if (image.label) {
+                <div class="label">{{ image.label }}</div>
+              }
             </div>
           </li>
         }

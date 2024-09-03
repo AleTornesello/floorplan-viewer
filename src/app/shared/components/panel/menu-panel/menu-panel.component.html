@@ -1,32 +1,35 @@
 <p-overlayPanel #op appendTo="body">
   <div class="overlay-panel-items" role="menu">
-    <ng-container *ngFor="let item of items; let index = index">
-      <div
-        *ngIf="isItemVisible(item)"
-        class="item"
-        [ngClass]="{ 'disabled': isItemDisabled(item) }"
-        role="menuitem"
-        [tabindex]="index"
-        (click)="onItemClick(item)"
-      >
+    @for (item of items; track item.id; let index = $index) {
+      @if (isItemVisible(item)) {
         <div
-          class="item__icon border-circle"
-          [ngClass]="[item.color ? 'item__icon--' + item.color : '']"
+          class="item"
+          [ngClass]="{ 'disabled': isItemDisabled(item) }"
+          role="menuitem"
+          [tabindex]="index"
+          (click)="onItemClick(item)"
         >
-          <div class="item__icon__wrapper">
-            <ng-container
-              *ngTemplateOutlet="
+          <div
+            class="item__icon border-circle"
+            [ngClass]="[item.color ? 'item__icon--' + item.color : '']"
+          >
+            <div class="item__icon__wrapper">
+              <ng-container
+                *ngTemplateOutlet="
                 getIconTemplate(item.icon);
                 context: { $implicit: item.icon }
               "
-            ></ng-container>
+              ></ng-container>
+            </div>
+          </div>
+          <div class="item__label">
+            <span class="cursor-pointer">{{ item.label }}</span>
           </div>
         </div>
-        <div class="item__label">
-          <span class="cursor-pointer">{{ item.label }}</span>
-        </div>
-      </div>
-    </ng-container>
+      }
+
+    }
+
   </div>
 </p-overlayPanel>
 

@@ -5,22 +5,24 @@
   [errors]="errors"
 >
   <div class="input-slider-container">
-    <div *ngIf="textMode">
-      {{ value | avoidEmptyValue }}
-    </div>
-
-    <div *ngIf="!textMode">
-      <div class="input-container">
-        <ng-content select="[left]"></ng-content>
-        <p-slider
-          [ngModel]="value"
-          [min]="min"
-          [max]="max"
-          (onChange)="onModelChange($event)"
-          (onSlideEnd)="onSlideEndEvent()"
-        ></p-slider>
-        <ng-content select="[right]"></ng-content>
+    @if (textMode) {
+      <div>
+        {{ value | avoidEmptyValue }}
       </div>
-    </div>
+    } @else {
+      <div>
+        <div class="input-container">
+          <ng-content select="[left]"></ng-content>
+          <p-slider
+            [ngModel]="value"
+            [min]="min"
+            [max]="max"
+            (onChange)="onModelChange($event)"
+            (onSlideEnd)="onSlideEndEvent()"
+          ></p-slider>
+          <ng-content select="[right]"></ng-content>
+        </div>
+      </div>
+    }
   </div>
 </app-input-wrapper>

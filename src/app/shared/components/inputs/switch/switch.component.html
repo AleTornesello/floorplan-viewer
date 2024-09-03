@@ -3,11 +3,11 @@
   [for]="for"
   [required]="required"
 >
-  <ng-container *ngIf="textMode; else inputMode">
-    {{ value ? trueLabel : falseLabel }}
-  </ng-container>
-
-  <ng-template #inputMode>
+  @if (textMode) {
+    <div>
+      {{ value ? trueLabel : falseLabel }}
+    </div>
+  } @else {
     <div [class]="'flex align-items-center gap-2 py-2 ' + styleClass">
       <label class="font-bold">{{ falseLabel }}</label>
       <p-inputSwitch
@@ -18,5 +18,5 @@
       ></p-inputSwitch>
       <label class="font-bold">{{ trueLabel }}</label>
     </div>
-  </ng-template>
+  }
 </app-input-wrapper>
