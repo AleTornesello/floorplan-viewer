@@ -46,6 +46,11 @@
             (onSlideEnd)="onMarkerAngleSlideEnd()"
           ></app-input-slider>
           <app-input-text
+            [(ngModel)]="selectedMarker!.name"
+            [label]="'building.floor.marker.name' | transloco"
+            (onChangeValue)="onMarkerNameChanged()"
+          ></app-input-text>
+          <app-input-text
             [(ngModel)]="selectedMarker!.imageUri"
             [label]="'building.floor.marker.imageUri' | transloco"
             (onChangeValue)="onMarkerImageUriChanged()"

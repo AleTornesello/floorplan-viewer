@@ -107,6 +107,7 @@
         "angle": "Angolo",
         "imageUri": "URI immagine",
         "detail": "Dettaglio marker",
+        "name": "Nome",
         "deleteConfirm": "Sei sicuro/a di voler eliminare questo marker?",
         "loadKo": "Si è verificato un errore durante il caricamento dei marker, riprovare più tardi",
         "createOk": "Marker creato con successo",

@@ -10,6 +10,7 @@ export class SelectMarkerMapper {
       entity.y_percentage,
       entity.angle,
       entity.image_uri,
+      entity.name,
       entity.floor_id,
       new Date(entity.created_at),
       entity.created_by,
@@ -25,6 +26,7 @@ export class SelectMarkerMapper {
       model.yPercentage,
       model.angle,
       model.imageUri,
+      model.name,
       model.floorId,
       model.createdAt.toISOString(),
       model.createdBy,
@@ -41,6 +43,7 @@ export class UpinsertMarkerMapper {
       entity.y_percentage,
       entity.angle,
       entity.image_uri,
+      entity.name,
       entity.floor_id,
     )
   }
@@ -51,6 +54,7 @@ export class UpinsertMarkerMapper {
       model.yPercentage,
       model.angle,
       model.imageUri,
+      model.name,
       model.floorId,
     )
   }

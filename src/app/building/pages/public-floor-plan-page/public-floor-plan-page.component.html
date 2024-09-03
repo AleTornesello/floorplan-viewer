@@ -20,22 +20,23 @@
       </div>
     }
 
-    @if (selectedMarker) {
-      <p-galleria
-        [value]="markerGalleryImages"
-        [(visible)]="showGallery"
-        [containerStyle]="{'max-width': '90%'}"
-        [numVisible]="9"
-        [circular]="true"
-        [fullScreen]="true"
-        [showItemNavigators]="areThumbnailsVisible"
-        [showThumbnails]="areThumbnailsVisible"
-      >
-        <ng-template pTemplate="item" let-item>
-          <img [src]="item" style="width: 100%; display: block;"/>
-        </ng-template>
-      </p-galleria>
-    }
+<!--    @if (selectedMarker) {-->
+<!--      <p-galleria-->
+<!--        [value]="markerGalleryImages"-->
+<!--        [(visible)]="showGallery"-->
+<!--        [containerStyle]="{'max-width': '90%'}"-->
+<!--        [numVisible]="9"-->
+<!--        [circular]="true"-->
+<!--        [fullScreen]="true"-->
+<!--        [showItemNavigators]="areThumbnailsVisible"-->
+<!--        [showThumbnails]="areThumbnailsVisible"-->
+<!--      >-->
+<!--        <ng-template pTemplate="item" let-item>-->
+<!--          <img [src]="item" style="width: 100%; display: block;"/>-->
+<!--        </ng-template>-->
+<!--      </p-galleria>-->
+      <app-gallery #carousel [images]="galleryImages"></app-gallery>
+<!--    }-->
   } @else if (buildingLoading) {
     <div class="loading-building-spinner-container">
       <app-ring-spinner [secondary]="true"></app-ring-spinner>

@@ -33,7 +33,7 @@ export class FloorPlanEditorComponent {
   @Input() markers: SelectMarkerModel[];
 
   @Output() onClick: EventEmitter<{ xPercentage: number; yPercentage: number }>;
-  @Output() onMarkerClick: EventEmitter<SelectMarkerModel>;
+  @Output() onMarkerClick: EventEmitter<{ marker: SelectMarkerModel, index: number }>;
 
   protected readonly faCamera = faCamera;
 
@@ -57,9 +57,12 @@ export class FloorPlanEditorComponent {
     this.onClick.emit({xPercentage, yPercentage});
   }
 
-  public onMarkerClickEvent(event: MouseEvent, marker: SelectMarkerModel) {
+  public onMarkerClickEvent(event: MouseEvent, marker: SelectMarkerModel, index: number) {
     event.stopPropagation();
-    this.onMarkerClick.emit(marker);
+    this.onMarkerClick.emit({
+      index,
+      marker
+    });
     this._updateMarkersOverlayHeight();
   }
 

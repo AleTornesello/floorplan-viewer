@@ -165,16 +165,18 @@ export class FloorComponent implements OnInit {
       event.yPercentage,
       0,
       null,
+      null,
       this.floor.id
     )
   }
 
-  private _createMarker(xPercentage: number, yPercentage: number, angle: number, imageUri: string | null, floorId: string) {
+  private _createMarker(xPercentage: number, yPercentage: number, angle: number, imageUri: string | null, name: string | null,  floorId: string) {
     const newMarker = new UpinsertMarkerModel(
       xPercentage,
       yPercentage,
       angle,
       imageUri,
+      name,
       floorId
     )
     this._markerService.create(newMarker)
@@ -202,11 +204,11 @@ export class FloorComponent implements OnInit {
     });
   }
 
-  public onMarkerClick(marker: SelectMarkerModel) {
-    this.selectedMarker = marker;
+  public onMarkerClick(event: { marker: SelectMarkerModel }) {
+    this.selectedMarker = event.marker;
     this.markerFormMessages = [];
 
-    this._updateInvalidMarkerMessage(marker);
+    this._updateInvalidMarkerMessage(event.marker);
   }
 
   private _updateInvalidMarkerMessage(marker: SelectMarkerModel) {
@@ -218,6 +220,10 @@ export class FloorComponent implements OnInit {
         }
       ]
     }
+  }
+
+  public onMarkerNameChanged() {
+    this._saveSelectedMarker();
   }
 
   public onMarkerImageUriChanged() {
@@ -238,6 +244,7 @@ export class FloorComponent implements OnInit {
       this.selectedMarker.yPercentage,
       this.selectedMarker.angle,
       this.selectedMarker.imageUri,
+      this.selectedMarker.name,
       this.selectedMarker.floorId
     )
     this._markerService.update(this.selectedMarker.id, newMarker, false)
@@ -249,7 +256,7 @@ export class FloorComponent implements OnInit {
   }
 
   private _onMarkerUpdateSuccess() {
-    if(!this.selectedMarker) {
+    if (!this.selectedMarker) {
       return;
     }
     this._updateInvalidMarkerMessage(this.selectedMarker);

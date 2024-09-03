@@ -7,14 +7,14 @@
     (load)="onImageLoad()"
   />
   <div #markersOverlay class="markers-overlay">
-    @for (marker of markers; track marker.id) {
+    @for (marker of markers; track marker.id; let i = $index) {
       <div
         class="marker"
         [ngClass]="{'error': !marker.valid}"
         [style.left]="'calc(' + marker.xPercentage + '% - 1.5rem)'"
         [style.top]="'calc(' + marker.yPercentage + '% - 1.5rem)'"
         [style.transform]="'rotate(' + marker.angle + 'deg)'"
-        (click)="onMarkerClickEvent($event, marker)"
+        (click)="onMarkerClickEvent($event, marker, i)"
       >
         <div class="marker-bg">
           <fa-icon [style.transform]="'rotate(' + (360 - marker.angle) + 'deg)'" [icon]="faCamera"></fa-icon>

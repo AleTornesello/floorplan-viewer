@@ -1,4 +1,4 @@
-import {Component, DestroyRef} from '@angular/core';
+import {Component, DestroyRef, ViewChild} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {BuildingService} from "../../services/building.service";
 import {FloorService} from "../../services/floor.service";
@@ -16,6 +16,7 @@ import {TranslocoPipe, TranslocoService} from "@jsverse/transloco";
 import {MessageService} from "primeng/api";
 import {EmptyMessageComponent} from "../../../shared/components/empty-message/empty-message.component";
 import {RingSpinnerComponent} from "../../../shared/components/ring-spinner/ring-spinner.component";
+import {GalleryComponent, GalleryImage} from "../../../shared/components/gallery/gallery.component";
 
 @Component({
   selector: 'app-public-floor-plan-page',
@@ -26,12 +27,15 @@ import {RingSpinnerComponent} from "../../../shared/components/ring-spinner/ring
     FormsModule,
     TranslocoPipe,
     EmptyMessageComponent,
-    RingSpinnerComponent
+    RingSpinnerComponent,
+    GalleryComponent
   ],
   templateUrl: './public-floor-plan-page.component.html',
   styleUrl: './public-floor-plan-page.component.scss'
 })
 export class PublicFloorPlanPageComponent {
+
+  @ViewChild('carousel') carousel?: GalleryComponent;
 
   public floors: SelectFloorModel[];
   public markers: Map<string, SelectMarkerModel[]>;
@@ -39,7 +43,7 @@ export class PublicFloorPlanPageComponent {
   public selectedFloor: SelectFloorModel | null;
   public selectedMarker: SelectMarkerModel | null;
 
-  public showGallery: boolean;
+  // public showGallery: boolean;
   public buildingLoading: boolean;
 
   public buildingId: string | null;
@@ -60,7 +64,7 @@ export class PublicFloorPlanPageComponent {
     this.selectedFloor = null;
     this.selectedMarker = null;
 
-    this.showGallery = false;
+    // this.showGallery = false;
     this.buildingLoading = false;
 
     this._route.params
@@ -134,20 +138,24 @@ export class PublicFloorPlanPageComponent {
     return this.markers.get(this.selectedFloor.id) ?? [];
   }
 
-  public onMarkerClick(marker: SelectMarkerModel) {
-    this.selectedMarker = marker;
-    this.showGallery = true;
+  public onMarkerClick(event: { marker: SelectMarkerModel, index: number }) {
+    this.selectedMarker = event.marker;
+    this.carousel?.show(event.index);
+    // this.showGallery = true;
   }
 
-  public get markerGalleryImages(): string[] {
-    if (!this.selectedMarker || !this.selectedMarker.imageUri) {
+  public get galleryImages(): GalleryImage[] {
+    if (!this.selectedFloor) {
       return [];
     }
-    return [this.selectedMarker.imageUri];
+    return this.markers.get(this.selectedFloor.id)?.map((marker) => ({
+      imageUri: marker.imageUri as string,
+      label: marker.name
+    })) ?? [];
   }
 
   public get areThumbnailsVisible(): boolean {
-    return this.markerGalleryImages.length > 1;
+    return this.galleryImages.length > 1;
   }
 
   public onFloorPreviewClick(floor: SelectFloorModel) {
