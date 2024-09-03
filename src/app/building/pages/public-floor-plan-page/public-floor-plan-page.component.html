@@ -1,19 +1,5 @@
 <div class="public-floor-plan-page-container">
-  @if (selectedFloor && selectedFloor.name) {
-    <div class="floor-plan-title">
-      {{ selectedFloor.name }}
-    </div>
-  }
   @if (buildingId && !buildingLoading) {
-    @if (selectedFloor && selectedFloor.floorPlanImageUri) {
-      <app-floor-plan-editor
-        class="floor-plan-canvas"
-        [floorPlanImageUri]="selectedFloor.floorPlanImageUri"
-        [markers]="selectedFloorMarkers"
-        (onMarkerClick)="onMarkerClick($event)"
-      ></app-floor-plan-editor>
-    }
-
     @if (floors.length > 1) {
       <div class="floors-list">
         @for (floor of floors; track floor.id) {
@@ -27,7 +13,21 @@
         }
       </div>
     }
-    <app-gallery #carousel [images]="galleryImages"></app-gallery>
+    <div class="floor-plan">
+      @if (selectedFloor && selectedFloor.name) {
+        <div class="floor-plan-title">
+          {{ selectedFloor.name }}
+        </div>
+      }
+      @if (selectedFloor && selectedFloor.floorPlanImageUri) {
+        <app-floor-plan-editor
+          class="floor-plan-canvas"
+          [floorPlanImageUri]="selectedFloor.floorPlanImageUri"
+          [markers]="selectedFloorMarkers"
+          (onMarkerClick)="onMarkerClick($event)"
+        ></app-floor-plan-editor>
+      }
+    </div>
   } @else if (buildingLoading) {
     <div class="loading-building-spinner-container">
       <app-ring-spinner [secondary]="true"></app-ring-spinner>
@@ -41,3 +41,4 @@
     </div>
   }
 </div>
+<app-gallery #carousel [images]="galleryImages"></app-gallery>

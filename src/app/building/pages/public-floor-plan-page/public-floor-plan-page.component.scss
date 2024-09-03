@@ -1,39 +1,46 @@
 .public-floor-plan-page-container {
   display: flex;
-  flex-direction: column;
   height: 100vh;
   width: 100vw;
   max-height: 100vh;
   max-width: 100vw;
 
-  .floor-plan-title {
-    width: 100%;
-    text-align: center;
-    padding: 0.5rem 0;
-  }
+  .floor-plan {
+    flex-grow: 1;
+    
+    .floor-plan-title {
+      width: 100%;
+      text-align: center;
+      padding: 0.5rem 0;
+    }
 
-  .floor-plan-canvas {
-    height: calc(100vh - 150px);
+    .floor-plan-canvas {
+    }
   }
 
   .floors-list {
-    height: 150px;
+    height: 100vh;
     padding: 1rem;
-    overflow-x: auto;
+    overflow-y: auto;
     display: flex;
     align-items: center;
     gap: 1rem;
+    flex-direction: column;
+    width: 200px;
 
     .floor-preview {
-      border: 0.25rem solid transparent;
+      border: 0.25rem solid var(--secondary-100);
       border-radius: var(--border-radius);
       cursor: pointer;
-      height: 100%;
+      width: 100%;
       position: relative;
 
       img {
+        width: 100%;
         height: 100%;
+        object-fit: contain;
         border-radius: calc(var(--border-radius) - 0.25rem);
+        aspect-ratio: 1 / 1;
       }
 
       .name {
