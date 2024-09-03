@@ -8,8 +8,10 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
 
 export interface GalleryImage {
+  id: string;
   imageUri: string;
   label?: string | null;
+  index: number;
 }
 
 @Component({

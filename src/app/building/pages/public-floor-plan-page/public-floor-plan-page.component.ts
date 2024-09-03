@@ -148,9 +148,11 @@ export class PublicFloorPlanPageComponent {
     if (!this.selectedFloor) {
       return [];
     }
-    return this.markers.get(this.selectedFloor.id)?.map((marker) => ({
+    return this.markers.get(this.selectedFloor.id)?.map((marker, index) => ({
+      id: marker.id,
       imageUri: marker.imageUri as string,
-      label: marker.name
+      label: marker.name,
+      index
     })) ?? [];
   }
 
@@ -160,5 +162,9 @@ export class PublicFloorPlanPageComponent {
 
   public onFloorPreviewClick(floor: SelectFloorModel) {
     this.selectedFloor = floor;
+  }
+
+  public onImagePreviewClick(image: GalleryImage) {
+    this.carousel?.show(image.index);
   }
 }
