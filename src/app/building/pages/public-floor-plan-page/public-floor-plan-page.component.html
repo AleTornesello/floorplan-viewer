@@ -3,8 +3,11 @@
     @if (floors.length > 1) {
       <div class="floors-list">
         @for (floor of floors; track floor.id) {
-          <div class="floor-preview" [ngClass]="{'selected': floor.id === selectedFloor?.id}"
-               (click)="onFloorPreviewClick(floor)">
+          <div
+            class="floor-preview"
+            [ngClass]="{'selected': floor.id === selectedFloor?.id}"
+            (click)="onFloorPreviewClick(floor)"
+          >
             <img [src]="floor.floorPlanImageUri" alt="">
             @if (floor.name) {
               <div class="name">{{ floor.name }}</div>
@@ -13,19 +16,35 @@
         }
       </div>
     }
-    <div class="floor-plan">
+    <div class="floor-plan-container">
       @if (selectedFloor && selectedFloor.name) {
         <div class="floor-plan-title">
           {{ selectedFloor.name }}
         </div>
       }
       @if (selectedFloor && selectedFloor.floorPlanImageUri) {
-        <app-floor-plan-editor
-          class="floor-plan-canvas"
-          [floorPlanImageUri]="selectedFloor.floorPlanImageUri"
-          [markers]="selectedFloorMarkers"
-          (onMarkerClick)="onMarkerClick($event)"
-        ></app-floor-plan-editor>
+        <div class="floor-plan-canvas">
+          <app-floor-plan-editor
+            [floorPlanImageUri]="selectedFloor.floorPlanImageUri"
+            [markers]="selectedFloorMarkers"
+            (onMarkerClick)="onMarkerClick($event)"
+          ></app-floor-plan-editor>
+        </div>
+      }
+      @if (galleryImages.length > 0) {
+        <div class="images-list">
+          @for (image of galleryImages; track image.id) {
+            <div
+              class="image-preview"
+              (click)="onImagePreviewClick(image)"
+            >
+              <img [src]="image.imageUri" [alt]="image.label">
+              @if (image.label) {
+                <div class="name">{{ image.label }}</div>
+              }
+            </div>
+          }
+        </div>
       }
     </div>
   } @else if (buildingLoading) {
