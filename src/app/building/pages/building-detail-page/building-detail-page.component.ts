@@ -16,7 +16,7 @@ import {SelectFloorModel, UpinsertFloorModel} from "../../models/floor.model";
 import {FloorsListComponent} from "../../components/floors-list/floors-list.component";
 import {FpRoute} from "../../../app.routes";
 import {MessageService} from "primeng/api";
-import {environment} from "../../../../environments/environment";
+import {environment} from "../../../../../environments/environment";
 
 @Component({
   selector: 'app-building-detail-page',
